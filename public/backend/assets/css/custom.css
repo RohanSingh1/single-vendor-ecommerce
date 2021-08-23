@@ -1,0 +1,73 @@
+body {
+    overflow-x: hidden;
+}
+
+.app-logo-flashmandu {
+    height: 153px;
+    width: 150px;
+    background: url(../../assets/images/logo.png);
+}
+
+.dropdown-menu.dropdown-menu-lg {
+    min-width: 22rem;
+}
+
+.dropdown-menu.dropdown-menu-xl {
+    min-width: 25rem;
+}
+.btn.btn-file {
+    padding: 8px 20px;
+    background: #6d6d6d;
+    border: none;
+    border-radius: 4px !important;
+    font-size: 16px;
+    margin: 0;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.btn.btn-file:active,
+.btn.btn-file:focus,
+.btn.btn-file:hover {
+    background: #5d5d5d;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    border-color: transparent;
+    text-shadow: 2px 2px 1px #000;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+    -webkit-filter: alpha(opacity=0);
+    -o-filter: alpha(opacity=0);
+    filter: alpha(opacity=0);
+}
+.show-img-bg {
+    margin: 20px 0px;
+}
+
+.display-none {
+    display: none;
+}
+.show-product {
+    width: 100%;
+    height: auto;
+}
