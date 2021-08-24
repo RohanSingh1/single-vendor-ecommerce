@@ -14,7 +14,7 @@ Route::get('test',function(){
     }
 });
 
-Route::get('/', 'Frontend\HomeController@index')->name('index');
+// Route::get('/', 'Frontend\HomeController@index')->name('index');
 Auth::routes();
 
 Route::post('currency', 'Frontend\HomeController@change_currency')->name('change_currency');
@@ -83,43 +83,20 @@ Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
     Route::get('admin-login/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
     Route::post('admin-login/password/reset', 'ResetPasswordController@reset');
     Route::get('admin-login/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
-
 });
+
+//delivery boys
 Route::group(['middleware' => 'auth:admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
-    Route::group(['prefix' => 'user-management'], function () {
-        //users
-        Route::get('/users', 'UsersController@index')->name('users');
-        Route::post('/users/register', 'UsersController@store')->name('register.store');
-        Route::get('/users/edit/{id}', 'UsersController@edit')->name('users.edit');
-        Route::PUT('/users/update/{id}', 'UsersController@update')->name('users.update');
-        Route::get('/users/{id}', 'UsersController@show')->name('users.show');
-        Route::post('/delete', 'UsersController@destroy')->name('users.destroy');
-        Route::get('/users/assign_role/{id}', ['uses' => 'UsersController@assign_role', 'as' => 'users.assign_role']);
-        Route::post('/users/assign_role/store', ['uses' => 'UsersController@assign_role_store', 'as' => 'users.assign_role_store']);
-        Route::post('/users/assignRoleShow', ['uses' => 'UsersController@assignRoleShow', 'as' => 'users.assignRoleShow']);
-        //end of users
-        //start of permission
-        Route::group(['prefix' => 'permissions'], function () {
-            Route::get('/', 'PermissionsController@index')->name('permissions');
-            Route::post('/', 'PermissionsController@store')->name('permissions.store');
-            Route::post('/destroy', 'PermissionsController@destroy')->name('permissions.destroy');
-            Route::get('/{id}/edit', 'PermissionsController@edit')->name('permissions.edit');
-            Route::PUT('/{id}', 'PermissionsController@update')->name('permissions.update');
-        });
-        //end of permission
-        Route::group(['prefix' => 'roles', 'as' => 'roles.'], function () {
-            Route::resource('/', 'RolesController');
-            Route::get('/', 'RolesController@index')->name('index');
-            Route::post('/{', 'RolesController@show')->name('show');
-            Route::post('/destroy', 'RolesController@destroy')->name('destroy');
-            Route::get('/{id}/edit', 'RolesController@edit')->name('edit');
-            Route::get('/assign_permission/{id}', ['uses' => 'RolesController@assign_permission', 'as' => 'assign_permission']);
-            Route::post('/assign_permission/store', ['uses' => 'RolesController@assign_permission_store', 'as' => 'assign_permission_store']);
-        });
+
+    Route::get('testff',function(){
+        dd('yes');
     });
+
 });
 
-Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+// admins
+Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => 'admin', 'as' => 'admin.'], function () {
+
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     //advertisement
     Route::resource('advertisement', 'AdvertisementController');
@@ -153,7 +130,13 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
     // deals
     Route::resource('deals', 'DealController');
     Route::get('/api/deal', 'DealController@apiDeal')->name('api.deal');
-
+    //users
+    Route::get('/users', 'UsersController@index')->name('users');
+    Route::post('/users/register', 'UsersController@store')->name('register.store');
+    Route::get('/users/edit/{id}', 'UsersController@edit')->name('users.edit');
+    Route::PUT('/users/update/{id}', 'UsersController@update')->name('users.update');
+    Route::get('/users/{id}', 'UsersController@show')->name('users.show');
+    Route::post('/delete', 'UsersController@destroy')->name('users.destroy');
     Route::group(['prefix' => 'cms'], function () {
         Route::put('sliders/make-primary/{slider}', 'SliderController@activeToggle')->name('sliders.active-toggle');
         Route::resource('sliders', 'SliderController');

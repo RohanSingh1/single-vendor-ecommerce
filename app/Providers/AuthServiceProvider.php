@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Model\Admin\Admin;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,7 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        Gate::define('isAdmin', function (Admin $admin) {
+            if($admin->is_admin == 1){
+                return true;
+            }
+            return false;
+        });
 
-        //
     }
 }

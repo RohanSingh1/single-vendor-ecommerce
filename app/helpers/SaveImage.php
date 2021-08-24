@@ -16,7 +16,7 @@ class SaveImage{
         return $filename;
     }
 
-    public static function update($image, $path, $previousPath)
+    public static function update($image, $path)
     {
 //        if ($previousPath!=' '){
 //            deleteFile($previousPath);

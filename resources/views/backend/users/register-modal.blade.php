@@ -8,11 +8,11 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                <form method="POST" action="{{ route('admin.register.store') }}">
+                <form method="POST" action="{{ route('admin.register.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Full Name') }}</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -58,6 +58,31 @@
 
                         <div class="col-md-6">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        {!! Form::label('image','Image *') !!}
+                        {!! Form::file('image', ['class'=> 'form-control']) !!}
+
+                        @if ($errors->has('image'))
+                            <span class="help-block">
+                                {{ $errors->first('image') }}
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
+
+                        <div class="col-md-6">
+                            <input type="radio" name="is_admin" value="1">Admin
+                            <input type="radio" name="is_admin" value="0" required checked>Delivery Boy
+                            @if ($errors->has('is_admin'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('is_admin') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
 

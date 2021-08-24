@@ -40,6 +40,7 @@
                         Dashboard
                     </a>
                 </li>
+                @can('isAdmin')                        
                 <li class="app-sidebar__heading">Components</li>
                     <li>
                         <a href="{{ route('admin.products.index') }}"
@@ -49,7 +50,6 @@
                             <i class="metismenu-state-icon "></i>
                         </a>
                     </li>
-                @can('brand-list')
                     <li>
                         <a href="{{ route('admin.brand.index') }}" class="{{ active(['admin/brand*'], 'mm-active') }}">
                             <i class="metismenu-icon pe-7s-helm"></i>
@@ -57,7 +57,6 @@
                             <i class="metismenu-state-icon "></i>
                         </a>
                     </li>
-                @endcan
 
                     <li>
                         <a href="{{ route('admin.category.index') }}"
@@ -143,6 +142,7 @@
                         Settings
                     </a>
                 </li>
+                @endcan
 
             </ul>
         </div>
