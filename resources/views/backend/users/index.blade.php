@@ -58,7 +58,7 @@ Users
             </div>
         </div>
         <div class="page-title-actions">
-            <button class="btn btn-success" data-toggle="modal" data-target="#addUsers">Add New</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addForm">Add New</button>
 
         </div>
     </div>

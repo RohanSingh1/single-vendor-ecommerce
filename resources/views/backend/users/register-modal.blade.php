@@ -11,10 +11,10 @@
                 <form method="POST" action="{{ route('admin.register.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Full Name') }}</label>
+                    <div class="form-group">
+                        <label for="name">{{ __('Full Name') }}</label>
 
-                        <div class="col-md-6">
+
                             <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
 
                             @if ($errors->has('name'))
@@ -22,13 +22,12 @@
                                     <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
-                        </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                    <div class="form-group">
+                        <label for="email">{{ __('E-Mail Address') }}</label>
 
-                        <div class="col-md-6">
+
                             <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
@@ -36,13 +35,12 @@
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span>
                             @endif
-                        </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                    <div class="form-group">
+                        <label>{{ __('Password') }}</label>
 
-                        <div class="col-md-6">
+
                             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                             @if ($errors->has('password'))
@@ -51,14 +49,12 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                    <div class="form-group">
+                        <label for="password-confirm">{{ __('Confirm Password') }}</label>
 
-                        <div class="col-md-6">
+
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                        </div>
                     </div>
 
                     <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
@@ -70,11 +66,10 @@
                                 {{ $errors->first('image') }}
                             </span>
                         @endif
-                    </div>
 
                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                         {!! Form::label('address','Address') !!}
-                        {!! Form::textarea('address','',['class'=>'form-control']) !!}
+                        {!! Form::textarea('address','',['class'=>'form-control','cols'=>"5",'rows'=>"5"]) !!}
 
                         @if ($errors->has('address'))
                             <span class="help-block">
@@ -83,10 +78,10 @@
                         @endif
                     </div>
 
-                    <div class="form-group row">
-                        <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
+                    <div class="form-group">
+                        <label for="is_admin">{{ __('User Type') }}</label>
 
-                        <div class="col-md-6">
+
                             <input type="radio" name="is_admin" value="1">Admin
                             <input type="radio" name="is_admin" value="0" required checked>Delivery Boy
                             @if ($errors->has('is_admin'))
@@ -94,13 +89,12 @@
                                     <strong>{{ $errors->first('is_admin') }}</strong>
                                 </span>
                             @endif
-                        </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+                    <div class="form-group">
+                        <label for="status">{{ __('Status') }}</label>
 
-                        <div class="col-md-6">
+
                             <input type="radio" name="status" value="1">Active
                             <input type="radio" name="status" value="0" required checked>In-Active
                             @if ($errors->has('status'))
@@ -108,11 +102,10 @@
                                     <strong>{{ $errors->first('status') }}</strong>
                                 </span>
                             @endif
-                        </div>
                     </div>
 
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
+                    <div class="form-group">
+                        <div class=" offset-md-4">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Register') }}
                             </button>
