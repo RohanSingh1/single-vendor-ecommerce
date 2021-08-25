@@ -1,4 +1,4 @@
-@extends('backend.layouts.master')
+@extends('backend..delivery_boys.layouts.master')
 @section('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
@@ -34,7 +34,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            {!! Form::open(['route' => ['admin.orders.update',$order->id],'method' =>
+                            {!! Form::open(['route' => ['admin.delivery_orders.update',$order->id],'method' =>
                             'PUT','enctype'=>'multipart/form-data' ]) !!}
                             <input type="hidden" name="product_id" value="{{ $order->product_id}}">
                             @if ($errors->any())

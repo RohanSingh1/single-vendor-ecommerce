@@ -56,7 +56,19 @@
                             </div>
 
                             <div class="form-group">
-                                {{Form::label('Full Names')}}
+                                {{Form::label('Select Delivery Boy')}}
+                                <select name="delivery_boy_id" class="form-control">
+                                    @foreach ($delivery_boys as $boys)
+                                    <option value="{{ $boys->id }}"
+                                        {{ $boys->id == $order->delivery_boys_id }}>
+                                        {{ $boys->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                {{Form::label('Order By (Name)')}}
                                 {{Form::text('full_names',$order->full_names,['class'=>'form-control'])}}
                             </div>
 

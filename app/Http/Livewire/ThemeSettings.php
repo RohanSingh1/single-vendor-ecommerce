@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Model\Setting;
 use App\Model\SettingsUser;
 use Illuminate\Support\Facades\Cache;
-use Livewire\Component;
+use Livewire\Component; 
 
 class ThemeSettings extends Component
 {

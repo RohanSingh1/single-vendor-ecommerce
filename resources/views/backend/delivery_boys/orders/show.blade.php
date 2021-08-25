@@ -1,11 +1,11 @@
-@extends('backend.layouts.master')
+@extends('backend.delivery_boys.layouts.master')
 @section('styles')
 <style>
     .f_price{
         color:seagreen;
         font-size: 15px;
         font-weight: bold;
-    }
+    } 
 </style>
 @endsection
 @section('content')

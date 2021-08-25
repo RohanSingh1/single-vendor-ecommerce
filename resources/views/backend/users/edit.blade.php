@@ -2,10 +2,6 @@
 @section('page_title')
     Users
 @endsection
- @section('styles')
-     <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/tablelist.css') }}">
-@endsection
 
 @section('content-head-title')
   Users
@@ -22,8 +18,8 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Edit user
-                <div class="page-title-subheading">Edit user here
+            <div>Edit Users / Delivery Boys
+                <div class="page-title-subheading">Edit Users / Delivery Boys here
                 </div>
             </div>
         </div>
@@ -32,7 +28,6 @@
         </div>
     </div>
 </div>
-@include('inc.messages')
 <div class="row">
     <div class="col-md-12 col-xl-12">
         <div class="mb-3 card">
@@ -73,6 +68,11 @@
                                 <label for="password-confirm" class="">{{ __('Confirm Password') }}</label>
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+
+                            <div class="form-group">
+                                {{Form::label('address', 'Address')}}
+                                {{Form::textarea('address',$data->address,['class' => 'form-control'])}}
+                              </div>
 
                               <div class="form-group">
                                 <label for="is_admin">{{ __('User Type') }}</label>

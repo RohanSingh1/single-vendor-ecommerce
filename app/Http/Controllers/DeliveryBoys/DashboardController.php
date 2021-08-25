@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DeliveryBoys;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('AdminRoleValidation');
+        $this->middleware(['auth','DeliveryRoleValidation']);
     }
 
     public function searchProduct(Request $request)
@@ -33,7 +32,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
-        return view('backend.dashboard');
+        return view('backend.delivery_boys.dashboard');
     }
 
 }

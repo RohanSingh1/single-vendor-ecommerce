@@ -85,15 +85,6 @@ Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
     Route::get('admin-login/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 });
 
-//delivery boys
-Route::group(['middleware' => 'auth:admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
-
-    Route::get('testff',function(){
-        dd('yes');
-    });
-
-});
-
 // admins
 Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => 'admin', 'as' => 'admin.'], function () {
 
@@ -127,11 +118,14 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     //orders
     Route::resource('orders', 'OrderController')->except('create','store');
     Route::get('/api/order', 'OrderController@apiOrders')->name('api.order');
+
+    Route::get('/search-product', 'DashboardController@searchProduct')->name('search.product');
     // deals
     Route::resource('deals', 'DealController');
     Route::get('/api/deal', 'DealController@apiDeal')->name('api.deal');
     //users
     Route::get('/users', 'UsersController@index')->name('users');
+    Route::get('/api/users', 'UsersController@apiuser')->name('api.users');
     Route::post('/users/register', 'UsersController@store')->name('register.store');
     Route::get('/users/edit/{id}', 'UsersController@edit')->name('users.edit');
     Route::PUT('/users/update/{id}', 'UsersController@update')->name('users.update');
@@ -162,6 +156,20 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
 
         });
     });
+});
+
+
+//delivery boys
+Route::group(['middleware' => ['auth:admin','DeliveryRoleValidation'], 'as' => 'admin.', 'prefix' => 'admin','namespace' => 'DeliveryBoys'], function () {
+    Route::get('/search-product', 'DashboardController@searchProduct')->name('search.product');
+    Route::get('/my-dashboard', 'DashboardController@index')->name('dashboard');
+     //orders
+     Route::resource('delivery_orders', 'OrderController')->except('create','store');
+     Route::get('/api/delivery_orders', 'OrderController@apiOrders')->name('api.delivery_orders');
+    Route::get('testff',function(){
+        dd('here');
+    });
+
 });
 
 Route::get('/config-cache', 'CacheController@index');

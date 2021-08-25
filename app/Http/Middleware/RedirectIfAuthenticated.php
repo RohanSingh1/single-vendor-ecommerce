@@ -22,10 +22,10 @@ class RedirectIfAuthenticated
        switch ($guard){
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    if (Gate::allows('isAdmin')) {
+                    if (auth('admin')->user()->id == 1 || auth('admin')->user()->is_admin == 1 ) {
                         return redirect('admin/dashboard');
                     }
-                    abort(403);
+                    return redirect('admin/my-dashboard');
                 }
                 break;
             default:

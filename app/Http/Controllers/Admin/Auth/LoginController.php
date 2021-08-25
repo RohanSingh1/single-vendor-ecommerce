@@ -40,6 +40,13 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        if(auth('admin')->check()){
+            if(auth('admin')->user()->is_admin == 1){
+                $this->redirectTo = 'admin/dashboard';
+            }else{
+                $this->redirectTo = 'admin/my-dashboard';
+            }
+        }
         $this->middleware(['guest:admin'])->except('logout');
     }
     public function showLoginForm()
@@ -50,6 +57,11 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
         if ($this->attemptLogin($request)) {
+            if(auth('admin')->user()->is_admin == 1){
+                $this->redirectTo = 'admin/dashboard';
+            }elseif(auth('admin')->user()->is_admin != 1){
+                $this->redirectTo = 'admin/my-dashboard';
+            }
             return $this->sendLoginResponse($request);
         }
         return $this->sendFailedLoginResponse($request);

@@ -42,6 +42,8 @@
                         <h2>Customer Name: {{$order->user->f_name.' '.$order->user_l_name}} </h2>
                         <ul>
                           <li>E-Mail: {{ $order->user->email }} </li>
+                          <li>Delivery Boy Name: {{$order->delivery_boy->name}}
+                            | E-Mail :- {{ $order->delivery_boy->email }}</li>
                           <li>Status: {{$order->status}} </li>
                           <li>Date: {!! $order->created_at !!} </li>
                           <li>Sub Total: <span class="f_price"> {!! $order->sub_totals !!} </span> </li>

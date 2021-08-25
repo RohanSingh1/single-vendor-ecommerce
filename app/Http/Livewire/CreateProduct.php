@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Model\Brand;
-use App\Model\Product;
+use App\Model\Product; 
 use Livewire\Component;
 use App\Model\Category;
 use App\Model\Supplier;

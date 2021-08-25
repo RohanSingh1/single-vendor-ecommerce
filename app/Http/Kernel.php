@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
 
         'AdminRoleValidation' => \App\Http\Middleware\AdminRoleValidation::class,
+        'DeliveryRoleValidation' => \App\Http\Middleware\DeliveryRoleValidation::class,
 
     ];
 

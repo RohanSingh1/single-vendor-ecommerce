@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\DeliveryBoys;
+namespace App\Http\Controllers;
 
+use App\Model\Admin\Admin;
 use App\Model\Order;
 use App\Model\Product;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware(['auth','DeliveryRoleValidation']);
-    }
-
     public function index()
     {
-        return view('backend.delivery_boys.orders.index');
+        return view('backend.orders.index');
     }
 
     /**
@@ -28,12 +22,15 @@ class OrderController extends Controller
      */
     public function apiorders()
     {
-        $orders = Order::where('delivery_boy_id',auth('admin')->user()->id)->get();
+        $orders = Order::all();
         //dd($orders);
         return Datatables::of($orders)
         ->addColumn('full_names', function ($data) {
            return $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email;
         })
+        ->addColumn('order_assigned_to', function ($data) {
+            return $data->delivery_boy->name;
+         })
         ->editColumn('currency_type', function($data) {
                 return ucwords($data->currency_type);
         })
@@ -80,8 +77,8 @@ class OrderController extends Controller
                 return '
 
                 <a href="'.route("admin.orders.show",$orders->id ).'" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-eye"></i></a>
-           <a href="delivery_orders/' . $orders->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
-            <form action= "' . route('admin.delivery_orders.destroy', $orders->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
+           <a href="orders/' . $orders->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
+            <form action= "' . route('admin.orders.destroy', $orders->id) . '" method="POST" accept-charset ="UTF-8">
                 <input type="hidden" value="DELETE" name="_method">
                 <span class="input-group-btn">
                 <button class="btn btn-danger btn-xs delete-item" type="submit" value="delete"><i class ="fa fa-trash"></i></button>
@@ -106,7 +103,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::findOrfail($id);
-        return view('backend.delivery_boys.orders.show',compact('order'));
+        return view('backend.orders.show',compact('order'));
     }
 
     /**
@@ -121,8 +118,9 @@ class OrderController extends Controller
             $request->session()->flash('error','Sorry The Selected orders Has Found Or Has Been Deleted');
             return redirect()->route('admin.orders.index');
         }
+        $delivery_boys = Admin::where([['id','!=',1],['is_admin','!=',1]])->get();
         $products = Product::get();
-        return view('backend.delivery_boys.orders.edit',compact('order','products'));
+        return view('backend.orders.edit',compact('order','products','delivery_boys'));
     }
 
     /**
@@ -144,16 +142,15 @@ class OrderController extends Controller
             return redirect()->route('admin.orders.index');
         }
 
-        $carts = get_price_check_coupon();
-
          $order->update([
-             'full_names' => auth()->user()->f_name.' '.auth()->user()->l_name,
+             'full_names' => $request->full_names,
              'payment_option' => 'cash_on_delivery',
              'shipping_price' => $request->shipping_price,
              'total_discounts' => $request->total_discounts,
              'sub_totals' => $request->sub_totals,
              'grand_totals' => $request->grand_totals,
              'status' => $request->status,
+             'delivery_boy_id'=>$request->delivery_boy_id
          ]);
 
          $order->products()->sync($request->products);
@@ -171,6 +168,6 @@ class OrderController extends Controller
         $order->delete();
         $order->products()->sync([]);
         $request->session()->flash('success','SuccessFully Deleted');
-        return redirect()->route('admin.delivery_orders.index');
+        return redirect()->route('admin.orders.index');
     }
 }

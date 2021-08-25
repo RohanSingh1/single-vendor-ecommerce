@@ -29,7 +29,6 @@ class AuthServiceProvider extends ServiceProvider
             if($admin->is_admin == 1){
                 return true;
             }
-            return false;
         });
 
     }

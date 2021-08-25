@@ -29,6 +29,9 @@
     .display-inline{
         display: inline-block;
     }
+    .sorting{
+        width:100px!important
+    }
 </style>
 @endsection
 @section('content')
@@ -80,6 +83,7 @@
                 { data: 'full_names', title:'Full Names'},
                 { data: 'products', title:'Total Products'},
                 { data: 'created_at', title:'Date'},
+                { data: 'order_assigned_to', title:'Delivery Boy'},
                 { data: 'sub_totals', title:'Sub Totals'},
                 { data: 'total_discounts', title:'Total Discounts'},
                 { data: 'grand_totals', title:'Grand Total'},

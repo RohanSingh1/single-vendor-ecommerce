@@ -1,10 +1,10 @@
-@extends('backend.layouts.master')
+@extends('backend.delivery_boys.layouts.master')
 @section('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
     .help-block{
         color:rebeccapurple;
-    }
+    } 
     .custab {
         border: 1px solid #ccc;
         padding: 5px;
@@ -53,7 +53,7 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                        All Orders
+                        All Orders you are not admin
                 </div>
             </div>
             <div class="card-body">
@@ -74,7 +74,7 @@
         $('#orders-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('admin.api.order') }}',
+            ajax: '{{ route('admin.api.delivery_orders') }}',
             columns: [
                 { data: 'status', title:'Order Status'},
                 { data: 'full_names', title:'Full Names'},

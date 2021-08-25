@@ -40,7 +40,7 @@
                         Dashboard
                     </a>
                 </li>
-                @can('isAdmin')                        
+                @can('isAdmin')
                 <li class="app-sidebar__heading">Components</li>
                     <li>
                         <a href="{{ route('admin.products.index') }}"
@@ -82,6 +82,14 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('admin.orders.index') }}"
+                       class="{{ active(['admin/orders*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Orders From Cart
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
 
                 {{--  <li>
                     <a href="{{ route('admin.customerFeedback.index') }}"
@@ -128,10 +136,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.customer-users.index') }}"
-                       class="{{ active(['admin/customer-users*'], 'mm-active') }}">
+                    <a href="{{ route('admin.users') }}"
+                       class="{{ active(['admin/users*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>
-                        Customer Users
+                        Delivery Boys
                         <i class="metismenu-state-icon "></i>
                     </a>
                 </li>
@@ -142,6 +150,18 @@
                         Settings
                     </a>
                 </li>
+
+                @else
+
+                <li>
+                    <a href="{{ route('admin.orders.index') }}"
+                       class="{{ active(['admin/orders*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Orders
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
                 @endcan
 
             </ul>
