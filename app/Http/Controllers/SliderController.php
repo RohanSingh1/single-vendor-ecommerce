@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\helpers\SaveImage;
 use App\Model\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -122,14 +123,28 @@ class SliderController extends Controller
             'target_url' => 'nullable|string|max:255',
             'target' => 'required',
         ]);
-        $data = $this->commanData($request);
-        if ($request->hasFile('image')) {
-            $data['image'] = SaveImage::update($request->image,$this->imagePath, $slider->imagePath);
-        }
-        else{
-            $data['image']=$slider->image;
-        }
-        $slider->update($data);
+        if ($slider->image != null) {
+            if(Storage::disk('public')->exists('uploads'.DIRECTORY_SEPARATOR.'slider-item' . DIRECTORY_SEPARATOR . $slider->image)){
+                Storage::disk('public')->delete('uploads'.DIRECTORY_SEPARATOR.'slider-item'. DIRECTORY_SEPARATOR . $slider->image );
+            }
+                $file_name = SaveImage::save($request->image, 'slider-item');
+            }
+            if ($request->target_url) {
+                $target_url = $request->target_url;
+            } else {
+                $target_url = '#';
+            }
+            $request->order ? $order = $request->order : $order = 1;
+        $slider->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' =>isset($file_name) ? $file_name : $slider->image,
+            'btn_text' => $request->btn_text,
+            'target_url' => $target_url,
+            'target' => $request->target,
+            'order' => $order,
+            'active' => switch_case_check($request->active),
+        ]);
         toast(__('global.data_update'), 'success');
         return redirect()->route('admin.sliders.index');
     }

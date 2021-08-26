@@ -9,6 +9,11 @@ use App\Model\WishList;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
+function currency_type(){
+    $ct = Setting::where('slug', 'currency_type')->first();
+    return $ct->text;
+}
+
 function get_price_check_coupon(){
     $data['total'] = 0;
     $data['shipping'] = Setting::select('id', 'text')->where('slug', 'shipping_price')->first()['text'];

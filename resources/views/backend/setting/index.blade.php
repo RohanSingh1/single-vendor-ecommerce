@@ -55,6 +55,12 @@
                                                    value="{{old('phone_no') ?? $phone_no->text ??''}}"
                                                    class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Currency Symbol<em class="asterisk">*</em></label>
+                                            <input type="text" name="currency_type"
+                                                   value="{{old('currency_type') ?? $currency_type->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
 
                                         <div class="form-group">
                                             <label class="control-label">General Email<em

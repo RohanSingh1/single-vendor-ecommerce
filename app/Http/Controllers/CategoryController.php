@@ -9,6 +9,7 @@ use App\Repositories\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Model\Category;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
 
 class CategoryController extends Controller
@@ -21,10 +22,6 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:admin']);
-        $this->middleware('permission:category-list');
-        $this->middleware('permission:category-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:category-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:category-delete', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -56,7 +53,13 @@ class CategoryController extends Controller
         $data = $this->commonData($request);
 
         if ($request->hasFile('image')) {
-            $data['image'] = SaveImage::update($request->image, 'category', $model->image ? $model->imagePath : '');
+            $file = $request->file('image');
+            if($model->image != null && Storage::disk('public')->exists('uploads'.DIRECTORY_SEPARATOR.'category' . DIRECTORY_SEPARATOR . $model->image)){
+                Storage::disk('public')->delete('uploads'.DIRECTORY_SEPARATOR.'category'. DIRECTORY_SEPARATOR . $model->image );
+            }
+            $file_name =  'Slider'. '_' . rand(0, 999999).'.'.$file->extension();
+            $data['image'] = $file_name;
+            $file->storeAs('uploads'.DIRECTORY_SEPARATOR.'category',$file_name);
         } else {
             $data['image'] = $model->image;
         }
@@ -94,7 +97,6 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         $category = Category::create($this->requestStore($request));
-        $category->colors()->attach($request->colors);
         $this->forgetCache();
         toast(__('global.data_saved'), 'success');
         return redirect()->route('admin.category.index')->with('success', 'Category Added');
@@ -136,8 +138,8 @@ class CategoryController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        $category->colors()->sync($request->colors);
         $category->update($this->requestUpdate($request, $category));
         $this->forgetCache();
         toast(__('global.data_update'), 'success');

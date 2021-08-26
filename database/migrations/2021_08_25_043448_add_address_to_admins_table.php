@@ -14,8 +14,8 @@ class AddAddressToAdminsTable extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->unsignedInteger('is_admin')->default(0);
-            $table->text('address')->nullable();
+            $table->unsignedInteger('is_admin')->default(0)->after('image');
+            $table->text('address')->nullable()->after('image');
         });
     }
 

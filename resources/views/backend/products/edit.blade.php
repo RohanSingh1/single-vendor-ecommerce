@@ -46,12 +46,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             {{Form::label('Product Name')}}
                                             {{Form::text('name',$product->name,['class'=>'form-control'])}}
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            {{Form::label('Product Status')}}
+                                            {!! Form::select('published',['1' => 'Published','0' => 'Un-Published'],$product->published,['class'=>'form-control']) !!}
+
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {{Form::label('Selling Price')}}
@@ -120,15 +128,13 @@
                                     <div class="col-md-4">
                                         <div class="position-relative form-check">
                                             <label for="is_featured" class="form-check-label">Is Featured</label><br>
-                                            <input type="checkbox"
-                                                   name="is_featured" {{$product->is_featured ==1?'checked':'' }}>
+                                            <input type="checkbox" name="is_featured" value="1" {{$product->is_featured ==1?'checked':'' }}>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="position-relative form-check">
-                                            <label for="is_featured" class="form-check-label">Published</label><br>
-                                            <input type="checkbox"
-                                                   name="published" {{$product->published ==1?'checked':'' }}>
+                                            <label for="is_fresh" class="form-check-label">Is Fresh</label><br>
+                                            <input type="checkbox" name="is_fresh" value="1"  {{$product->is_fresh ==1?'checked':'' }}>
                                         </div>
                                     </div>
 

@@ -114,10 +114,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group @if ($errors->has('offer_text')) has-error @endif">
+                                            <label for="offer_text" class="control-label">Offer Text</label>
+                                            <input type="text" class="form-control" name="btn_text"
+                                                   value="{{ $slider->offer_text ?? '' }}">
+                                            @if ($errors->has('btn_text'))
+                                                <span class="text-danger" role="alert">
+                                                {{ $errors->first('btn_text') }}
+                                            </span>
+                                            @endif
+                                        </div>
                                         <div class="form-group @if ($errors->has('target')) has-error @endif">
                                             <label for="target" class="control-label">Target</label>
                                             <select name="target" id="" class="form-control">
-                                                <option value="0">Parent</option>
+                                                <option value="0">Current Tab</option>
                                                 <option value="1">New Tab</option>
                                             </select>
                                             @if ($errors->has('target'))

@@ -7,29 +7,29 @@
 // });
 
 Route::get('test',function(){
-    dd();
+    return view('front.index');
     setcookie('address','fff', time()+360000);
     if(isset($_COOKIE['address']) && !empty($_COOKIE['address'])){
         setcookie('address', "", time() - 1);
     }
 });
 
-// Route::get('/', 'Frontend\HomeController@index')->name('index');
+Route::get('/', 'Front\HomeController@index')->name('index');
 Auth::routes();
 
-Route::post('currency', 'Frontend\HomeController@change_currency')->name('change_currency');
+Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
 
 //requested products
-Route::get('/request_product', 'Frontend\ContactUsController@requested_product')->name('requested_product.create');
-Route::post('/requested_product/store', 'Frontend\ContactUsController@store_requested_product')->name('requested_product.store')->middleware('auth');
+Route::get('/request_product', 'Front\ContactUsController@requested_product')->name('requested_product.create');
+Route::post('/requested_product/store', 'Front\ContactUsController@store_requested_product')->name('requested_product.store')->middleware('auth');
 
-Route::post('/product_feedback/store', 'Frontend\ProductController@store_customer_feedback')->name('customer_feedback.store');
+Route::post('/product_feedback/store', 'Front\ProductController@store_customer_feedback')->name('customer_feedback.store');
 
-Route::get('/product/{slug}', 'Frontend\ProductController@show')->name('product.show');
-Route::get('/product/{slug}/{email}/{token}', 'Frontend\ProductDownloadController@index')->name('product.download.show');
+Route::get('/product/{slug}', 'Front\ProductController@show')->name('product.show');
+Route::get('/product/{slug}/{email}/{token}', 'Front\ProductDownloadController@index')->name('product.download.show');
 Route::post('/newsletter/store', 'NewsletterController@store')->name('newsletter.store');
 
-Route::group(['namespace' => 'Frontend'], function () {
+Route::group(['namespace' => 'Front'], function () {
     Route::get('/search/{categoryId?}{q?}', 'SearchProductController@index')->name('search-results');
     Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
@@ -46,12 +46,12 @@ Route::group(['namespace' => 'Frontend'], function () {
 });
 
 //cart
-Route::get('cart', 'Frontend\CartController@index')->name('frontend.cart.index');
-Route::post('addToCart', 'Frontend\CartController@addToCart')->name('frontend.cart.add');
-Route::post('updateToCart', 'Frontend\CartController@updateToCart')->name('frontend.cart.update');
-Route::post('cart/destroy','Frontend\CartController@destroy')->name('frontend.cart.destroy');
+Route::get('cart', 'Front\CartController@index')->name('front.cart.index');
+Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add');
+Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
+Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
-Route::group(['namespace'=>'Frontend\\','as'=>'frontend.','middleware'=>'auth'], function () {
+Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
     Route::post('wishlists/bulk_actions','WishListController@bulk_action')->name('wishlists.bulk_actions');
     Route::get('/wishlists', 'WishListController@index')->name('wishlists');
@@ -175,4 +175,4 @@ Route::group(['middleware' => ['auth:admin','DeliveryRoleValidation'], 'as' => '
 Route::get('/config-cache', 'CacheController@index');
 Route::get('/clear-cache', 'CacheController@destroy');
 
-Route::get('/{slug}', 'Frontend\HomeController@show')->name('page.show');
+Route::get('/{slug}', 'Front\HomeController@show')->name('page.show');
