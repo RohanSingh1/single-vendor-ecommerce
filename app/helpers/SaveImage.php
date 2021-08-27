@@ -12,15 +12,22 @@ class SaveImage{
             \File::makeDirectory($fullPath, 0775, true);
         }
         $fileSavePath = $fullPath . $filename;
-        \Image::make($image)->save($fileSavePath);
+        if($image->getClientOriginalExtension() == 'svg'){
+            $image->storeAs(
+                'uploads/'.$path, $filename
+            );
+        }else{
+            \Image::make($image)->save($fileSavePath);
+        }
+
         return $filename;
     }
 
-    public static function update($image, $path)
+    public static function update($image, $path,$previousPath=null)
     {
-//        if ($previousPath!=' '){
-//            deleteFile($previousPath);
-//        }
+       if ($previousPath!=' '){
+           deleteFile($previousPath);
+       }
         return self::save($image, $path);
     }
 }

@@ -4,10 +4,26 @@ use App\Model\Brand;
 use App\Model\Setting;
 use App\Model\Category;
 use App\Model\Coupon;
+use App\Model\Menu;
+use App\Model\MenuItem;
 use App\Model\Product;
 use App\Model\WishList;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+
+function footerMenu($menu)
+    {
+            $menuId = Menu::whereSlug($menu)->active()->first();
+            if ($menuId) {
+                return MenuItem::whereMenuId($menuId->id)
+                    ->orderBy('order')
+                    ->parentOnly()
+                    ->with('publishedPost', 'menu')
+                    ->get();
+            } else {
+                return [];
+            }
+    }
 
 function currency_type(){
     $ct = Setting::where('slug', 'currency_type')->first();

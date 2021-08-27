@@ -27,7 +27,7 @@ Route::post('/product_feedback/store', 'Front\ProductController@store_customer_f
 
 Route::get('/product/{slug}', 'Front\ProductController@show')->name('product.show');
 Route::get('/product/{slug}/{email}/{token}', 'Front\ProductDownloadController@index')->name('product.download.show');
-Route::post('/newsletter/store', 'NewsletterController@store')->name('newsletter.store');
+Route::post('/newsletter/store', 'Front\HomeController@newsletter')->name('newsletter.store');
 
 Route::group(['namespace' => 'Front'], function () {
     Route::get('/search/{categoryId?}{q?}', 'SearchProductController@index')->name('search-results');

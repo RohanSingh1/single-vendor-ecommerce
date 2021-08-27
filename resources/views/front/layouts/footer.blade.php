@@ -1,22 +1,62 @@
+@php
+    $firstFooterMenus = footerMenu('first-footer');
+    $secondFooterMenus = footerMenu('second-footer');
+    $thirdFooterMenus = footerMenu('third-footer');
+
+    $facebook = get_general_settings_text('facebook');
+    $twitter = get_general_settings_text('twitter');
+    $google_plus = get_general_settings_text('google_plus');
+    $instagram = get_general_settings_text('instagram');
+    $linkedin = get_general_settings_text('linkedin');
+    $pinterest = get_general_settings_text('pinterest');
+@endphp
 <footer class="footer">
     <div class="footer-first-row">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <ul class="call-email-alt">
-                        <li><a href="#" class="callemail"><i class="uil uil-dialpad-alt"></i>1800-000-000</a></li>
-                        <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i><span class="__cf_email__" data-cfemail="e980878f86a98e88848b869a9c998c9b84889b828c9dc78a8684">[email&#160;protected]</span></a></li>
+                        <li>
+                            <a href="#" class="callemail">
+                            <i class="uil uil-dialpad-alt"></i>
+                            @if(get_general_settings_text('phone_no') != '')
+                            {{get_general_settings_text('phone_no')
+                            ?get_general_settings_text('phone_no')->text:''}}@endif</a></li>
+                        <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>
+                            <span class="__cf_email__" data-cfemail="e980878f86a98e88848b869a9c998c9b84889b828c9dc78a8684">
+                                [email&#160;@if(get_general_settings_text('ac_email') != '')
+                                {{get_general_settings_text('ac_email')
+                                ?get_general_settings_text('ac_email')->text:''}}@endif]</span></a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="social-links-footer">
                         <ul>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+
+                            @if($facebook)
+                            <li><a href="{{$facebook->text ?? '#'}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            @endif
+
+                            @if($twitter)
+                            <li><a href="{{$twitter->text ?? '#'}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            @endif
+
+                            @if($google_plus)
+                            <li><a href="{{$google_plus->text ?? '#'}}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                            @endif
+
+                            @if($linkedin)
+                            <li><a href="{{$linkedin->text ?? '#'}}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                            @endif
+
+                            @if($instagram)
+                            <li><a href="{{$instagram->text ?? '#'}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            @endif
+
+                            @if($pinterest)
+                            <li><a href="{{$pinterest->text ?? '#'}}" target="_blank"><i class="fab fa-pinterest-p"></i></a></li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -28,48 +68,49 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="second-row-item">
-                        <h4>Categories</h4>
+                        <h4>{{$firstFooterMenus->first()->menu->title}}</h4>
                         <ul>
-                            <li><a href="#">Fruits and Vegetables</a></li>
-                            <li><a href="#">Grocery & Staples</a></li>
-                            <li><a href="#">Dairy & Eggs</a></li>
-                            <li><a href="#">Beverages</a></li>
-                            <li><a href="#">Snacks</a></li>
-                            <li><a href="#">Home Care</a></li>
-                            <li><a href="#">Noodles & Sauces</a></li>
-                            <li><a href="#">Personal Care</a></li>
-                            <li><a href="#">Pet Care</a></li>
-                            <li><a href="#">Meat & Seafood</a></li>
-                            <li><a href="#">Electronics</a></li>
+                            @if(count($firstFooterMenus)>0)
+                            @foreach($firstFooterMenus as $menu)
+                            @if($menu->publishedPost)
+                            <li><a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}>
+                                {{$menu->display_name??$menu->publishedPost->post_title}}</a></li>
+                            @endif
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="second-row-item">
-                        <h4>Useful Links</h4>
+                        <h4>{{$secondFooterMenus->first()->menu->title}}</h4>
                         <ul>
-                            <li><a href="about_us.html">About US</a></li>
-                            <li><a href="shop_grid.html">Featured Products</a></li>
-                            <li><a href="offers.html">Offers</a></li>
-                            <li><a href="our_blog.html">Blog</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="career.html">Careers</a></li>
-                            <li><a href="contact_us.html">Contact Us</a></li>
+                            @if(count($secondFooterMenus)>0)
+                            @foreach($secondFooterMenus as $menu)
+                            @if($menu->publishedPost)
+                            <li><a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}>
+                                {{$menu->display_name??$menu->publishedPost->post_title}}</a></li>
+                            @endif
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="second-row-item">
-                        <h4>Top Cities</h4>
+                        <h4>{{$thirdFooterMenus->first()->menu->title}}</h4>
                         <ul>
-                            <li><a href="#">Gurugram</a></li>
-                            <li><a href="#">New Delhi</a></li>
-                            <li><a href="#">Bangaluru</a></li>
-                            <li><a href="#">Mumbai</a></li>
-                            <li><a href="#">Hyderabad</a></li>
-                            <li><a href="#">Kolkata</a></li>
-                            <li><a href="#">Ludhiana</a></li>
-                            <li><a href="#">Chandigrah</a></li>
+                            @if(count($thirdFooterMenus)>0)
+                            @foreach($thirdFooterMenus as $menu)
+                            @if($menu->publishedPost)
+                            <li><a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}>
+                                {{$menu->display_name??$menu->publishedPost->post_title}}</a></li>
+                            @endif
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -105,10 +146,15 @@
                     </div>
                     <div class="second-row-item-payment">
                         <h4>Newsletter</h4>
-                        <div class="newsletter-input">
-                            <input id="email" name="email" type="text" placeholder="Email Address" class="form-control input-md" required="">
-                            <button class="newsletter-btn hover-btn" type="submit"><i class="uil uil-telegram-alt"></i></button>
-                        </div>
+
+                        <form action="{{ route('newsletter.store') }}" method="post">
+                            @csrf
+                            <div class="newsletter-input">
+                                <input id="email" name="email" type="text" placeholder="Email Address" class="form-control input-md" required="">
+                                <button class="newsletter-btn hover-btn" type="submit"><i class="uil uil-telegram-alt"></i></button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

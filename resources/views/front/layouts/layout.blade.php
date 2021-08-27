@@ -287,7 +287,7 @@
 
 
     <div class="wrapper">
-
+        @include('front.layouts.session_message')
         @yield('content')
 
     </div>
