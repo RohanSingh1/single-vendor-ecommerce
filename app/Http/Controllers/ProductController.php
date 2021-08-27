@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Model\Color;
 use Carbon\Carbon;
-use App\Model\Brand;
 use App\Model\Product;
 use App\Model\Category;
-use App\Model\Supplier;
 use App\Model\SubCategory;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -39,9 +37,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $data['brand'] = Brand::all();
         $data['categories'] = Category::select('id', 'name', 'parent_id')->orderBy('order')->active()->with('parent')->get();
-        $data['suppliers'] = Supplier::all();
         $data['colors'] = Color::get();
         return view('backend.products.create', $data);
     }
@@ -80,9 +76,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $data['brand'] = Brand::all();
         $data['product'] = $product;
-        $data['suppliers'] = Supplier::all();
         $data['colors'] = Color::get();
         $data['categories'] = Category::select('id', 'name', 'parent_id')->orderBy('order')->active()->with('parent')->get();
         return view('backend.products.edit', $data);

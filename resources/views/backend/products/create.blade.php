@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            {{--  <div class="col-md-4">
                                 <div class="form-group">
                                     {{Form::label('Supplier Name')}}
                                     <select class="form-control" name="supplier_id">
@@ -100,7 +100,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>  --}}
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{Form::label('Category Name')}}

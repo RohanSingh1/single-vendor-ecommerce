@@ -93,12 +93,9 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     Route::resource('advertisement', 'AdvertisementController');
     Route::get('/api/advertisement', 'AdvertisementController@apiAdvertisement')->name('api.advertisement');
 
-    Route::resource('brand', 'BrandController');
-    Route::get('/api/brand', 'BrandController@apiBrand')->name('api.brand');
     Route::post('category/saveOrder', ['uses' => 'CategoryController@saveOrder', 'as' => 'category.saveOrder']);
     Route::resource('category', 'CategoryController');
-    Route::resource('supplier', 'SupplierController');
-    Route::get('/api/supplier', 'SupplierController@apiSupplier')->name('api.supplier');
+
     Route::get('/products/show-price/{id}', 'ProductController@showPrice')->name('product.showPrice');
     Route::resource('products', 'ProductController');
     Route::get('api/products', 'ProductController@apiProduct')->name('api.product');
