@@ -13,16 +13,16 @@ use Intervention\Image\Facades\Image;
 
 function footerMenu($menu)
     {
-            $menuId = Menu::whereSlug($menu)->active()->first();
-            if ($menuId) {
-                return MenuItem::whereMenuId($menuId->id)
-                    ->orderBy('order')
-                    ->parentOnly()
-                    ->with('publishedPost', 'menu')
-                    ->get();
-            } else {
-                return [];
-            }
+        $menuId = Menu::whereSlug($menu)->active()->first();
+        if ($menuId) {
+            return MenuItem::whereMenuId($menuId->id)
+                ->orderBy('order')
+                ->parentOnly()
+                ->with('publishedPost', 'menu')
+                ->get();
+        } else {
+            return [];
+        }
     }
 
 function currency_type(){
@@ -96,6 +96,7 @@ function cartItems()
         }
         return $data;
     }
+
 
 function createPostSlug($postTitle)
     {

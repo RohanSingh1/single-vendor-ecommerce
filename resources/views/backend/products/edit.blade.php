@@ -82,27 +82,6 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            {{Form::label('Supplier Name')}}
-                                            <select class="form-control" name="supplier_id">
-                                                @foreach($suppliers as $key)
-                                                    <option value="{{$key->id}}">{{$key->supplier_name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            {{Form::label('Brand Name')}}
-                                            <select class="form-control" name="brand_id">
-                                                @foreach($brand as $key)
-                                                    <option
-                                                        value="{{$key->id}}" {{old('room_status',$key->id) == $product->brand_id ? 'selected' : ''}}>{{$key->brand_name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
                                             {{Form::label('Category Name')}}
                                             <select class="form-control" name="category_id">
                                                 @foreach($categories as $category)

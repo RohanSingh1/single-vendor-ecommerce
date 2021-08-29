@@ -8,6 +8,7 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 
+window.bus = new Vue();
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,10 +20,10 @@ window.Vue = require("vue");
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
+Vue.component("example-component",require("./components/ExampleComponent.vue").default);
+Vue.component("products",require("./components/ProductsComponent.vue").default);
+Vue.component("cart-count",require("./components/CartCount.vue").default)
+Vue.component("cart-detail",require("./components/CartDetail.vue").default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,5 +32,20 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
+    data:{
+        itemCount:0
+    },
+    created(){
+        console.log(this.itemCount);
+
+        bus.$on('add-to-cart',()=>{
+            this.increaseCounter();
+        })
+    },
+    methods:{
+        increaseCounter(now_quantity){
+            return this.itemCount++;
+        }
+    }
 });

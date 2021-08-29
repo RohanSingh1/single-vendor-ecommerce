@@ -113,8 +113,8 @@ class ProductController extends Controller
 
     public function apiProduct()
     {
-        $products = Product::select('id', 'slug', 'name', 'model_no', 'quantity', 'price', 'featured_image', 'supplier_id', 'brand_id', 'is_featured')
-            ->with('brand', 'supplier', 'featuredImage')
+        $products = Product::select('id', 'slug', 'name', 'model_no', 'quantity', 'price', 'featured_image','is_featured')
+            ->with('featuredImage')
             ->orderBy('updated_at')
             ->get();
         return Datatables::of($products)
@@ -123,12 +123,6 @@ class ProductController extends Controller
             })
             ->addColumn('action', function ($product) {
                 return showEditDeleteAction($product->id, 'admin.products');
-            })
-            ->addColumn('brand_name', function ($product) {
-                return '' . $product->brand->brand_name . '';
-            })
-            ->addColumn('suppliers', function ($product) {
-                return '' . $product->supplier->supplier_name . '';
             })
             ->addColumn('image', function ($data) {
                 if ($data->featuredImage) {

@@ -50,13 +50,13 @@
                             <i class="metismenu-state-icon "></i>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.brand.index') }}" class="{{ active(['admin/brand*'], 'mm-active') }}">
                             <i class="metismenu-icon pe-7s-helm"></i>
                             Brands
                             <i class="metismenu-state-icon "></i>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li>
                         <a href="{{ route('admin.category.index') }}"

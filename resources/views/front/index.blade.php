@@ -83,11 +83,12 @@
                 <div class="owl-carousel featured-slider owl-theme">
                     @if($data['featured_products']->count()>0)
                     @foreach ($data['featured_products'] as $featured)
-                    @php $new_price = $featured->price;
-                         $old_price = $featured->old_price;
-                         if($old_price != null || $old_price != 0){
-                            $discount_prices = $old_price-$new_price;
-                            $discount_percentage = $discount_prices*100/$featured->price;
+                    @php  $product_data = [];
+                        $product_data['new_price'] = $featured->price;
+                         $product_data['old_price'] = $featured->old_price;
+                         if($product_data['old_price'] != null || $product_data['old_price'] != 0){
+                            $product_data['discount_prices']  = $product_data['old_price']-$product_data['new_price'];
+                            $product_data['discount_percentage'] = round($product_data['discount_prices']*100/$product_data['new_price']);
                          }
                          if($featured->thumbnailImage()->get() != ''){
                              $p_image = $featured->thumbnailImage()->get()[0]->getURl();
@@ -96,32 +97,15 @@
                          }
                     @endphp
                     <div class="item">
-                        <div class="product-item">
-                            <a href="single_product_view.html" class="product-img">
-                                <img src="{{ $p_image }}" alt="">
-                                <div class="product-absolute-options">
-                                    <span class="offer-badge-1">{{ round($discount_percentage,2) }}% off</span>
-                                    <span class="like-icon" title="wishlist"></span>
-                                </div>
-                            </a>
-                            <div class="product-text-dt">
-                               @if( $featured->quantity >0 )
-                                <p>Available<span>(In Stock)</span></p>
-                                @else
-                                <p>(Out of Stock)</span></p>
-                                @endif
-                                <h4>{{ $featured->name }}</h4>
-                                <div class="product-price">{{ currency_type() }} {{  $old_price }} <span>{{ currency_type() }}{{ $new_price }}</span></div>
-                                <div class="qty-cart">
-                                    <div class="quantity buttons_added">
-                                        <input type="button" value="-" class="minus minus-btn">
-                                        <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                        <input type="button" value="+" class="plus plus-btn">
-                                    </div>
-                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                </div>
-                            </div>
-                        </div>
+                        <products
+                        :product="{{ $featured }}"
+                        :quantity="{{ \Cart::get($featured->id) != null ? \Cart::get($featured->id)->quantity : 1 }}"
+                        :new_price="{{ $product_data['new_price'] }}"
+                         :old_price="{{ $product_data['old_price'] }}"
+                         :discount_prices="{{ $product_data['discount_prices'] }}"
+                         :discount_percentage="{{ $product_data['discount_percentage'] }}"
+                         :p_image="{{ json_encode($p_image) }}"
+                         ></products>
                     </div>
                     @endforeach
                     @endif
@@ -187,47 +171,29 @@
                 <div class="owl-carousel featured-slider owl-theme">
                     @if($data['fresh_products']->count() > 0)
                     @foreach ($data['fresh_products'] as $fresh)
-                    @php
-                    $new_price = $featured->price;
-                    $old_price = $featured->old_price;
-                    if($old_price != null || $old_price != 0){
-                       $discount_prices = $old_price-$new_price;
-                       $discount_percentage = $discount_prices*100/$featured->price;
-                    }
-                    if($featured->thumbnailImage()->get() != ''){
-                        $p_image = $featured->thumbnailImage()->get()[0]->getURl();
-                    }else{
-                        $p_image = $featured->getMedia('products')->get(0)->getURl();
-                    }
-               @endphp
+                    @php  $product_data = [];
+                    $product_data['new_price'] = $featured->price;
+                     $product_data['old_price'] = $featured->old_price;
+                     if($product_data['old_price'] != null || $product_data['old_price'] != 0){
+                        $product_data['discount_prices']  = $product_data['old_price']-$product_data['new_price'];
+                        $product_data['discount_percentage'] = round($product_data['discount_prices']*100/$product_data['new_price']);
+                     }
+                     if($featured->thumbnailImage()->get() != ''){
+                         $p_image = $featured->thumbnailImage()->get()[0]->getURl();
+                     }else{
+                         $p_image = $featured->getMedia('products')->get(0)->getURl();
+                     }
+                @endphp
                     <div class="item">
-                        <div class="product-item">
-                            <a href="single_product_view.html" class="product-img">
-                                <img src="{{ asset('front/images/product/img-11.jpg') }}" alt="">
-                                <div class="product-absolute-options">
-                                    <span class="offer-badge-1">{{ $discount_percentage }}% off</span>
-                                    <span class="like-icon" title="wishlist"></span>
-                                </div>
-                            </a>
-                            <div class="product-text-dt">
-                                @if( $featured->quantity >0 )
-                                <p>Available<span>(In Stock)</span></p>
-                                @else
-                                <p>(Out of Stock)</span></p>
-                                @endif
-                                <h4>{{ $fresh->name }}
-                                <div class="product-price">{{ currency_type() }} {{ $new_price }} <span>
-                                    {{ currency_type() }}{{ $old_price }}</span></div>
-                                <div class="qty-cart">
-                                    <div class="quantity buttons_added">
-                                        <input type="button" value="-" class="minus minus-btn">
-                                        <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                        <input type="button" value="+" class="plus plus-btn">
-                                    </div>
-                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                </div>
-                            </div>
-                        </div>
+                        <products
+                        :product="{{ $fresh }}"
+                        :quantity="{{ \Cart::get($fresh->id) != null ? \Cart::get($fresh->id)->quantity : 1 }}"
+                        :new_price="{{ $product_data['new_price'] }}"
+                         :old_price="{{ $product_data['old_price'] }}"
+                         :discount_prices="{{ $product_data['discount_prices'] }}"
+                         :discount_percentage="{{ $product_data['discount_percentage'] }}"
+                         :p_image="{{ json_encode($p_image) }}"
+                         ></products>
                     </div>
                     @endforeach
                     @endif
@@ -257,11 +223,12 @@
 
                     @if($data['new_products']->count()>0)
                     @foreach ($data['new_products'] as $featured)
-                    @php $new_price = $featured->price;
-                         $old_price = $featured->old_price;
-                         if($old_price != null || $old_price != 0){
-                            $discount_prices = $old_price-$new_price;
-                            $discount_percentage = $discount_prices*100/$featured->price;
+                    @php  $product_data = [];
+                        $product_data['new_price'] = $featured->price;
+                         $product_data['old_price'] = $featured->old_price;
+                         if($product_data['old_price'] != null || $product_data['new_price'] != 0){
+                            $product_data['discount_prices']  = $product_data['old_price']-$product_data['new_price'];
+                            $product_data['discount_percentage'] = round($product_data['discount_prices']*100/$product_data['new_price']);
                          }
                          if($featured->thumbnailImage()->get() != ''){
                              $p_image = $featured->thumbnailImage()->get()[0]->getURl();
@@ -270,32 +237,15 @@
                          }
                     @endphp
                     <div class="item">
-                        <div class="product-item">
-                            <a href="single_product_view.html" class="product-img">
-                                <img src="{{ $p_image }}" alt="">
-                                <div class="product-absolute-options">
-                                    <span class="offer-badge-1">{{ round($discount_percentage,2) }}% off</span>
-                                    <span class="like-icon" title="wishlist"></span>
-                                </div>
-                            </a>
-                            <div class="product-text-dt">
-                               @if( $featured->quantity >0 )
-                                <p>Available<span>(In Stock)</span></p>
-                                @else
-                                <p>(Out of Stock)</span></p>
-                                @endif
-                                <h4>{{ $featured->name }}</h4>
-                                <div class="product-price">{{ currency_type() }} {{  $old_price }} <span>{{ currency_type() }}{{ $new_price }}</span></div>
-                                <div class="qty-cart">
-                                    <div class="quantity buttons_added">
-                                        <input type="button" value="-" class="minus minus-btn">
-                                        <input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-                                        <input type="button" value="+" class="plus plus-btn">
-                                    </div>
-                                    <span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-                                </div>
-                            </div>
-                        </div>
+                        <products
+                        :product="{{ $featured }}"
+                        :quantity="{{ \Cart::get($featured->id) != null ? \Cart::get($featured->id)->quantity : 1 }}"
+                        :new_price="{{ $product_data['new_price'] }}"
+                         :old_price="{{ $product_data['old_price'] }}"
+                         :discount_prices="{{ $product_data['discount_prices'] }}"
+                         :discount_percentage="{{ $product_data['discount_percentage'] }}"
+                         :p_image="{{ json_encode($p_image) }}"
+                         ></products>
                     </div>
                     @endforeach
                     @endif

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @include('front.layouts.head')
+
 </head>
 <body>
-
+    <div id="app">
     <div id="category_model" class="header-cate-model main-gambo-model modal fade" tabindex="-1" role="dialog" aria-modal="false">
         <div class="modal-dialog category-area" role="document">
             <div class="category-area-inner">
@@ -18,78 +20,18 @@
                         <h4>Select Category</h4>
                     </div>
                     <ul class="category-by-cat">
+                        @forelse ($data['categories'] as $category)
                         <li>
                             <a href="#" class="single-cat-item">
                                 <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-1.svg') }}" alt="">
+                                    <img src="{{ asset('storage/uploads/category/'.$category->image) }}" alt="">
                                 </div>
-                                <div class="text"> Fruits and Vegetables </div>
+                                <div class="text">{{ $category->name }}</div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-2.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Grocery & Staples </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-3.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Dairy & Eggs </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-4.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Beverages </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-5.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Snacks </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-6.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Home Care </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-7.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Noodles & Sauces </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-8.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Personal Care </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="single-cat-item">
-                                <div class="icon">
-                                    <img src="{{ asset('front/images/category/icon-9.svg') }}" alt="">
-                                </div>
-                                <div class="text"> Pet Care </div>
-                            </a>
-                        </li>
+                        @empty
+                        No Categories Found
+                        @endforelse
                     </ul>
                     <a href="#" class="morecate-btn"><i class="uil uil-apps"></i>More Categories</a>
                 </div>
@@ -177,7 +119,7 @@
 
     <div class="bs-canvas bs-canvas-left position-fixed bg-cart h-100">
         <div class="bs-canvas-header side-cart-header p-3 ">
-            <div class="d-inline-block  main-cart-title">My Cart <span>(2 Items)</span></div>
+            <div class="d-inline-block  main-cart-title">My Cart <span>({{ \Cart::getContent()->count()  }} Items)</span></div>
             <button type="button" class="bs-canvas-close close" aria-label="Close"><i class="uil uil-multiply"></i></button>
         </div>
         <div class="bs-canvas-body">
@@ -294,7 +236,8 @@
 
 
     @include('front.layouts.footer')
-
+</div>
+<script src="{{ asset('js/app.js') }}"></script>
     @include('front.layouts.scripts')
 </body>
 

@@ -78,30 +78,6 @@
                                 </div>
                             </div>
 
-                            {{--  <div class="col-md-4">
-                                <div class="form-group">
-                                    {{Form::label('Supplier Name')}}
-                                    <select class="form-control" name="supplier_id">
-                                        <option selected disabled>Select Supplier Name</option>
-                                        @foreach($suppliers as $key)
-                                            <option value="{{$key->id}}">{{$key->supplier_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {{Form::label('Brand Name')}}
-                                    <select class="form-control" name="brand_id">
-                                        <option selected disabled>Select Brand Name</option>
-                                        @foreach($brand as $key)
-                                            <option value="{{$key->id}}">{{$key->brand_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>  --}}
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{Form::label('Category Name')}}
