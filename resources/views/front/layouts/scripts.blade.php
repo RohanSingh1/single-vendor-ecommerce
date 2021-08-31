@@ -6,3 +6,6 @@
     <script src="{{ asset('front/js/custom.js') }}"></script>
     <script src="{{ asset('front/js/offset_overlay.js') }}"></script>
     <script src="{{ asset('front/js/night-mode.js') }}"></script>
+    <script src="{{ asset('js/loadingoverlay.min.js') }}"></script>
+    <script src="{{ asset('js/notify.min.js') }}"></script>
+    <script ></script>

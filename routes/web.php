@@ -6,7 +6,16 @@
 //     return view('backend.dashboard');
 // });
 
+use App\Model\Product;
+
 Route::get('test',function(){
+    foreach (\Cart::getContent() as $key => $item) {
+        dump(Cart::getSubTotal());
+        dd(Cart::getTotal());
+    }
+    dd();
+    \Cart::remove([1,2,3,4,5]);
+    dd();
     return view('front.index');
     setcookie('address','fff', time()+360000);
     if(isset($_COOKIE['address']) && !empty($_COOKIE['address'])){
@@ -18,6 +27,12 @@ Route::get('/', 'Front\HomeController@index')->name('index');
 Auth::routes();
 
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
+Route::get('/product/{slug}', 'Front\HomeController@show')->name('product.show');
+//cart
+Route::get('cart', 'Front\CartController@index')->name('front.cart.index');
+Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add');
+Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
+Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
 //requested products
 Route::get('/request_product', 'Front\ContactUsController@requested_product')->name('requested_product.create');
@@ -25,7 +40,6 @@ Route::post('/requested_product/store', 'Front\ContactUsController@store_request
 
 Route::post('/product_feedback/store', 'Front\ProductController@store_customer_feedback')->name('customer_feedback.store');
 
-Route::get('/product/{slug}', 'Front\ProductController@show')->name('product.show');
 Route::get('/product/{slug}/{email}/{token}', 'Front\ProductDownloadController@index')->name('product.download.show');
 Route::post('/newsletter/store', 'Front\HomeController@newsletter')->name('newsletter.store');
 

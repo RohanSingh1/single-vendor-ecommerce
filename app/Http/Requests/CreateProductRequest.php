@@ -31,8 +31,6 @@ class CreateProductRequest extends FormRequest
             'quantity' => 'nullable|string|max:255',
             'model_no' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
-            'brand_id' => 'required',
-            'supplier_id' => 'required',
             'category_id' => 'required',
             'description' => 'nullable|string|max:1699999',
         ];

@@ -86,11 +86,13 @@
                                     <i class="fa fa-folder-open"></i>Upload Featured Image
                                     {{Form::file('image[]',['accept'=>"image/*",'id'=>'featureImage','class'=>'form-control', 'onchange'=>'loadFile(event)','multiple'])}}
                                 </span>
-                                    <img id="preview" width="230px" class="show-img-bg">
+                                <img id="preview" width="230px" class="show-img-bg">
+                                @if($product->image !='')
                                     <img id="oldFeatureImage" width="230px" src="{{asset($product->image)}}"
                                          class="show-img-bg">
+                                         @endif
                                 </div>
-                                
+
                                 <input type="hidden" name="uploadType" value="image">
                                 <div class="col-sm-3 form-group">
                                     <label for="formid4" class="d-block">Publish</label>

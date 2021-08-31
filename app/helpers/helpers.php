@@ -11,6 +11,39 @@ use App\Model\WishList;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
+function product_image($product){
+    if (count($product->thumbnailImage()->get()) > 0) {
+        $p_image = $product
+            ->thumbnailImage()
+            ->get()[0]
+            ->getURl();
+    } elseif ($product->getMedia('products')->get(0) != null) {
+        $p_image = $product
+            ->getMedia('products')
+            ->get(0)
+            ->getURl();
+    } else {
+        $p_image = 'storage/defaults.png';
+    }
+    return $p_image;
+}
+
+function product_price($product,$data,$currency=false){
+    $p_data = [];
+    $p_data['new_price'] = $product->price;
+    $p_data['old_price'] = $product->old_price;
+    if ($p_data['old_price'] != null || $p_data['old_price'] != 0) {
+        $p_data['discount_prices'] = $p_data['old_price'] - $p_data['new_price'];
+        $p_data['discount_percentage'] = round(($p_data['discount_prices']  * 100) / $p_data['new_price']);
+    }
+    if($data !='discount_percentage' && $currency){
+        return currency_type().' '.$p_data[$data];
+
+    }else{
+        return $p_data[$data];
+    }
+}
+
 function footerMenu($menu)
     {
         $menuId = Menu::whereSlug($menu)->active()->first();

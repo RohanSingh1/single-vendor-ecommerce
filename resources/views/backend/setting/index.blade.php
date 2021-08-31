@@ -79,7 +79,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 1<em
+                                            <label class="control-label">Product Detail Info 1<em
                                                     class="asterisk">*</em></label>
                                             <input type="text" name="front_info1"
                                                    value="{{old('front_info1')?? $front_info1->text ?? ''}}"
@@ -87,7 +87,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 2<em
+                                            <label class="control-label">Product Detail Info 2<em
                                                     class="asterisk">*</em></label>
                                             <input type="text" name="front_info2"
                                                    value="{{old('front_info2')?? $front_info2->text ?? ''}}"

@@ -109,21 +109,21 @@
                             <div class="col-md-3">
                                 <div class="position-relative form-check">
                                     <label for="is_fresh" class="form-check-label">Is Fresh</label><br>
-                                    <input type="checkbox" name="is_fresh" value="1" {{ old('is_featured') == 1 ? 'checked' : '' }}>
+                                    <input type="checkbox" name="is_fresh" value="1" {{ old('is_fresh') == 1 ? 'checked' : '' }}>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {{Form::label('Short Description')}}
-                                    {{Form::textarea('short_desc','',['class'=>'form-control'])}}
+                                    {{Form::textarea('short_desc',old('short_desc'),['class'=>'form-control'])}}
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {{Form::label('Description')}}
-                                    {{Form::textarea('description','',['class'=>'form-control','id'=>'ckeditor'])}}
+                                    {{Form::textarea('description',old('description'),['class'=>'form-control','id'=>'ckeditor'])}}
                                 </div>
                             </div>
                         </div>
