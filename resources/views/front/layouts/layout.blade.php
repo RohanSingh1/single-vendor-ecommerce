@@ -153,8 +153,8 @@
         $('#search').click(function(){
         var query = $('#search_now').val();
             if (query != '') {
-                var url = '{{ route("search", ":search") }}';
-                    url = url.replace(':search', query);
+                var url = '{{ route("search") }}';
+                    url = url+'?query='+query;
                     window.location.href=url;
         } else {
             $.notify('Type The Product Initials To Search','info');

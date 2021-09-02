@@ -35,8 +35,8 @@ Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.ca
 Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
 //search
-   Route::post('search', 'Front\HomeController@search_now')->name('search_now');
-   Route::get('search/{search}','Front\HomeController@search_now')->name('search');
+   Route::post('search_now', 'Front\HomeController@search_now')->name('search_now');
+   Route::get('search','Front\HomeController@search_now')->name('search');
 
 //requested products
 Route::get('/request_product', 'Front\ContactUsController@requested_product')->name('requested_product.create');
@@ -48,7 +48,6 @@ Route::get('/product/{slug}/{email}/{token}', 'Front\ProductDownloadController@i
 Route::post('/newsletter/store', 'Front\HomeController@newsletter')->name('newsletter.store');
 
 Route::group(['namespace' => 'Front'], function () {
-    Route::get('/search/{categoryId?}{q?}', 'SearchProductController@index')->name('search-results');
     Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
     Route::post('/no-products', 'RequestProductController@store')->name('no-products.store');

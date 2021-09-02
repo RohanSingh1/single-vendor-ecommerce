@@ -48,9 +48,9 @@ class HomeController extends BaseController
     }
 
     public function search_now(Request $request){
-        $query_data = ucwords(str_replace('-', ' ', $request['query']));
-        $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->get();
-        if ($request->ajax('post')){
+        $query_data = $request->get('query');
+        if ($request->ajax()){
+            $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->get();
             $response['html'] = '<div class="lists_here"><ul class="dropdown-menu search_list" style="display:block;position:relative;width:529px;margin-top:36px;margin-left:1px;">';
             foreach($data as $search){
                 $router = \URL::to('product',$search->slug);
@@ -64,9 +64,9 @@ class HomeController extends BaseController
             }
             $response['html'] .= '</ul></div>';
             return response()->json(json_encode($response));
-            }else{
-                $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->paginate(4);
-                return view(parent::loadViewData('front.pages.search_result'),compact('data'));
+        }else{
+            $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->paginate(4);
+                return view(parent::loadViewData('front.pages.search_result'),compact('data','query_data'));
             }
 
     }
