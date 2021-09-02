@@ -49,7 +49,7 @@
                     <div class="owl-carousel cate-slider owl-theme">
                         @forelse ($categories as $category)
                             <div class="item">
-                                <a href="#" class="category-item">
+                                <a href="{{ route('category.show',$category->slug) }}" class="category-item">
                                     <div class="cate-img">
                                         <img src="{{ asset('storage/uploads/category/' . $category->image) }}" alt="">
                                     </div>
@@ -101,8 +101,8 @@
                                         @endif
                                         <h4>{{ $product->name }}</h4>
                                         <div class="product-price">
-                                            {{ currency_type() .' '.product_price($product,'new_price') }}<span>
-                                            {{ currency_type() .' '.product_price($product,'old_price') }}</span>
+                                            {{ product_price($product,'new_price',true) }}<span>
+                                            {{ product_price($product,'old_price',true) }}</span>
                                         </div>
                                         <div class="qty_section qty-cart">
                                             <div class="quantity buttons_added">
@@ -200,8 +200,8 @@
                                         @endif
                                         <h4>{{ $product->name }}</h4>
                                         <div class="product-price">
-                                            {{ currency_type() .' '.product_price($product,'new_price') }}<span>
-                                            {{ currency_type() .' '.product_price($product,'old_price') }}</span>
+                                            {{ product_price($product,'new_price',true) }}<span>
+                                            {{ product_price($product,'old_price',true) }}</span>
                                         </div>
                                         <div class="qty_section qty-cart">
                                             <div class="quantity buttons_added">
@@ -260,8 +260,8 @@
                                                 @endif
                                                 <h4>{{ $product->name }}</h4>
                                                 <div class="product-price">
-                                                    {{ currency_type() .' '.product_price($product,'new_price') }}<span>
-                                                    {{ currency_type() .' '.product_price($product,'old_price') }}</span>
+                                                    {{ product_price($product,'new_price',true) }}<span>
+                                                    {{ product_price($product,'old_price',true) }}</span>
                                                 </div>
                                                 <div class="qty_section qty-cart">
                                                     <div class="quantity buttons_added">
@@ -287,76 +287,3 @@
     </div>
 @endsection
 
-@push('scripts')
-
-<script>
-    $('#app').on('click', '.add-to-cart-btn', function () {
-        var $this = $(this);
-        var slug = $this.attr('attr-slug');
-        $this.prop('disabled', true);
-        setTimeout(() => {
-            var quantity = $this.closest('.qty_section').find('.now_quantity').val();
-            console.log(quantity);
-        $.ajax({
-            method: 'POST',
-            url: '{{ route('front.cart.add') }}',
-            data: {
-                _token: '{{ csrf_token() }}',
-                slug: slug,
-                quantity: quantity,
-            },
-            beforeSend:function(){
-                $('.qty_section').LoadingOverlay("show");
-                },
-            success: function (response) {
-                var data = $.parseJSON(response);
-                if (data.error) {
-                    $.notify(data.message,'error');
-                    $('.session_message').html(data.message + "<br>");
-                } else {
-                    console.log('success');
-                    $('#cart-item-wrapper').html(data.html);
-                    $('.session_message').html(data.message + "<br>");
-                        $('.cart_total').html(data.data.cart_total);
-                        $('.cart_total_qty').html(data.data.cart_total_qty);
-                    $.notify(data.message,'success');
-
-                }
-            },
-            complete:function(){
-                $('.qty_section').LoadingOverlay("hide");
-        $this.prop('disabled', false);
-                }
-        });
-        }, 1000);
-
-
-    });
-
-    $('#app').on('click', '.remove_items', function () {
-        var product_id = $(this).attr('attr_id');
-        var $this = $(this);
-        $.ajax({
-            method:'POST',
-            url:'{{ route('front.cart.destroy') }}',
-            data:{
-                _token:'{{ csrf_token() }}',
-                product_id:product_id,
-            },
-            success:function(response){
-                var data = $.parseJSON(response);
-                if(data.error){
-                    $.notify(data.message,'success');
-                }else{
-                    $('.cart_total').html(data.data.cart_total);
-                    $('.cart_total_qty').html(data.data.cart_total_qty);
-                    $this.closest('.cart-item').remove();
-                }
-            },
-            complete:function(){
-            }
-        });
-    });
-
-</script>
-@endpush

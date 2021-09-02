@@ -17,8 +17,6 @@ class BaseController extends Controller
             $view->with('cart_total',Cart::getTotal());
             $view->with('cart_total_qty',Cart::getContent()->count());
             $view->with('categories', Category::where('parent_id',0)->get());
-            $view->with('images_path',asset('storage/Uploads/'));
-            $view->with('images',asset('storage/Uploads/'));
             $view->with('current_route',$route = \Route::currentRouteName());
         });
         return $path;

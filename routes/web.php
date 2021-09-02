@@ -34,6 +34,10 @@ Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add
 Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
 Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
+//search
+   Route::post('search', 'Front\HomeController@search_now')->name('search_now');
+   Route::get('search/{search}','Front\HomeController@search_now')->name('search');
+
 //requested products
 Route::get('/request_product', 'Front\ContactUsController@requested_product')->name('requested_product.create');
 Route::post('/requested_product/store', 'Front\ContactUsController@store_requested_product')->name('requested_product.store')->middleware('auth');

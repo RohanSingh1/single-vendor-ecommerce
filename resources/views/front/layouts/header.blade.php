@@ -2,63 +2,23 @@
     <div class="top-header-group">
         <div class="top-header">
             <div class="res_main_logo">
-                <a href="index.html"><img src="{{ asset('front/images/dark-logo-1.svg') }}" alt=""></a>
+                <a href="{{ route('index') }}"><img src="{{ asset('front/images/dark-logo-1.svg') }}" alt=""></a>
             </div>
             <div class="main_logo" id="logo">
-                <a href="index.html"><img src="{{ asset('front/images/logo.svg') }}" alt=""></a>
-                <a href="index.html"><img class="logo-inverse" src="{{ asset('front/images/dark-logo.svg') }}" alt=""></a>
+                <a href="{{ route('index') }}"><img src="{{ asset('front/images/logo.svg') }}" alt=""></a>
+                <a href="{{ route('index') }}"><img class="logo-inverse" src="{{ asset('front/images/dark-logo.svg') }}" alt=""></a>
             </div>
-            <div class="select_location">
-                <div class="ui inline dropdown loc-title">
-                    <div class="text">
-                        <i class="uil uil-location-point"></i>
-                        Gurugram
-                    </div>
-                    <i class="uil uil-angle-down icon__14"></i>
-                    <div class="menu dropdown_loc">
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Gurugram
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            New Delhi
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Bangaluru
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Mumbai
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Hyderabad
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Kolkata
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Ludhiana
-                        </div>
-                        <div class="item channel_item">
-                            <i class="uil uil-location-point"></i>
-                            Chandigrah
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="search120">
                 <div class="ui search">
                     <div class="ui left icon input swdh10">
-                        <input class="prompt srch10" type="text" placeholder="Search for products..">
-                        <i class='uil uil-search-alt icon icon1'></i>
+                        <input class="prompt srch10" type="text" id="search_now"  placeholder="Search for products..">
+                        <button class="btn btn-success search-button" id="search"><i class='uil uil-search-alt icon icon1'></i></button>
+                        <div class="search_list" style="position:absolute"></div>
                     </div>
                 </div>
             </div>
+
             <div class="header_right">
                 <ul>
                     <li>

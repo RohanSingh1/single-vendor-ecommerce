@@ -8,7 +8,6 @@ use App\Model\Menu;
 use App\Model\MenuItem;
 use App\Model\Product;
 use App\Model\WishList;
-use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 function product_image($product){
@@ -17,13 +16,19 @@ function product_image($product){
             ->thumbnailImage()
             ->get()[0]
             ->getURl();
-    } elseif ($product->getMedia('products')->get(0) != null) {
+    } elseif (count($product->featuredImage()->get())  > 0) {
+       $p_image = $product
+       ->featuredImage()
+       ->get()[0]
+       ->getURl();
+    }
+    elseif ($product->getFirstMedia() != null) {
         $p_image = $product
             ->getMedia('products')
             ->get(0)
             ->getURl();
     } else {
-        $p_image = 'storage/defaults.png';
+        $p_image = asset('storage/defaults.png');
     }
     return $p_image;
 }

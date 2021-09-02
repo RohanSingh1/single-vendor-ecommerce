@@ -46,4 +46,28 @@ class HomeController extends BaseController
         $request->session()->flash('success','Thank you for subscribing to our News Letter');
         return redirect()->route('index');
     }
+
+    public function search_now(Request $request){
+        $query_data = ucwords(str_replace('-', ' ', $request['query']));
+        $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->get();
+        if ($request->ajax('post')){
+            $response['html'] = '<div class="lists_here"><ul class="dropdown-menu search_list" style="display:block;position:relative;width:529px;margin-top:36px;margin-left:1px;">';
+            foreach($data as $search){
+                $router = \URL::to('product',$search->slug);
+                $response['html'] .= '<li><a href="'.$router.'" style="display: flex;font-size: 14px;padding: 2px 15px;text-decoration: none;font-weight: 400;color: black;"><div style="width: 50%;float:left;">
+                <span class="p-title"> '.ucwords(str_replace('-', ' ', $search->slug)).ucwords(str_replace('-', ' ',isset($cats) ? '<span style="color: #ff6f61"> In ' .$cats->slug.'</span>' : '')).'</span><br></div><div style="/* float:right; */text-align: right;width: 50%;"><div><span class="">MRP  </span>
+                <span class="">'.$search->price.'</span></div><div></div></div></a></li><div class="clearfix"></div>';
+            }
+            if(count($data) == 0){
+                $response['html'] .= '<li style="display: flex;font-size: 14px;padding: 2px 15px;text-decoration: none;font-weight: 400;color: black;">No Product Found
+                </li>';
+            }
+            $response['html'] .= '</ul></div>';
+            return response()->json(json_encode($response));
+            }else{
+                $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->paginate(4);
+                return view(parent::loadViewData('front.pages.search_result'),compact('data'));
+            }
+
+    }
 }
