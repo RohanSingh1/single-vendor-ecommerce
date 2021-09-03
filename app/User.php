@@ -68,7 +68,7 @@ class User extends Authenticatable
         return $this->hasMany(SettingsUser::class);
     }
 
-    public function coupons(){
-        return $this->hasMany(Coupon::class);
-    }
+    public function addresses() {
+		return $this->hasMany( Address::class );
+	}
 }

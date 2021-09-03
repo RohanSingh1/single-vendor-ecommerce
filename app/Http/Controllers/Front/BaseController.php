@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\Product;
+use App\Model\Setting;
 use View;
 use Cart;
 
@@ -18,6 +19,8 @@ class BaseController extends Controller
             $view->with('cart_total_qty',Cart::getContent()->count());
             $view->with('categories', Category::where('parent_id',0)->get());
             $view->with('current_route',$route = \Route::currentRouteName());
+            $view->with('delivery_price',Setting::select('id', 'text')->where('slug','shipping_price')
+            ->where('text', '!=', '')->first()['text'] ?? '');
         });
         return $path;
     }

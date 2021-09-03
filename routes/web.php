@@ -34,6 +34,15 @@ Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add
 Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
 Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
+//shipping address
+
+Route::post('/addShippingAddress', 'Front\AddressController@addShippingAddress')->name('addShippingAddress');
+Route::post('/addBillingAddress', 'Front\AddressController@addBillingAddress')->name('addBillingAddress');
+
+//checkouts
+Route::get('checkout','Front\CheckoutController@checkout')->name('checkout');
+Route::post('checkout','Front\CheckoutController@checkoutStore')->name('checkout.store');
+
 //search
    Route::post('search_now', 'Front\HomeController@search_now')->name('search_now');
    Route::get('search','Front\HomeController@search_now')->name('search');

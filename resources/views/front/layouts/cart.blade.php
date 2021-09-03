@@ -11,14 +11,11 @@
             </div> --}}
             <div class="cart-total-dil pt-2">
                 <h4>Delivery Charges</h4>
-                <span>{{ currency_type().'. '. \App\Model\Setting::select('id', 'text')->where('slug','shipping_price')
-                    ->where('text', '!=', '')->first()['text'] ?? '' }}</span>
+                <span>{{ currency_type().$delivery_price }}</span>
             </div>
         </div>
         <div class="side-cart-items">
-            @php
-                $savings = 0;
-            @endphp
+            @php $savings = 0; @endphp
             @if (Cart::getContent()->count() > 0)
             @foreach($cart as $key=>$cart_item)
             @php
@@ -58,10 +55,9 @@
                             <input type="number" step="1" name="quantity" class="input-text now_quantity qty text "
                             name="quantity" min="1" value="{{ $cart_item->quantity }}">
                             <input type="button" value="+" class="plus plus-btn add-to-cart-btn" attr-slug="{{ $cart_item->product->slug }}">
-
                         </div>
-                        <div class="cart-item-price">{{ currency_type().' '.$cart_item->product->price }}<span>
-                            {{ currency_type().' '.$cart_item->product->old_price }}</span></div>
+                        <div class="cart-item-price">{{ product_price($cart_item->product,'new_price',true) }}<span>
+                            {{ product_price($cart_item->product,'old_price',true) }}</span></div>
                     </div>
                     <button type="button" class="cart-close-btn remove_items" attr_id="{{ $cart_item->id }}"><i class="uil uil-multiply"></i></button>
                 </div>
@@ -82,8 +78,9 @@
             <span>{{currency_type().' '.$cart_total }}</span>
         </div>
         <div class="checkout-cart">
-            <a href="#" class="promo-code">Have a promocode?</a>
-            <a href="#" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+
+            <a href="{{ route('checkout') }}" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+
         </div>
     </div>
 </div>
