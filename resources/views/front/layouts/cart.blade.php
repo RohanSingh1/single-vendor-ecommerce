@@ -9,10 +9,12 @@
                 <h4>Gambo Super Market</h4>
                 <span>$34</span>
             </div> --}}
+             @if (Cart::getContent()->count() > 0)
             <div class="cart-total-dil pt-2">
                 <h4>Delivery Charges</h4>
                 <span>{{ currency_type().$delivery_price }}</span>
             </div>
+            @endif
         </div>
         <div class="side-cart-items">
             @php $savings = 0; @endphp
@@ -68,6 +70,7 @@
                 @endif
         </div>
     </div>
+             @if (Cart::getContent()->count() > 0)
     <div class="bs-canvas-footer">
         <div class="cart-total-dil saving-total ">
             <h4>Total Saving</h4>
@@ -83,4 +86,5 @@
 
         </div>
     </div>
+    @endif
 </div>
