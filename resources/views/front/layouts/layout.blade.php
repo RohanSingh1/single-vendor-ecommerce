@@ -4,6 +4,11 @@
     @include('front.layouts.head')
 
     @stack('css')
+    <style>
+        .cart-btn{
+            margin-top:4px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -104,7 +109,6 @@
                 } else {
                     console.log('success');
                     $('#cart-item-wrapper').html(data.html);
-                    $('.session_message').html(data.message + "<br>");
                         $('.cart_total').html(data.data.cart_total);
                         $('.cart_total_qty').html(data.data.cart_total_qty);
                     $.notify(data.message,'success');
@@ -117,8 +121,6 @@
                 }
         });
         }, 1000);
-
-
     });
 
     $('#app').on('click', '.remove_items', function () {
@@ -147,6 +149,7 @@
     });
 
     $(document).ready(function () {
+
         $('#app').click(function(){
             $('.lists_here').remove();
         });
@@ -186,6 +189,35 @@
             $('.lists_here').remove();
         }
         });
+
+        $('.add-to-wishlists').click(function () {
+        var product_id = $(this).attr('attr-id');
+        var slug = $(this).attr('attr-slug');
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('front.wishlist.store') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    product_id: product_id,
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response);
+                    console.log(data);
+                    if (data.error) {
+                        $.notify(data.message,'info');
+                    } else {
+                        $.notify(data.message,'success');
+                    }
+                },
+                error: function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                $.notify("Login To Add Items On Wishlists",'info');
+                var url = "{{ route('login') }}";
+                url = url+'?redirect-to='+slug;
+                location.href = url;
+                }
+            });
+    });
 
     });
 

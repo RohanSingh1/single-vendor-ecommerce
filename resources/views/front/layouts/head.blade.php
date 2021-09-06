@@ -3,9 +3,9 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Gambo - Index</title>
+    <title>{{ $site_title }} - Index</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('front/images/fav.png') }}">
+    <link rel="icon" type="image/png" href="{{asset($favicon->file)}}">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     <link href="{{ asset('front/vendor/unicons-2.0.1/css/unicons.css') }}" rel='stylesheet'>

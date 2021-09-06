@@ -1,60 +1,97 @@
-@extends('frontend.layouts.master')
-@section('page_name')
-    <span class="breadcrumb-item active">Login</span>
-    @endsection
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
 
-    <div id="main-inner-page">
+<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Gambo - Sign In</title>
+
+    <link rel="icon" type="image/png" href="images/fav.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link href='vendor/unicons-2.0.1/css/unicons.css' rel='stylesheet'>
+    <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/night-mode.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/step-wizard.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('front/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/OwlCarousel/assets/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('front/vendor/semantic/semantic.min.css') }}">
+</head>
+
+<body>
+    <div class="sign-inup">
         <div class="container">
-            <div id="login-page">
-                <h2 class="home-heading text-center">
-                    Login
-                </h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="needs-validation main-form"  method="POST" action="{{ route('login') }}">
-                                @csrf
-                                    <!--  -->
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">Username or email address *</label>
-                                            <input type="text" class="form-control mb-3 mb-md-0 {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="email"  required>
-                                            @if ($errors->has('email'))
-                                                <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('email') }}</strong>
-                                                    </span>
-                                            @endif
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="sign-form">
+                        <div class="sign-inner">
+                            <div class="sign-logo" id="logo">
+                                <a href="index.html"><img src="{{ asset('front/images/logo.svg') }}" alt=""></a>
+                                <a href="index.html"><img class="logo-inverse"
+                                        src="{{ asset('fornt/images/dark-logo.svg') }}" alt=""></a>
+                            </div>
+                            <div class="form-dt">
+                                <div class="form-inpts checout-address-step">
+                                    <form action="{{ route('login') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="redirect-to" value="{{ request()->has('redirect-to') ? request()->get('redirect-to') :'' }}">
+                                        @include('front.layouts.session_messages')
+                                        @include('front.layouts.form_messages')
+                                        <div class="form-title">
+                                            <h6>Sign In</h6>
                                         </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">Password *</label>
-                                            <input type="password" class="form-control mb-3 mb-md-0 {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="" required>
-                                            @if ($errors->has('password'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                            @endif
+                                        <div class="form-group pos_rel">
+                                            <input id="phone[number]" name="email" type="text"
+                                                placeholder="Enter Phone Number" class="form-control lgn_input"
+                                                required="">
+                                            <i class="uil uil-mobile-android-alt lgn_icon"></i>
                                         </div>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input type="checkbox"  name="remember" id="remember" class="form-check-input"  {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="Check1">Remember me</label>
-                                    </div>
-
-                                    <!--  -->
-                                    <button type="submit" class="btn">
-                                        Login
-                                    </button>
-                                </form>
+                                        <div class="form-group pos_rel">
+                                            <input id="password1" name="password" type="password"
+                                                placeholder="Enter Password" class="form-control lgn_input" required="">
+                                            <i class="uil uil-padlock lgn_icon"></i>
+                                        </div>
+                                        <button class="login-btn hover-btn" type="submit">Sign In Now</button>
+                                    </form>
+                                </div>
+                                <div class="password-forgor">
+                                    <a href="forgot_password.html">Forgot Password?</a>
+                                </div>
+                                <div class="signup-link">
+                                    <p>Don't have an account? - <a href="{{ route('register') }}">Sign Up Now</a></p>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="copyright-text text-center mt-3">
+                        <i class="uil uil-copyright"></i>Copyright 2020 <b>Gambolthemes</b> . All rights reserved
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+
+    <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('front/vendor/OwlCarousel/owl.carousel.js') }}"></script>
+    <script src="{{ asset('front/vendor/semantic/semantic.min.js') }}"></script>
+    <script src="{{ asset('front/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('front/js/custom.js') }}"></script>
+    <script src="{{ asset('front/js/product.thumbnail.slider.js') }}"></script>
+    <script src="{{ asset('front/js/offset_overlay.js') }}"></script>
+    <script src="{{ asset('front/js/night-mode.js') }}"></script>
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+
+</html>

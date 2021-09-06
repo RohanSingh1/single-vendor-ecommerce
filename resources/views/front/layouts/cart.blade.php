@@ -52,11 +52,15 @@
                     </div> --}}
                     <div class="qty-group">
                         <div class="quantity buttons_added qty_section">
-
-                            <input type="button" value="-" class="minus minus-btn add-to-cart-btn" attr-slug="{{ $cart_item->product->slug }}">
+                            <input type="button" value="-" class="minus minus-btn" attr-slug="{{ $cart_item->product->slug }}">
                             <input type="number" step="1" name="quantity" class="input-text now_quantity qty text "
                             name="quantity" min="1" value="{{ $cart_item->quantity }}">
-                            <input type="button" value="+" class="plus plus-btn add-to-cart-btn" attr-slug="{{ $cart_item->product->slug }}">
+                            <input type="button" value="+" class="plus plus-btn" attr-slug="{{ $cart_item->product->slug }}">
+                            <button class="btn-xs btn-success add-to-cart-btn add-to-cart-btn cart-btn" title="Add To Cart" attr-slug="{{$cart_item->product->slug }}"
+                                attr-wishlist_id="{{ $cart_item->id }}" attr-id="{{ $cart_item->product->id }}"
+                                attr-slug="{{ $cart_item->product->slug }}" name="add-to-cart" title="Add to Carts">
+                                <i class="uil uil-shopping-cart-alt"></i>
+                            </button>
                         </div>
                         <div class="cart-item-price">{{ product_price($cart_item->product,'new_price',true) }}<span>
                             {{ product_price($cart_item->product,'old_price',true) }}</span></div>

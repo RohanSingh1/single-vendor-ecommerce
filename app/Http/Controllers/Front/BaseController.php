@@ -19,8 +19,16 @@ class BaseController extends Controller
             $view->with('cart_total_qty',Cart::getContent()->count());
             $view->with('categories', Category::where('parent_id',0)->get());
             $view->with('current_route',$route = \Route::currentRouteName());
+            $view->with('site_title',Setting::select('id', 'text')->where('slug', 'site_title')->first()['text']);
             $view->with('delivery_price',Setting::select('id', 'text')->where('slug','shipping_price')
             ->where('text', '!=', '')->first()['text'] ?? '');
+            $view->with('phone_no',get_general_settings_text('phone_no') != ''
+            ?get_general_settings_text('phone_no')->text:'');
+            $view->with('email',get_general_settings_text('ac_email') != ''
+            ?get_general_settings_text('ac_email')->text:'');
+            $view->with('favicon',Setting::select('id', 'file')->where('slug', 'favicon')->first());
+            $view->with('site_logo_1',Setting::select('id', 'file')->where('slug', 'favicon')->first());
+            $view->with('site_logo_2',Setting::select('id', 'file')->where('slug', 'favicon')->first());
         });
         return $path;
     }

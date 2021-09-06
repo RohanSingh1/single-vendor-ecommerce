@@ -2,11 +2,14 @@
     <div class="top-header-group">
         <div class="top-header">
             <div class="res_main_logo">
-                <a href="{{ route('index') }}"><img src="{{ asset('front/images/dark-logo-1.svg') }}" alt=""></a>
+                <a href="{{ route('index') }}"><img src="{{asset($site_logo_1->file)}}" alt="{{$site_title}}"></a>
             </div>
             <div class="main_logo" id="logo">
-                <a href="{{ route('index') }}"><img src="{{ asset('front/images/logo.svg') }}" alt=""></a>
-                <a href="{{ route('index') }}"><img class="logo-inverse" src="{{ asset('front/images/dark-logo.svg') }}" alt=""></a>
+                <a href="{{ route('index') }}">
+                    <img src="{{ asset($site_logo_1->file) }}" alt="{{$site_title}}">
+                </a>
+                <a href="{{ route('index') }}"><img class="logo-inverse"
+                     src="{{ asset($site_logo_2->file) }}" alt="{{$site_title}}"></a>
             </div>
 
             <div class="search120">
@@ -20,12 +23,11 @@
             </div>
 
             <div class="header_right">
+
+
                 <ul>
                     <li>
-                        <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>
-                            @if(get_general_settings_text('phone_no') != '')
-                            {{get_general_settings_text('phone_no')
-                            ?get_general_settings_text('phone_no')->text:''}}@endif</a>
+                        <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>{{ $phone_no }}</a>
                     </li>
                     <li>
                         <a href="offers.html" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
@@ -33,13 +35,17 @@
                     <li>
                         <a href="faq.html" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
                     </li>
+                    @if(auth()->check())
                     <li>
-                        <a href="dashboard_my_wishlist.html" class="option_links" title="Wishlist"><i class='uil uil-heart icon_wishlist'></i><span class="noti_count1">3</span></a>
+                        <a href="{{ route('front.wishlists') }}" class="option_links" title="Wishlist">
+                            <i class='uil uil-heart icon_wishlist'></i>
+                            <span class="noti_count1">{{ auth()->user()->mywishlists->count() }}</span></a>
                     </li>
+
                     <li class="ui dropdown">
                         <a href="#" class="opts_account">
                             <img src="{{ asset('front/images/avatar/img-5.jpg') }}" alt="">
-                            <span class="user__name">John Doe</span>
+                            <span class="user__name">{{ auth()->user()->name }}</span>
                             <i class="uil uil-angle-down"></i>
                         </a>
                         <div class="menu dropdown_account">
@@ -51,17 +57,30 @@
                                     </span>
                                 </a>
                             </div>
-                            <a href="dashboard_overview.html" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a>
-                            <a href="dashboard_my_orders.html" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
-                            <a href="dashboard_my_wishlist.html" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
-                            <a href="dashboard_my_wallet.html" class="item channel_item"><i class="uil uil-usd-circle icon__1"></i>My Wallet</a>
+
+                            <a href="{{ route('front.dashboard') }}" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a>
+                            <a href="{{ route('front.myorders') }}" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
+                            <a href="{{ route('front.wishlists') }}" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
                             <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
                             <a href="offers.html" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
-                            <a href="faq.html" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
-                            <a href="sign_in.html" class="item channel_item"><i class="uil uil-lock-alt icon__1"></i>Logout</a>
+                            <a href="{{ route('faqs.index') }}" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
+                            <a href="{{ route('logout') }}" class="item channel_item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="uil uil-lock-alt icon__1"></i>{{ __('Logout') }}</a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
                         </div>
                     </li>
+                    @else
+                    <li>
+                        <a href="{{ route('login') }}" class="item channel_item btn btn-info">Login</a>
+                    </li>
+                    @endif
                 </ul>
+
+
             </div>
         </div>
     </div>

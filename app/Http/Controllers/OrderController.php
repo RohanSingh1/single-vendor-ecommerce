@@ -29,7 +29,7 @@ class OrderController extends Controller
            return $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email;
         })
         ->addColumn('order_assigned_to', function ($data) {
-            return $data->delivery_boy->name;
+            return isset($data->delivery_boy) ? $data->delivery_boy->name : 'Not Assigned';
          })
         ->editColumn('currency_type', function($data) {
                 return ucwords($data->currency_type);

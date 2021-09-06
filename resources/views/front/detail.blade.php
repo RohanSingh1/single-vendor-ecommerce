@@ -1,5 +1,11 @@
 @extends('front.layouts.layout')
-
+@push('css')
+<style>
+    .session_messages{
+        color:red
+    }
+</style>
+@endpush
 @section('content')
 @php
     $category = end($product->categories);
@@ -98,8 +104,10 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li><span class="like-icon save-icon" title="wishlist"></span></li>
+                                            <li><span class="like-icon save-icon add-to-wishlists"  attr-id="{{ $product->id }}"
+                                                 attr-slug="{{ $product->slug }}" title="wishlist"></span></li>
                                         </ul>
+                                        <span class="session_messages"></span>
                                         <ul class="ordr-crt-share">
                                             <li><button class="add-cart-btn hover-btn add-to-cart-btn" attr-slug="{{ $product->slug }}">
                                                 <i class="uil uil-shopping-cart-alt"></i>Add to Cart</button></li>

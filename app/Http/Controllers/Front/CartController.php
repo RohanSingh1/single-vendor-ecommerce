@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Model\Product;
 use App\Model\Setting;
+use App\Model\WishList;
 use Illuminate\Http\Request;
 use Cart;
 
@@ -51,6 +52,9 @@ class CartController extends BaseController
             'cart_total'=> Cart::getSubTotal(),'total'=> $total,'shipping'=>$shipping,'session'=>cartItems()];
             $response['message'] = 'Success The Product ('.$product->name.') Has Been Added To Cart';
             $response['html'] = view(parent::loadViewData('front.layouts.cart'))->render();
+            if($request->has('from') && $request->from == 'wishlists'){
+                WishList::destroy($request->wishlist_id);
+            }
             return response()->json(json_encode($response));
         }catch (Exception $exception){
             \Log::alert('at product add cart '.$exception->getMessage());

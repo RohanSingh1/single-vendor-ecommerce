@@ -1,13 +1,4 @@
 @extends('backend.layouts.master')
-@section('styles')
-<style>
-    .f_price{
-        color:seagreen;
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>
-@endsection
 @section('content')
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -17,8 +8,8 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Show Order
-                <div class="page-title-subheading">Show Order here
+            <div>Deal Details
+                <div class="page-title-subheading">Showing Deal Details here
                 </div>
             </div>
         </div>
@@ -32,24 +23,20 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                        Order Details
+                    Deal Details
                 </div>
             </div>
             <div class="card-body">
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <h2>Customer Name: {{$order->user->f_name.' '.$order->user_l_name}} </h2>
+                        <h2>Deal Name: {{$deal->name}} </h2>
                         <ul>
-                          <li>E-Mail: {{ $order->user->email }} </li>
-                          <li>Delivery Boy Name:- @if(isset($data->delivery_boy)) {{  $data->delivery_boy->name }}
-                            | E-Mail :- {{ $data->delivery_boy->email }} @else Not Assigned  @endif</li>
-                          <li>Status: {{$order->status}} </li>
-                          <li>Date: {!! $order->created_at !!} </li>
-                          <li>Sub Total: <span class="f_price"> {!! $order->sub_totals !!} </span> </li>
-                          <li>Shipping Price: <span class="f_price"> {!! $order->shipping_price !!} </span> </li>
-                          <li>Coupon Discount Total: <span class="f_price"> {!! $order->total_discounts !!} </span> </li>
-                          <li>Grand Totals: <span class="f_price"> {!! $order->grand_totals !!} </span> </li>
+                          <li>deal Code: {{ $deal->code }} </li>
+                          <li>type: {{$deal->details}} </li>
+                          <li>Valid Till: {{$deal->expiry_date}} </li>
+                          <li> Status : {{$deal->status == 1 ? 'Active' : 'In-Actives'}} </li>
+
                         </ul>
                       </div>
                   </div>
@@ -62,20 +49,20 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                   <p>Total Ordered Products <span style="color:rgb(42, 143, 85)">({{ $order->products->count() }})</span> :</p>
+                    Product Name:
                 </div>
             </div>
             <div class="card-body">
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <span>
-                            @foreach ($order->products as $product)
-                            <a href="{{route('product.show',$product->slug)}}" target="_blank"
-                              style="text-decoration: none;color:rgb(42, 143, 85)">
-                              ({{$product->name}}) </a>
-                            @endforeach
-                        </span>
+
+                                @foreach($deal->products as $product)
+                                <a href="{{ route('product.show',$product->name) }}" style="color:#239856;">
+                                    <span style="color:#239856;">
+                                 {{$product->name}}{{!$loop->last?',':''}}</span></a>
+                                @endforeach
+
                         </div>
                   </div>
                 </div>

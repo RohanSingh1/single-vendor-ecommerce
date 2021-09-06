@@ -5,6 +5,7 @@ namespace App;
 use App\Model\ContactProduct;
 use App\Model\Coupon;
 use App\Model\SettingsUser;
+use App\Model\WishList;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -71,4 +72,12 @@ class User extends Authenticatable
     public function addresses() {
 		return $this->hasMany( Address::class );
 	}
+
+    public function myorders(){
+        return $this->hasMany(Order::class,'user_id');
+    }
+
+    public function mywishlists(){
+        return $this->hasMany(WishList::class,'user_id');
+    }
 }

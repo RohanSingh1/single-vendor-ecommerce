@@ -7,20 +7,10 @@
 // });
 
 use App\Model\Product;
+use Illuminate\Support\Facades\Cookie;
 
 Route::get('test',function(){
-    foreach (\Cart::getContent() as $key => $item) {
-        dump(Cart::getSubTotal());
-        dd(Cart::getTotal());
-    }
-    dd();
-    \Cart::remove([1,2,3,4,5]);
-    dd();
-    return view('front.index');
-    setcookie('address','fff', time()+360000);
-    if(isset($_COOKIE['address']) && !empty($_COOKIE['address'])){
-        setcookie('address', "", time() - 1);
-    }
+
 });
 
 Route::get('/', 'Front\HomeController@index')->name('index');
@@ -64,11 +54,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/contact-us', 'ContactUsController@store')->name('contact-us.store');
     Route::get('/thank-you', 'RequestProductController@show')->name('thank-you');
     Route::get('/faqs', 'FaqsController@index')->name('faqs.index');
-    Route::group(['as' => 'user.'], function () {
-        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-        Route::post('/updateAddress', 'DashboardController@addressUpdate')->name('updateAddress');
-    });
-
 });
 
 //cart
@@ -79,16 +64,16 @@ Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.des
 
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
-    Route::post('wishlists/bulk_actions','WishListController@bulk_action')->name('wishlists.bulk_actions');
     Route::get('/wishlists', 'WishListController@index')->name('wishlists');
     Route::post('/wishlists', 'WishListController@store')->name('wishlist.store');
-    Route::post('/wishlist/delete', 'WishListController@delete')->name('wishlist.delete');
+    Route::post('/wishlists/destroy', 'WishListController@destroy')->name('wishlist.destroy');
 // address
     Route::resource('address', 'AddressController');
 
-
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::post('/uploadAvatar', 'DashboardController@uploadAvatar')->name('uploadAvatar');
     //my orders
-    Route::get('/myorders', 'CartController@myorders')->name('myorders');
+    Route::get('/myorders', 'DashboardController@myorders')->name('myorders');
     Route::get('/myorders/order_details/{id}', 'CartController@order_details')->name('order_details');
     Route::post('myorders','CartController@order_remove')->name('myorder.order_remove');
     //product reviews
@@ -115,6 +100,9 @@ Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
 Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    //delivery name
+    Route::resource('delivery_name', 'DeliveryNameController');
+    Route::get('/api/delivery_name', 'DeliveryNameController@apidelivery_name')->name('api.delivery_name');
     //advertisement
     Route::resource('advertisement', 'AdvertisementController');
     Route::get('/api/advertisement', 'AdvertisementController@apiAdvertisement')->name('api.advertisement');

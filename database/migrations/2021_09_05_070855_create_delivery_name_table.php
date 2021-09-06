@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAddressToOrdersTable extends Migration
+class CreateDeliveryNameTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddAddressToOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
+        Schema::create('delivery_name', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('delivery_name');
+            $table->boolean('status')->default(1);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddAddressToOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('delivery_name');
     }
 }

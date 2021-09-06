@@ -1,101 +1,109 @@
-@extends('frontend.layouts.master')
-@section('page_name')
-<span class="breadcrumb-item active">Register</span>
-@endsection
-@section('content')
-    <div id="main-inner-page">
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Gambo - Sign Up</title>
+
+    <link rel="icon" type="image/png" href="images/fav.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link href='vendor/unicons-2.0.1/css/unicons.css' rel='stylesheet'>
+    <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/night-mode.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/css/step-wizard.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('front/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/OwlCarousel/assets/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/OwlCarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/semantic/semantic.min.css">
+</head>
+
+<body>
+    <div class="sign-inup">
         <div class="container">
-            <div id="login-page">
-                <h2 class="home-heading text-center">
-                    {{ __('Register') }}
-                </h2>
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="needs-validation main-form" wasvalidate=""  method="POST" action="{{ route('register') }}" >
-                                    <!--  -->
-                                    @csrf
-                                    @include('inc.messages')
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">{{ __('First Name') }} *</label>
-                                            <input type="text" class="form-control mb-3 mb-md-0 @error('f_name') is-invalid @enderror"  name="f_name" id="f_name" placeholder="" autocomplete="f_name"  value="{{ old('f_name') }}" required>
-                                            @error('f_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="sign-form">
+                        <div class="sign-inner">
+                            <div class="sign-logo" id="logo">
+                                <a href="index.html"><img src="images/logo.svg" alt=""></a>
+                                <a href="index.html"><img class="logo-inverse" src="images/dark-logo.svg" alt=""></a>
+                            </div>
+                            <div class="form-dt">
+                                <div class="form-inpts checout-address-step">
+                                    <form action="{{ route('register') }}" method="POST">
+                                        @csrf
+                                        @include('front.layouts.session_messages')
+                                        @include('front.layouts.form_messages')
+                                        <input type="hidden" name="redirect-to" value="{{ request()->has('redirect-to') ? request()->get('redirect-to') :'' }}">
+                                        <div class="form-title">
+                                            <h6>Sign Up</h6>
                                         </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">{{ __('Last Name') }} *</label>
-                                            <input type="text" class="form-control mb-3 mb-md-0 @error('l_name') is-invalid @enderror"  name="l_name" id="l_name" placeholder=""  value="{{ old('l_name') }}" autocomplete="l_name" required>
-                                            @error('l_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                        <div class="form-group pos_rel">
+                                            <input id="full[name]" name="name" type="text" placeholder="Full name"
+                                                class="form-control lgn_input" required="">
+                                            <i class="uil uil-user-circle lgn_icon"></i>
                                         </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">Email address *</label>
-                                            <input type="text" class="form-control mb-3 mb-md-0 @error('email') is-invalid @enderror" name="email"
-                                                   value="{{ old('email') }}" required autocomplete="email">
-                                            @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                        <div class="form-group pos_rel">
+                                            <input id="email[address]" name="email" type="email"
+                                                placeholder="Email Address" class="form-control lgn_input" required="">
+                                            <i class="uil uil-envelope lgn_icon"></i>
                                         </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">{{ __('Phone no ') }}</label>
-                                            <input type="text" class="form-control mb-3 mb-md-0 @error('phone_no') is-invalid @enderror" name="phone_no"
-                                                   value="{{ old('phone_no') }}" required autocomplete="phone_no">
-                                            @error('phone_no')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
+                                        <div class="form-group pos_rel">
+                                            <input id="phone[number]" name="phone_no" type="text"
+                                                placeholder="Phone Number" class="form-control lgn_input" required="">
+                                            <i class="uil uil-mobile-android-alt lgn_icon"></i>
                                         </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">Password *</label>
-                                            <input type="password" class="form-control mb-3 mb-md-0  @error('password') is-invalid @enderror" name="password"
-                                                   required autocomplete="new-password" id="password">
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-12">
-                                            <label for="">{{ __('Confirm Password') }}</label>
-                                            <input class="form-control mb-3 mb-md-0" id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
-                                        </div>
-                                    </div>
 
-                                    <div class="form-text">
-                                        <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
-                                    </div>
+                                        <div class="form-group pos_rel">
+                                            <input id="password1" name="password" type="password"
+                                                placeholder="Enter Password" class="form-control lgn_input" required="">
+                                            <i class="uil uil-padlock lgn_icon"></i>
+                                        </div>
 
-                                    <!--  -->
-                                    <button type="submit" class="btn">
-                                        Register
-                                    </button>
-                                </form>
+                                        <div class="form-group pos_rel">
+                                            <input id="password1" name="password_confirmation" type="password"
+                                                placeholder="Confirm Password" class="form-control lgn_input" required="">
+                                            <i class="uil uil-padlock lgn_icon"></i>
+                                        </div>
+                                        <button class="login-btn hover-btn" type="submit">Sign Up Now</button>
+                                    </form>
+                                </div>
+                                <div class="signup-link">
+                                    <p>I have an account? - <a href="{{ route('login') }}">Sign In Now</a></p>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="copyright-text text-center mt-3">
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>Gambolthemes</b> . All rights reserved
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+
+    <script src="{{ asset('front/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('front/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('front/vendor/OwlCarousel/owl.carousel.js') }}"></script>
+    <script src="{{ asset('front/vendor/semantic/semantic.min.js') }}"></script>
+    <script src="{{ asset('front/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('front/js/custom.js') }}"></script>
+    <script src="{{ asset('front/js/product.thumbnail.slider.js') }}"></script>
+    <script src="{{ asset('front/js/offset_overlay.js') }}"></script>
+    <script src="{{ asset('front/js/night-mode.js') }}"></script>
+</body>
+
+<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
+
+</html>

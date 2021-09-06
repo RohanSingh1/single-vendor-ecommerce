@@ -2,7 +2,6 @@
     $firstFooterMenus = footerMenu('first-footer');
     $secondFooterMenus = footerMenu('second-footer');
     $thirdFooterMenus = footerMenu('third-footer');
-
     $facebook = get_general_settings_text('facebook');
     $twitter = get_general_settings_text('twitter');
     $google_plus = get_general_settings_text('google_plus');
@@ -18,15 +17,10 @@
                     <ul class="call-email-alt">
                         <li>
                             <a href="#" class="callemail">
-                            <i class="uil uil-dialpad-alt"></i>
-                            @if(get_general_settings_text('phone_no') != '')
-                            {{get_general_settings_text('phone_no')
-                            ?get_general_settings_text('phone_no')->text:''}}@endif</a></li>
+                            <i class="uil uil-dialpad-alt"></i>{{$phone_no}}</a></li>
                         <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>
                             <span class="__cf_email__" data-cfemail="e980878f86a98e88848b869a9c998c9b84889b828c9dc78a8684">
-                                [email&#160;@if(get_general_settings_text('ac_email') != '')
-                                {{get_general_settings_text('ac_email')
-                                ?get_general_settings_text('ac_email')->text:''}}@endif]</span></a></li>
+                                [email&#160;{{ $email }}]</span></a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -174,7 +168,7 @@
                         </ul>
                     </div>
                     <div class="copyright-text">
-                        <i class="uil uil-copyright"></i>Copyright 2020 <b>Gambolthemes</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>Gambolthemes</b> . All rights reserved
                     </div>
                 </div>
             </div>
