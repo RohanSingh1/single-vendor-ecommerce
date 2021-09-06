@@ -16,7 +16,7 @@ class DeliveryRoleValidation
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->check()){
+        if(Auth::guard('admin')->check()){ 
             if(Auth::guard('admin')->user()->is_admin == 0){
                 return $next($request);
             }

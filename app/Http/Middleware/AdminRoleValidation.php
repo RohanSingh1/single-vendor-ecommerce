@@ -16,7 +16,7 @@ class AdminRoleValidation
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guard('admin')->check()){
+        if(Auth::guard('admin')->check()){ 
             if(Auth::guard('admin')->user()->is_admin == 1){
                 return $next($request);
             }

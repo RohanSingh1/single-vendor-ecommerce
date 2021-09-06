@@ -86,7 +86,7 @@
         </div>
         <div class="checkout-cart">
 
-            <a href="{{ route('checkout') }}" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+            <a href="{{ route('front.checkout') }}" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
 
         </div>
     </div>

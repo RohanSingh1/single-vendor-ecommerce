@@ -4,8 +4,8 @@
 <style>
     .help-block{
         color:rebeccapurple;
-    } 
-    .custab {
+    }
+    . custab {
         border: 1px solid #ccc;
         padding: 5px;
         margin: 5% 0;
@@ -75,7 +75,9 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('admin.api.delivery_orders') }}',
+            "order": [[ 0, 'desc' ]], 
             columns: [
+                {data: 'DT_RowIndex', name: 'id'},
                 { data: 'status', title:'Order Status'},
                 { data: 'full_names', title:'Full Names'},
                 { data: 'products', title:'Total Products'},

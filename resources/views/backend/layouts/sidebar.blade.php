@@ -98,7 +98,7 @@
                         Customer Feedbacks
                         <i class="metismenu-state-icon "></i>
                     </a>
-                </li>
+                </li> 
 
                 <li>
                     <a href="{{ route('admin.customerReviews.index') }}"
@@ -135,6 +135,7 @@
                         Newsletters
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ route('admin.users') }}"
                        class="{{ active(['admin/users*'], 'mm-active') }}">
@@ -143,6 +144,16 @@
                         <i class="metismenu-state-icon "></i>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('admin.delivery_name.index') }}"
+                       class="{{ active(['admin/delivery_name*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Delivery Status
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{ route('admin.content-management.settings.index') }}"
                        class="{{ active(['admin/cms/settings*'], 'mm-active') }}">

@@ -40,7 +40,7 @@
                                 <a href="index.html"><img class="logo-inverse"
                                         src="{{ asset('fornt/images/dark-logo.svg') }}" alt=""></a>
                             </div>
-                            <div class="form-dt">
+                            <div class="form-dt"> 
                                 <div class="form-inpts checout-address-step">
                                     <form action="{{ route('login') }}" method="POST">
                                         @csrf
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="form-group pos_rel">
                                             <input id="phone[number]" name="email" type="text"
-                                                placeholder="Enter Phone Number" class="form-control lgn_input"
+                                                placeholder="Enter Email Address" class="form-control lgn_input"
                                                 required="">
                                             <i class="uil uil-mobile-android-alt lgn_icon"></i>
                                         </div>

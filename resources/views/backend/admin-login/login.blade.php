@@ -57,8 +57,8 @@
 					@enderror
 					<div class="wrap-input100">
 						<div class="ks-checkbox">
-						  <input class="form-control" type="checkbox"  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
-						  <label for="remember-me">{{ __('Remember Me') }}</label>
+						  <input type="checkbox"  name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
+						  <label for="remember">{{ __('Remember Me') }}</label>
 						</div>
 					  </div>
 					<div class="container-login100-form-btn">

@@ -78,7 +78,9 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('admin.api.order') }}',
+            "order": [[ 0, 'desc' ]], 
             columns: [
+                {data: 'DT_RowIndex', name: 'id'},
                 { data: 'status', title:'Order Status'},
                 { data: 'full_names', title:'Full Names'},
                 { data: 'products', title:'Total Products'},

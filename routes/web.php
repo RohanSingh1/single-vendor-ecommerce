@@ -24,22 +24,9 @@ Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add
 Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
 Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
 
-//shipping address
-
-Route::post('/addShippingAddress', 'Front\AddressController@addShippingAddress')->name('addShippingAddress');
-Route::post('/addBillingAddress', 'Front\AddressController@addBillingAddress')->name('addBillingAddress');
-
-//checkouts
-Route::get('checkout','Front\CheckoutController@checkout')->name('checkout');
-Route::post('checkout','Front\CheckoutController@checkoutStore')->name('checkout.store');
-
 //search
    Route::post('search_now', 'Front\HomeController@search_now')->name('search_now');
    Route::get('search','Front\HomeController@search_now')->name('search');
-
-//requested products
-Route::get('/request_product', 'Front\ContactUsController@requested_product')->name('requested_product.create');
-Route::post('/requested_product/store', 'Front\ContactUsController@store_requested_product')->name('requested_product.store')->middleware('auth');
 
 Route::post('/product_feedback/store', 'Front\ProductController@store_customer_feedback')->name('customer_feedback.store');
 
@@ -64,14 +51,25 @@ Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.des
 
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
+    //shipping address
+
+    Route::post('/addShippingAddress', 'AddressController@addShippingAddress')->name('addShippingAddress');
+    Route::post('/addBillingAddress', 'AddressController@addBillingAddress')->name('addBillingAddress');
+
+    //checkouts 
+    Route::get('checkout','CheckoutController@checkout')->name('checkout');
+    Route::post('checkout','CheckoutController@checkoutStore')->name('checkout.store');
+
     Route::get('/wishlists', 'WishListController@index')->name('wishlists');
     Route::post('/wishlists', 'WishListController@store')->name('wishlist.store');
     Route::post('/wishlists/destroy', 'WishListController@destroy')->name('wishlist.destroy');
-// address
-    Route::resource('address', 'AddressController');
 
-        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-        Route::post('/uploadAvatar', 'DashboardController@uploadAvatar')->name('uploadAvatar');
+    // address
+    Route::resource('address', 'AddressController');
+    Route::get('my_address', 'AddressController@my_address')->name('my_address');
+
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::post('/uploadAvatar', 'DashboardController@uploadAvatar')->name('uploadAvatar');
     //my orders
     Route::get('/myorders', 'DashboardController@myorders')->name('myorders');
     Route::get('/myorders/order_details/{id}', 'CartController@order_details')->name('order_details');
@@ -85,6 +83,7 @@ Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], funct
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 //admin login starts here
 Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
     Route::get('admin-login', 'LoginController@showLoginForm')->name('show-login');

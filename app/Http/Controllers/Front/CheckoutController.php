@@ -17,7 +17,7 @@ class CheckoutController extends BaseController
     public function checkoutStore(Request $request){
         if(!$shipping_address = Address::where('user_id',1)->where('type','SHIPPING')->latest()->first()
         || !$billing_address = Address::where('user_id',1)->where('type','BILLING')->latest()->first()){
-            $request->session()->flash('error', 'Please Provide Shipping Address');
+            $request->session()->flash('error', 'Please Provide Shipping And BILLING Address');
             return redirect()->back();
         }
         try {
@@ -28,7 +28,7 @@ class CheckoutController extends BaseController
 
        $order = Order::create([
             'user_id' => 1,
-            'full_names' => auth()->check() ? auth()->user()->f_name.' '.auth()->user()->l_name:'',
+            'full_names' => auth()->check() ? auth()->user()->name:$billing_address->full_name,
             'payment_option' => 'cash_on_delivery',
             'shipping_price' => isset($carts['shipping'])?$carts['shipping']:0,
             'coupon_discounts' =>$cd,
@@ -36,7 +36,7 @@ class CheckoutController extends BaseController
             'total_discounts' => $cdt,
             'sub_totals' => \Cart::getSubTotal(),
             'grand_totals' => $carts['total'],
-            'status' => 'pending',
+            'status' => 'Pending',
         ]);
 
         // Attach products

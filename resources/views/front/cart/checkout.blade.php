@@ -39,7 +39,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group mb-0">
 
-                                                <form class="" action="{{ route('addShippingAddress') }}" method="POST">
+                                                <form class="" action="{{ route('front.addShippingAddress') }}" method="POST">
                                                     @csrf
                                                     @if ($errors->any())
                                                         <div class="alert alert-danger">
@@ -156,7 +156,7 @@
                                 <div class="checout-address-step">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <form class="" action="{{ route('addBillingAddress') }}" method="POST">
+                                            <form class="" action="{{ route('front.addBillingAddress') }}" method="POST">
                                                 @csrf
                                                 @if ($errors->any())
                                                     <div class="alert alert-danger">
@@ -294,7 +294,7 @@
                                             <div class="form-group return-departure-dts" data-method="card">
 
                                             </div>
-                                            <form action="{{ route('checkout.store') }}" method="post">
+                                            <form action="{{ route('front.checkout.store') }}" method="post">
                                                 @csrf
                                                 <button class="next-btn16 hover-btn" type="submit">Place Order</button>
                                             </form>

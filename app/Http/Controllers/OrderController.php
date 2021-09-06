@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Admin\Admin;
+use App\Model\DeliveryName;
 use App\Model\Order;
 use App\Model\Product;
 use Illuminate\Http\Request;
@@ -22,9 +23,12 @@ class OrderController extends Controller
      */
     public function apiorders()
     {
-        $orders = Order::all();
+        $orders = Order::latest()->get();
         //dd($orders);
         return Datatables::of($orders)
+        ->setRowId(function ($modal) {
+            return $modal->id;
+        })
         ->addColumn('full_names', function ($data) {
            return $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email;
         })
@@ -75,7 +79,6 @@ class OrderController extends Controller
         })
             ->addColumn('action', function ($orders) {
                 return '
-
                 <a href="'.route("admin.orders.show",$orders->id ).'" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-eye"></i></a>
            <a href="orders/' . $orders->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
             <form action= "' . route('admin.orders.destroy', $orders->id) . '" method="POST" accept-charset ="UTF-8">
@@ -91,6 +94,7 @@ class OrderController extends Controller
            ';
             })
             ->rawColumns(['product_id', 'action','full_names','products','status'])
+            ->addIndexColumn()
             ->make(true);
     }
 
@@ -119,8 +123,9 @@ class OrderController extends Controller
             return redirect()->route('admin.orders.index');
         }
         $delivery_boys = Admin::where([['id','!=',1],['is_admin','!=',1]])->get();
+        $delivery_name = DeliveryName::where('status',1)->get();
         $products = Product::get();
-        return view('backend.orders.edit',compact('order','products','delivery_boys'));
+        return view('backend.orders.edit',compact('order','products','delivery_boys','delivery_name'));
     }
 
     /**

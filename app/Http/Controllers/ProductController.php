@@ -27,7 +27,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:admin','AdminRoleValidation']);
-        // $this->middleware('permission:product-price-show', ['only' => ['showPrice']]);
     }
 
     public function index()
@@ -116,6 +115,7 @@ class ProductController extends Controller
         $products = Product::select('id', 'slug', 'name', 'model_no', 'quantity', 'price', 'featured_image','is_featured')
             ->with('featuredImage')
             ->orderBy('updated_at')
+            ->latest()
             ->get();
         return Datatables::of($products)
             ->addColumn('front_view', function ($data) {

@@ -7,6 +7,7 @@ use App\Model\Product;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
+use App\Model\DeliveryName;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,7 @@ class OrderController extends Controller
         $this->middleware(['auth','DeliveryRoleValidation']);
     }
 
-    public function index()
+    public function index() 
     {
         return view('backend.delivery_boys.orders.index');
     }
@@ -28,14 +29,14 @@ class OrderController extends Controller
      */
     public function apiorders()
     {
-        $orders = Order::where('delivery_boy_id',auth('admin')->user()->id)->get();
+        $orders = Order::where('delivery_boy_id',auth('admin')->user()->id)->latest()->get();
         //dd($orders);
         return Datatables::of($orders)
+        ->setRowId(function ($modal) {
+            return $modal->id;
+        })
         ->addColumn('full_names', function ($data) {
            return $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email;
-        })
-        ->editColumn('currency_type', function($data) {
-                return ucwords($data->currency_type);
         })
         ->editColumn('sub_totals', function($data) {
             if($data->currency_type == 'usd'){
@@ -78,8 +79,7 @@ class OrderController extends Controller
         })
             ->addColumn('action', function ($orders) {
                 return '
-
-                <a href="'.route("admin.orders.show",$orders->id ).'" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-eye"></i></a>
+                <a href="'.route("admin.delivery_orders.show",$orders->id ).'" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-eye"></i></a>
            <a href="delivery_orders/' . $orders->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
             <form action= "' . route('admin.delivery_orders.destroy', $orders->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
                 <input type="hidden" value="DELETE" name="_method">
@@ -88,12 +88,10 @@ class OrderController extends Controller
                 </span>
                 <input type="hidden" value="' . csrf_token() . '" name="_token">
                 <input type="hidden" value="' .$orders->id . '" name="id">
-            </form>
-
-
-           ';
+            </form>';
             })
             ->rawColumns(['product_id', 'action','full_names','products','status'])
+            ->addIndexColumn()
             ->make(true);
     }
 
@@ -119,10 +117,11 @@ class OrderController extends Controller
     {
         if(!$order = Order::find($id)){
             $request->session()->flash('error','Sorry The Selected orders Has Found Or Has Been Deleted');
-            return redirect()->route('admin.orders.index');
+            return redirect()->route('admin.delivery_orders.index');
         }
         $products = Product::get();
-        return view('backend.delivery_boys.orders.edit',compact('order','products'));
+        $delivery_name = DeliveryName::where('status',1)->get();
+        return view('backend.delivery_boys.orders.edit',compact('order','products','delivery_name'));
     }
 
     /**
@@ -139,15 +138,16 @@ class OrderController extends Controller
             'products'=>'required|exists:products,id',
             'status'=>'required'
         ]);
+
         if(!$order = Order::find($id)){
             $request->session()->flash('error','Sorry The Selected orders Has Found Or Has Been Deleted');
-            return redirect()->route('admin.orders.index');
+            return redirect()->route('admin.delivery_orders.index');
         }
 
         $carts = get_price_check_coupon();
 
          $order->update([
-             'full_names' => auth()->user()->f_name.' '.auth()->user()->l_name,
+             'full_names' => $request->full_names,
              'payment_option' => 'cash_on_delivery',
              'shipping_price' => $request->shipping_price,
              'total_discounts' => $request->total_discounts,
@@ -158,14 +158,14 @@ class OrderController extends Controller
 
          $order->products()->sync($request->products);
         $request->session()->flash('success','Success The Order Has Been Update');
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.delivery_orders.index');
     }
 
     public function destroy(Request $request,$id)
     {
         if(!$order = Order::find($request->id)){
             $request->session()->flash('error','Sorry The Selected Order Has Found Or Has Been Deleted');
-            return redirect()->route('admin.orders.index');
+            return redirect()->route('admin.delivery_orders.index');
         }
 
         $order->delete();

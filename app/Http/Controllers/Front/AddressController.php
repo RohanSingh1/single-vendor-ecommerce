@@ -51,4 +51,8 @@ class AddressController extends Controller
         return redirect()->back();
     }
 
+    public function my_address(Request $request){
+
+    }
+
 }

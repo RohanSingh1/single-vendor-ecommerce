@@ -5,9 +5,11 @@
         color:seagreen;
         font-size: 15px;
         font-weight: bold;
-    } 
+    }
 </style>
 @endsection
+
+
 @section('content')
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -42,6 +44,8 @@
                         <h2>Customer Name: {{$order->user->f_name.' '.$order->user_l_name}} </h2>
                         <ul>
                           <li>E-Mail: {{ $order->user->email }} </li>
+                          <li>Delivery Boy Name:- @if(isset($data->delivery_boy)) {{  $data->delivery_boy->name }}
+                            | E-Mail :- {{ $data->delivery_boy->email }} @else Not Assigned  @endif</li>
                           <li>Status: {{$order->status}} </li>
                           <li>Date: {!! $order->created_at !!} </li>
                           <li>Sub Total: <span class="f_price"> {!! $order->sub_totals !!} </span> </li>
@@ -66,7 +70,7 @@
             <div class="card-body">
                 <div class="tab-content">
                   <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-12"> 
                         <span>
                             @foreach ($order->products as $product)
                             <a href="{{route('product.show',$product->slug)}}" target="_blank"
@@ -83,6 +87,7 @@
 </div>
 
 @endsection
+
 @push('script')
   <script>
     $(document).ready(function(){

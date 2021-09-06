@@ -39,7 +39,7 @@
                             <input type="hidden" name="product_id" value="{{ $order->product_id}}">
                             @if ($errors->any())
                             <div class="alert alert-danger">
-                                <ul>
+                                <ul> 
                                     @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                     @endforeach
@@ -48,17 +48,20 @@
                             @endif
 
                             <div class="form-group">
-                                {{Form::label('Status')}}
-                                {!! Form::select('status',['delivered' => 'Delivered',
-                                'pending' => 'Pending','cancelled' => 'Cancelled'], $order->status,
-                                ['class'=>'form-control']);
-                                !!}
-                            </div>
-
-                            <div class="form-group">
                                 {{Form::label('Full Names')}}
                                 {{Form::text('full_names',$order->full_names,['class'=>'form-control'])}}
                             </div>
+
+                            <div class="form-group">
+                                {{Form::label('Status')}}
+                                <select name="status" class="form-control">
+                                    @foreach ($delivery_name as $dn)
+                                    <option value="{{ $dn->delivery_name }}" {{ $order->status == $dn->delivery_name ? 'selected':''}} >
+                                        {{ $dn->delivery_name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="products">Select Product</label>
@@ -131,12 +134,6 @@
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('backend/plugins/dropify/dist/js/dropify.min.js') }}"></script>
-<script src="{{ asset('backend/bower_components/ckeditor/ckeditor.js') }}"></script>
-
-<script type="text/javascript">
-    $('.dropify').dropify();
-    CKEDITOR.replace('ckeditor');
-</script>
 
 <script>
 $('.select2').select2({placeholder: 'Select Options',width: 'resolve'});
