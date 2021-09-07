@@ -27,7 +27,7 @@
                     <ul class="category-by-cat">
                         @forelse ($categories as $category)
                         <li>
-                            <a href="#" class="single-cat-item">
+                            <a href="{{ route('category.show',$category->slug) }}" class="single-cat-item">
                                 <div class="icon">
                                     <img src="{{ asset('storage/uploads/category/'.$category->image) }}" alt="">
                                 </div>
@@ -109,8 +109,8 @@
                 } else {
                     console.log('success');
                     $('#cart-item-wrapper').html(data.html);
-                        $('.cart_total').html(data.data.cart_total);
-                        $('.cart_total_qty').html(data.data.cart_total_qty);
+                    $('.cart_total').html(data.data.cart_total);
+                    $('.cart_total_qty').html(data.data.cart_total_qty);
                     $.notify(data.message,'success');
 
                 }

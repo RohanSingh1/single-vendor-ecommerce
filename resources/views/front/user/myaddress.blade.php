@@ -22,45 +22,62 @@
                                     </div>
                                     <div class="address-body">
                                         <a href="#" class="add-address hover-btn" data-toggle="modal" data-target="#address_model">Add New Address</a>
+
                                         <div class="address-item">
                                             <div class="address-icon1">
                                                 <i class="uil uil-home-alt"></i>
                                             </div>
                                             <div class="address-dt-all">
                                                 <h4>Home</h4>
-                                                <p>#0000, St No. 8, Shahid Karnail Singh Nagar, MBD Mall, Frozpur road, Ludhiana, 141001</p>
+                                                <p>{{ auth()->user()->address1 ?? 'Not Found' }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-edit"></i></a></li>
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-trash-alt"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div> 
-                                        <div class="address-item">
-                                            <div class="address-icon1">
-                                                <i class="uil uil-home-alt"></i>
-                                            </div>
-                                            <div class="address-dt-all">
-                                                <h4>Office</h4>
-                                                <p>#0000, St No. 8, Shahid Karnail Singh Nagar, MBD Mall, Frozpur road, Ludhiana, 141001</p>
-                                                <ul class="action-btns">
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-edit"></i></a></li>
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-trash-alt"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
+
                                         <div class="address-item">
                                             <div class="address-icon1">
                                                 <i class="uil uil-home-alt"></i>
                                             </div>
                                             <div class="address-dt-all">
                                                 <h4>Other</h4>
-                                                <p>#0000, St No. 8, Shahid Karnail Singh Nagar, MBD Mall, Frozpur road, Ludhiana, 141001</p>
+                                                <p>{{ auth()->user()->address2 ?? 'Not Found' }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-edit"></i></a></li>
-                                                    <li><a href="#" class="action-btn"><i class="uil uil-trash-alt"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
+                                        @if($shipping_address)
+                                        <div class="address-item">
+                                            <div class="address-icon1">
+                                                <i class="uil uil-home-alt"></i>
+                                            </div>
+                                            <div class="address-dt-all">
+                                                <h4>Current Shipping Address</h4>
+                                                <p>Address Line 1{{ $shipping_address->address1 ?? 'Not Found' }}</p>
+                                                <p>Address Line 2{{ $shipping_address->address2 ?? 'Not Found' }}</p>
+                                                <ul class="action-btns">
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @if($billing_address)
+                                        <div class="address-item">
+                                            <div class="address-icon1">
+                                                <i class="uil uil-home-alt"></i>
+                                            </div>
+                                            <div class="address-dt-all">
+                                                <h4>Current Billing Address</h4>
+                                                <p>Address Line 1{{ $billing_address->address1 }}</p>
+                                                <p>Address Line 2{{ $billing_address->address2 }}</p>
+                                                <ul class="action-btns">
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

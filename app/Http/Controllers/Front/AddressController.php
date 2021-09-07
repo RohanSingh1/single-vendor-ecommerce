@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
 use App\Model\Address;
 use Illuminate\Http\Request;
 
-class AddressController extends Controller
+class AddressController extends BaseController
 {
     public function addShippingAddress(Request $request){
         $this->validate($request,[
@@ -51,8 +50,35 @@ class AddressController extends Controller
         return redirect()->back();
     }
 
-    public function my_address(Request $request){
+    public function myaddress(Request $request){
+        $shipping_address = Address::where('type','SHIPPING')->where('user_id',auth()->user()->id)->first();
+        $billing_address = Address::where('type','BILLING')->where('user_id',auth()->user()->id)->first();
+        return view(parent::loadViewData('front.user.myaddress'),compact('shipping_address','billing_address'));
+    }
 
+    public function editmyaddress(Request $request){
+        $shipping_address = Address::where('type','SHIPPING')->where('user_id',auth()->user()->id)->first();
+        $billing_address = Address::where('type','BILLING')->where('user_id',auth()->user()->id)->first();
+        return view(parent::loadViewData('front.user.editmyaddress'),compact('shipping_address','billing_address'));
+    }
+
+    public function updateAddress(Request $request){
+        $this->validate($request,[
+            'name'=>'required|max:120',
+            'phone_no'=>'required|min:10',
+            'address_1'=>'required',
+            'address_2'=>'required',
+        ]);
+
+        auth()->user()->update([
+            'name'=>$request->name,
+            'phone_no'=>$request->phone_no,
+            'address_1'=>$request->address_1,
+            'address_2'=>$request->address_2,
+        ]);
+
+        $request->session()->flash('success','Address Has Been Successfully Updated');
+        return redirect()->back();
     }
 
 }

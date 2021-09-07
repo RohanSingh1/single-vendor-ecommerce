@@ -51,12 +51,16 @@ Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.des
 
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
+    //address
+    Route::post('/updateAddress', 'AddressController@updateAddress')->name('updateAddress');
+    Route::get('/editmyaddress', 'AddressController@editmyaddress')->name('editmyaddress');
+    Route::get('/myaddress', 'AddressController@myaddress')->name('myaddress');
     //shipping address
 
     Route::post('/addShippingAddress', 'AddressController@addShippingAddress')->name('addShippingAddress');
     Route::post('/addBillingAddress', 'AddressController@addBillingAddress')->name('addBillingAddress');
 
-    //checkouts 
+    //checkouts
     Route::get('checkout','CheckoutController@checkout')->name('checkout');
     Route::post('checkout','CheckoutController@checkoutStore')->name('checkout.store');
 
