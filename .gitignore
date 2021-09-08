@@ -2,6 +2,7 @@
 /public/hot
 /public/static
 /public/storage
+/storage/app/public
 /storage/framework
 /storage/media-library
 /storage/debugbar

@@ -109,13 +109,13 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="second-row-item-app">
+                    {{-- <div class="second-row-item-app">
                         <h4>Download App</h4>
                         <ul>
                             <li><a href="#"><img class="download-btn" src="{{ asset('front/images/download-1.svg') }}" alt=""></a></li>
                             <li><a href="#"><img class="download-btn" src="{{ asset('front/images/download-2.svg') }}" alt=""></a></li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="second-row-item-payment">
                         <h4>Payment Method</h4>
                         <div class="footer-payments">
