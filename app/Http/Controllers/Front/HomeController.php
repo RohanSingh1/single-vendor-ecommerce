@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Model\Category;
+use App\Model\Deal;
+use App\Model\Faq;
 use App\Model\NewsLetter;
 use App\Model\Product;
 use App\Model\Slider;
@@ -15,6 +17,7 @@ class HomeController extends BaseController
         $data['featured_products'] = Product::featured()->get();
         $data['fresh_products'] = Product::Isfresh()->get();
         $data['new_products'] = Product::latest()->limit(9)->get();
+        $data['deals'] = Deal::where('status',1)->get();
 
         return view(parent::loadViewData('front.index'),compact('data'));
     }
@@ -69,5 +72,15 @@ class HomeController extends BaseController
                 return view(parent::loadViewData('front.pages.search_result'),compact('data','query_data'));
             }
 
+    }
+
+    public function faq(){
+        $faqs = Faq::where('status',1)->get();
+        return view(parent::loadViewData('front.pages.faq'),compact('faqs'));
+    }
+
+    public function offers(){
+        $offers = Deal::where('status',1)->get();
+        return view(parent::loadViewData('front.pages.offers'),compact('offers'));
     }
 }

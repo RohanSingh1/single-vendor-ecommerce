@@ -105,24 +105,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="best-offer-item">
-                        <img src="{{ asset('front/images/best-offers/offer-1') }}.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="best-offer-item">
-                        <img src="{{ asset('front/images/best-offers/offer-2') }}.jpg" alt="">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="best-offer-item offr-none">
-                        <img src="{{ asset('front/images/best-offers/offer-3') }}.jpg" alt="">
+               @foreach ($data['deals'] as $deal)
+               <div class="col-lg-4 col-md-6">
+                    <a href="" class="best-offer-item offr-none">
+                        <img src="{{ asset('storage/uploads/Deal/'.$deal->image) }}" alt="{{ $deal->name }}">
                         <div class="cmtk_dt">
-                            <div class="product_countdown-timer offer-counter-text" data-countdown="2021/01/06"></div>
+                            <div class="product_countdown-timer offer-counter-text"
+                             data-countdown="{{ date('Y/m/d',strtotime($deal->expiry_date)) }}"></div>
                         </div>
                     </a>
                 </div>
+                @endforeach
+
                 <div class="col-md-12">
                     <a href="#" class="code-offer-item">
                         <img src="{{ asset('front/images/best-offers/offer-4') }}.jpg" alt="">

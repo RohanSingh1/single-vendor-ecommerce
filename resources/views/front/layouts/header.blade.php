@@ -61,8 +61,8 @@
                             <a href="{{ route('front.dashboard') }}" class="item channel_item"><i class="uil uil-apps icon__1"></i>Dashbaord</a>
                             <a href="{{ route('front.myorders') }}" class="item channel_item"><i class="uil uil-box icon__1"></i>My Orders</a>
                             <a href="{{ route('front.wishlists') }}" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
-                            <a href="dashboard_my_addresses.html" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
-                            <a href="offers.html" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
+                            <a href="{{ route('front.myaddress') }}" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
+                            <a href="{{ route('offers') }}" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
                             <a href="{{ route('faqs.index') }}" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
                             <a href="{{ route('logout') }}" class="item channel_item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="uil uil-lock-alt icon__1"></i>{{ __('Logout') }}</a>

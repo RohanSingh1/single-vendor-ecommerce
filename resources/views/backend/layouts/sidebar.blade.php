@@ -98,7 +98,7 @@
                         Customer Feedbacks
                         <i class="metismenu-state-icon "></i>
                     </a>
-                </li> 
+                </li>
 
                 <li>
                     <a href="{{ route('admin.customerReviews.index') }}"
@@ -133,6 +133,14 @@
                        class="{{ active(['admin/cms/newsletters*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>
                         Newsletters
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.faq.index') }}"
+                       class="{{ active(['admin/cms/faq*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Faq
                     </a>
                 </li>
 

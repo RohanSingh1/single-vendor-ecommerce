@@ -18,6 +18,8 @@ Auth::routes();
 
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
 Route::get('/product/{slug}', 'Front\HomeController@show')->name('product.show');
+Route::get('/faq', 'Front\HomeController@faq')->name('faq');
+Route::get('/offers', 'Front\HomeController@offers')->name('offers');
 //cart
 Route::get('cart', 'Front\CartController@index')->name('front.cart.index');
 Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add');
@@ -109,6 +111,9 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     //advertisement
     Route::resource('advertisement', 'AdvertisementController');
     Route::get('/api/advertisement', 'AdvertisementController@apiAdvertisement')->name('api.advertisement');
+    //faq
+    Route::resource('faq', 'FaqController');
+    Route::get('/api/faq', 'FaqController@apifaq')->name('api.faq');
 
     Route::post('category/saveOrder', ['uses' => 'CategoryController@saveOrder', 'as' => 'category.saveOrder']);
     Route::resource('category', 'CategoryController');

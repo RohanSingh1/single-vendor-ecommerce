@@ -31,7 +31,7 @@
                                                 <h4>Home</h4>
                                                 <p>{{ auth()->user()->address1 ?? 'Not Found' }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i>Show/Edit</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -44,7 +44,7 @@
                                                 <h4>Other</h4>
                                                 <p>{{ auth()->user()->address2 ?? 'Not Found' }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i>Show/Edit</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                                 <p>Address Line 1{{ $shipping_address->address1 ?? 'Not Found' }}</p>
                                                 <p>Address Line 2{{ $shipping_address->address2 ?? 'Not Found' }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i>Show/Edit</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
                                                 <p>Address Line 1{{ $billing_address->address1 }}</p>
                                                 <p>Address Line 2{{ $billing_address->address2 }}</p>
                                                 <ul class="action-btns">
-                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i></a></li>
+                                                    <li><a href="{{ route('front.editmyaddress') }}" class="action-btn"><i class="uil uil-edit"></i>Show/Edit</a></li>
                                                 </ul>
                                             </div>
                                         </div>
