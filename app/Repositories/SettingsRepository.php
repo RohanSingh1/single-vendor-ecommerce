@@ -45,6 +45,12 @@ class SettingsRepository implements SettingsRepositoryInterface
         $data['footer_text'] = get_general_settings_text('footer_text');
         $data['misc_javascript'] = get_general_settings_text('misc_javascript');
         $data['misc_css'] = get_general_settings_text('misc_css');
+        //couopn
+        $data['coupon_code'] = get_general_settings_text('coupon_code');
+        $data['coupon_details'] = get_general_settings_text('coupon_details');
+        $data['coupon_products'] = get_general_settings_text('coupon_products');
+        $data['coupon_ep'] = get_general_settings_text('coupon_ep');
+        //coupon
         return $data;
     }
 
