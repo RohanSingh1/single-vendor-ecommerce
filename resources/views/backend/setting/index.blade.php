@@ -8,11 +8,8 @@
 @section('site_title')
     Setting
 @endsection
-@section('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endsection
 @section('right_button')
-@stop
+@endsection
 
 @section('content')
     <div class="content">
@@ -142,59 +139,6 @@
                                             <textarea name="misc_javascript" cols="30" rows="4" class="form-control autosize-input"
                                                       placeholder="Enter Miscellaneous JavaScript">{{old('misc_javascript' )?? $misc_javascript->text ?? ' '}}</textarea>
                                         </div>
-
-                                        <h2>Coupon</h2>
-                                            <br>
-                                            <div class="form-group">
-                                                <label class="control-label">Coupon Code<em
-                                                        class="asterisk">*</em></label>
-                                                <input type="text" name="coupon_code"
-                                                       value="{{old('coupon_code')?? $coupon_code->text ?? ''}}"
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label">Coupon Details<em
-                                                        class="asterisk">*</em></label>
-                                                <input type="text" name="coupon_details"
-                                                       value="{{old('coupon_details')?? $coupon_details->text ?? ''}}"
-                                                       class="form-control">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="coupon_products">Select Product</label>
-                                                <div >
-                                                    @php $cat_array=[];  @endphp
-                                                    @if(isset($coupon_products->text))
-                                                        @foreach(unserialize($coupon_products->text) as $cc)
-                                                            @php $cp = \App\Model\Product::find($cc); @endphp
-                                                            @php $cat_array[] = $cp->id @endphp
-                                                        @endforeach
-                                                    @endif
-                                                    <select name="coupon_products[]" id="coupon_products" multiple class="form-control select2">
-                                                        @foreach(\App\Model\Product::get() as $cats)
-                                                            <option {{ in_array($cats->id,$cat_array) ? 'selected="selected"' : '' }}
-                                                                value="{{ $cats->id }}">{{$cats->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                @if ($errors->has('coupon_products'))
-                                                <span class="help-block">
-                                                    {{ $errors->first('coupon_products') }}
-                                                </span>
-                                            @endif
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label">Coupon Expiry Date<em
-                                                        class="asterisk">*</em></label>
-                                                <input type="date" name="coupon_ep"
-                                                       value="{{old('coupon_ep')?? $coupon_ep->text ?? ''}}"
-                                                       class="form-control">
-                                            </div>
-
-                                            <br>
 
                                     </div>
                                 </div>
@@ -446,34 +390,3 @@
     {{-- <script src="{{asset('vendor/laravel-filemanager/js/lfm.js')}}"></script> --}}
 
 @endsection
-
-@push('script')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script>
-    $('.select2').select2({placeholder: 'Select Options',width: 'resolve'});
-            $('.product-list').select2({
-                placeholder: 'Select Product',
-                minimumInputLength: 2,
-                ajax: {
-                    url: "{{ route('admin.search.product') }}",
-                    dataType: 'json',
-                    type: 'GET',
-                    data: function (params) {
-                        return {
-                            q: $.trim(params.term)
-                        };
-                    },
-                    processResults: function (data, params) {
-                        // parse the results into the format expected by Select2
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
-                }
-
-            });
-        </script>
-
-@endpush
