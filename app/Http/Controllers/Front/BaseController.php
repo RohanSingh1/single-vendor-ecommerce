@@ -27,8 +27,8 @@ class BaseController extends Controller
             $view->with('email',get_general_settings_text('ac_email') != ''
             ?get_general_settings_text('ac_email')->text:'');
             $view->with('favicon',Setting::select('id', 'file')->where('slug', 'favicon')->first());
-            $view->with('site_logo_1',Setting::select('id', 'file')->where('slug', 'favicon')->first());
-            $view->with('site_logo_2',Setting::select('id', 'file')->where('slug', 'favicon')->first());
+            $view->with('site_logo_1',Setting::select('id', 'file')->where('slug', 'site_logo_1')->first());
+            $view->with('site_logo_2',Setting::select('id', 'file')->where('slug', 'site_logo_2')->first());
         });
         return $path;
     }

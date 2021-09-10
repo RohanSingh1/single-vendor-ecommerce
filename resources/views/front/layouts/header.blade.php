@@ -9,7 +9,7 @@
                     <img src="{{ asset($site_logo_1->file) }}" alt="{{$site_title}}">
                 </a>
                 <a href="{{ route('index') }}"><img class="logo-inverse"
-                     src="{{ asset($site_logo_2->file) }}" alt="{{$site_title}}"></a>
+                     src="{{ asset($site_logo_1->file) }}" alt="{{$site_title}}"></a>
             </div>
 
             <div class="search120">

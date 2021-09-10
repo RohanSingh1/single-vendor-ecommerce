@@ -27,7 +27,7 @@ class DealController extends Controller
         return Datatables::of($deals)
         ->addColumn('image', function ($data) {
             if ($data->image !='') {
-                return ' <a href="' . asset('storage/Uploads/Deal/'.$data->image) . '"><img src="' . asset('storage/Uploads/Deal/'.$data->image) . '" width="50px" ></a>';
+                return ' <a href="' . asset('storage/uploads/Deal/'.$data->image) . '"><img src="' . asset('storage/uploads/Deal/'.$data->image) . '" width="50px" ></a>';
             } else {
                 return ' <a href="' . asset('no-image.jpg') . '" target="_blank"> <img src="' . asset('no-image.jpg') . '"  width="50px"></a>';
             }
