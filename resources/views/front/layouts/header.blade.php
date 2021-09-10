@@ -30,10 +30,10 @@
                         <a href="#" class="offer-link"><i class="uil uil-phone-alt"></i>{{ $phone_no }}</a>
                     </li>
                     <li>
-                        <a href="offers.html" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
+                        <a href="{{ route('offers') }}" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
                     </li>
                     <li>
-                        <a href="faq.html" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
+                        <a href="{{ route('faqs.index') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
                     </li>
                     @if(auth()->check())
                     <li>
@@ -93,21 +93,36 @@
                 <div class="container-fluid">
                     <button class="navbar-toggler menu_toggle_btn" type="button" data-target="#navbarSupportedContent"><i class="uil uil-bars"></i></button>
                     <div class="collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end bg-dark1 p-3 p-lg-0 mt1-5 mt-lg-0 mobileMenu" id="navbarSupportedContent">
+
                         <ul class="navbar-nav main_nav align-self-stretch">
                             @php
-    $mainMenus = footerMenu('main-menu');
-
+                            $mainMenus = mainMenu('main-menu');
                             @endphp
-                            @if(count($mainMenus)>0)
-                            @foreach($mainMenus as $menu)
-                            @if($menu->publishedPost)
-                            <li><a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
-                                :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}} class="nav-link" >
-                                {{$menu->display_name??$menu->publishedPost->post_title}}</a></li>
+                             @if(count($mainMenus)>0)
+                             @foreach($mainMenus as $menu)
+                             @if($menu->publishedPost)
+                          <li class="nav-item">
+                                <div class="ui icon top left dropdown nav__menu">
+                                    <a class="nav-link" title="Pages" href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                        :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}>
+                                        {{$menu->display_name??$menu->publishedPost->post_title}}
+                                         <i class="uil uil-angle-down"></i></a>
+                                         @if(count($menu['children'])>0)
+                                            <div class="menu dropdown_page">
+                                        @foreach($menu['children'] as $child)
+                                                <a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                                    :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}
+                                                    class="item channel_item page__links">{{ $menu->display_name??$menu->publishedPost->post_title }}</a>
+                                            @endforeach
+                                            </div>
+                                        @endif
+                                </div>
+                            </li> 
                             @endif
                             @endforeach
                             @endif
-                        </ul>
+                           </ul>
+
                     </div>
                 </div>
             </nav>

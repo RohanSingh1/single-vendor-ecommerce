@@ -137,6 +137,15 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.contact_messages.index') }}"
+                       class="{{ active(['admin/contact_messages*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Contact Messages
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.newsletters.index') }}"
                        class="{{ active(['admin/cms/newsletters*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>

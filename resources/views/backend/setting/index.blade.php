@@ -61,7 +61,13 @@
                                                    value="{{old('currency_type') ?? $currency_type->text ?? ''}}"
                                                    class="form-control">
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="control-label">Map Code<em class="asterisk">*</em></label>
+                                            <input type="text" name="map_code"
+                                                   value="{{old('map_code') ?? $map_code->text ?? ''}}"
+                                                   class="form-control"
+                                                   placeholder="Enter Map Imbed Code">
+                                        </div>
                                         <div class="form-group">
                                             <label class="control-label">General Email<em
                                                     class="asterisk">*</em></label>

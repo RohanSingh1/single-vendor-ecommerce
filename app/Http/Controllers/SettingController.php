@@ -58,12 +58,8 @@ class SettingController extends Controller
         $this->general->setImage($request->site_logo_1, 'site_logo_1');
         $this->general->setImage($request->site_logo_2, 'site_logo_2');
         $this->general->setImage($request->favicon, 'favicon');
-        //coupon
-        $this->general->setTextTitle($request->coupon_code, 'coupon_code');
-        $this->general->setTextTitle($request->coupon_details, 'coupon_details');
-        $this->general->setTextTitle($request->coupon_ep, 'coupon_ep');
-        $this->general->setTextTitle(serialize($request->coupon_products), 'coupon_products');
-        //coupon
+        //map code 
+        $this->general->setTextTitle($request->map_code, 'map_code');
         toast(__('global.data_update'),'success');
         return redirect()->back();
     }

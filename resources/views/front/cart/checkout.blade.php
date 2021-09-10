@@ -4,7 +4,9 @@
 <link href="{{ asset('front/css/step-wizard.css') }}" rel="stylesheet">
 @endpush
 @section('content')
-
+@php
+$final = get_price_check_coupon();
+@endphp
 <div class="gambo-Breadcrumb">
     <div class="container">
         <div class="row">
@@ -336,17 +338,56 @@
                     </div>
                     <div class="total-checkout-group">
                         <div class="cart-total-dil pt-3">
-                            <h4>Delivery Charges</h4>
-                            <span>{{ currency_type().$delivery_price }}</span>
+
+                         @if(isset($_COOKIE['coupon_code']))
+                         <form action="{{ route('front.removeCoupon') }}" method="POST">
+                             @csrf
+                             <input type="hidden" name="coupon_code" value="{{ $_COOKIE['coupon_code'] }}">
+                           <span class="text-center" style="color:seagreen;font-weight: bolder">
+                             Coupon Code ( {{ $_COOKIE['coupon_code'] }} ) Applied For Valid Products
+                             <button class="btn btn-success btn-xs pull-right" type="submit" title="Remove Coupon" id="remove_coupon">
+                             <i  class="uil uil-multiply"></i>
+                             </button>
+                           </span>
+                         </form>
+                         @else
+                         <tr>
+                             <form action="{{ route('front.apply_coupon') }}" method="POST">
+                                @csrf
+                                 <div class="form-inline">
+                                     <input type="text" name="coupon_code" class="col-sm-9 form-control" placeholder="Enter Coupon code If Any">
+                                     &nbsp
+                                     <button type="submit" class="btn btn-success">Apply</button>
+                                 </div>
+                             </form>
+                         </tr>
+
+                         @endif
+
                         </div>
                     </div>
-                    <div class="cart-total-dil saving-total ">
-                        <h4>Total Saving</h4>
-                        <span> {{ currency_type().' '.$savings }}</span>
+                    <div class="total-checkout-group">
+                        <div class="cart-total-dil pt-3">
+                            <h4>Subtotal</h4>
+                            <span> {{ currency_type().\Cart::getSubTotal() }}</span> 
+                        </div>
                     </div>
+                    <div class="total-checkout-group">
+                        <div class="cart-total-dil pt-3">
+                            <h4>Delivery Charges</h4>
+                            <span>+ {{ currency_type().$delivery_price }}</span>
+                        </div>
+                    </div>
+                    @if(isset($_COOKIE['coupon_code']))
+                    <div class="cart-total-dil saving-total ">
+                        <h4>Total Coupon Discount</h4>
+                        <span>- {{ currency_type().$final['coupon_discount_total'] }}</span>
+                    </div>
+                                @endif
+
                     <div class="main-total-cart">
                         <h2>Total</h2>
-                        <span>{{currency_type().' '.$cart_total }}</span>
+                        <span>{{currency_type().' '.$final['total'] }}</span>
                     </div>
                 </div>
                 <div class="checkout-safety-alerts">

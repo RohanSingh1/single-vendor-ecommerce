@@ -51,12 +51,12 @@
                     <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
                         <i class="uil uil-multiply"></i>
                     </button>
-                </div>
+                </div> 
                 <div class="category-model-content modal-content">
                     <div class="search-header">
                         <form action="">
-                            <input type="search" placeholder="Search for products...">
-                            <button type="submit"><i class="uil uil-search"></i></button>
+                            <input type="search" placeholder="Search for products..." id="search_now" >
+                            <button type="submit"  class="search-button"><i class="uil uil-search"></i></button>
                         </form>
                     </div>
                 </div>

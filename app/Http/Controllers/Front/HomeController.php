@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\ContactUs;
 use App\Model\Category;
 use App\Model\Deal;
 use App\Model\Faq;
@@ -82,5 +83,30 @@ class HomeController extends BaseController
     public function offers(){
         $offers = Deal::where('status',1)->get();
         return view(parent::loadViewData('front.pages.offers'),compact('offers'));
+    }
+
+    public function contact_us(){
+        return view(parent::loadViewData('front.pages.contact-us'));
+    }
+
+    public function storeContactUs(Request $request){
+        $this->validate($request,[
+            'name'=>'required|string|max:255',
+            'email'=>'required|email|max:255',
+            'phoneNo'=>'required|numeric|digits:10',
+            'message'=>'required|string|max:25555',
+            'address'=>'required',
+         ]);
+
+         ContactUs::create([
+             'name' => $request->name,
+             'email'=>$request->email,
+             'phoneNo'=>$request->phoneNo,
+             'address'=>$request->address,
+             'subject'=>$request->subject,
+             'message'=>$request->message,
+            ]);
+
+         return redirect()->back()->with('success','Thank you for your interest!');
     }
 }

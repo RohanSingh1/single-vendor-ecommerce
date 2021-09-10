@@ -43,7 +43,7 @@ class NewsletterController extends Controller
             'email' => $request->email
         ]);
         $message = 'Thank you for subscribing to our news letter.';
-        return redirect()->route('thank-you')->with('success', $message);
+        return redirect()->route('thank-you')->with('success', $message); 
     }
 
     /**
@@ -85,7 +85,7 @@ class NewsletterController extends Controller
         $data = NewsLetter::get();
         return DataTables::of($data)
             ->editColumn('created_at', function ($data) {
-                return $data->created_at->format('Y-m-d H:i');
+                return $data->created_at!=''?$data->created_at->format('Y-m-d H:i'):'';
             })
             ->editColumn('is_subscribed', function ($data) {
                 return active_column_check($data->is_subscribed);

@@ -49,6 +49,20 @@ function product_price($product,$data,$currency=false){
     }
 }
 
+function mainMenu($menu)
+    { 
+//        return Cache::remember('menu-item-' . $menu,60, function () use ($menu) {
+            $menuId = Menu::whereSlug('main-menu')->active()->first();
+            if ($menuId) {
+                return MenuItem::where('menu_id', $menuId->id)
+                    ->parentOnly()
+                    ->get();
+            } else {
+                return [];
+            }
+}
+
+
 function footerMenu($menu)
     {
         $menuId = Menu::whereSlug($menu)->active()->first();

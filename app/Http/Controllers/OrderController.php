@@ -39,25 +39,13 @@ class OrderController extends Controller
                 return ucwords($data->currency_type);
         })
         ->editColumn('sub_totals', function($data) {
-            if($data->currency_type == 'usd'){
-                return round($data->sub_totals/119,2);
-            }else{
                 return round($data->sub_totals,2);
-            }
         })
         ->editColumn('total_discounts', function($data) {
-            if(round($data->currency_type) == 'usd'){
-                return round($data->total_discounts/119,2);
-            }else{
                 return round($data->total_discounts,2);
-            }
         })
-        ->editColumn('grand_totals', function($data) {
-            if(round($data->currency_type) == 'usd'){
-                return round($data->grand_totals/119,2);
-            }else{
-                return round($data->grand_totals,2);
-            }
+        ->editColumn('grand_totals', function($data) { 
+            return round($data->grand_totals,2);
         })
         ->addColumn('status', function ($data) {
            return ucfirst($data->status);

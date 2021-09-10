@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Model\Coupon;
 use App\Model\Product;
 use App\Model\Setting;
 use App\Model\WishList;
@@ -10,6 +11,31 @@ use Cart;
 
 class CartController extends BaseController
 {
+    public function removeCoupon(Request $request){
+	    if($request->has('coupon_code') && $request->coupon_code !=''){
+            if(isset($_COOKIE['coupon_code']) && !empty($_COOKIE['coupon_code'])){
+                setcookie('coupon_code', "", time() - 1);
+            }
+	        $request->session()->flash('message','Success The Coupon Has Been Removed');
+        }
+	    return redirect()->back();
+    }
+
+    public function apply_coupon(Request $request){
+        if(!$coupon = Coupon::where('coupon_code',$request->coupon_code)->first()){
+            $request->session()->flash('message','Sorry Coupon Does Not Exists Or Has Been Removed');
+            return redirect()->back();
+        }
+
+        if($coupon->expiry_date < date('Y-m-d')){
+            $request->session()->flash('message','Sorry The Coupon Has Been Expired');
+            return redirect()->back();
+        }
+        setcookie('coupon_code', $request->coupon_code, time()+360000);
+        $request->session()->flash('message','Success Coupon Applied');
+        return redirect()->back();
+    }
+
     public function addToCart(Request $request){
         $response['error'] = true;
         $request->has('quantity') ? $quantity = $request->quantity : $quantity = 1;

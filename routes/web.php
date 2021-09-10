@@ -39,8 +39,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/category', 'CategoryController@index')->name('category.index');
     Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
     Route::post('/no-products', 'RequestProductController@store')->name('no-products.store');
-    Route::get('/contact-us', 'ContactUsController@index')->name('contact-us.index');
-    Route::post('/contact-us', 'ContactUsController@store')->name('contact-us.store');
+    Route::get('/contact-us', 'HomeController@contact_us')->name('contact-us.index');
+    Route::post('/contact-us', 'HomeController@storeContactUs')->name('contact-us.store');
     Route::get('/thank-you', 'RequestProductController@show')->name('thank-you');
     Route::get('/faqs', 'FaqsController@index')->name('faqs.index');
 });
@@ -53,6 +53,9 @@ Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.des
 
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
+    // coupon discount
+    Route::post('/apply_coupon', 'CartController@apply_coupon')->name('apply_coupon');
+    Route::post('/remove_oupon', 'CartController@removeCoupon')->name('removeCoupon');
     //address
     Route::post('/updateAddress', 'AddressController@updateAddress')->name('updateAddress');
     Route::get('/editmyaddress', 'AddressController@editmyaddress')->name('editmyaddress');
@@ -100,11 +103,15 @@ Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
     Route::post('admin-login/password/reset', 'ResetPasswordController@reset');
     Route::get('admin-login/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 });
-
+ 
 // admins
 Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/contact_messages', 'ContactMessageController@index')->name('contact_messages.index');
+    Route::get('/api/contact_messages', 'ContactMessageController@apicontact_messages')->name('api.contact_messages');
+    Route::get('/contact_messages/{id}', 'ContactMessageController@show')->name('show_contact_messages');
+    Route::post('/contact_messages', 'ContactMessageController@destroy')->name('destroy_contact_messages');
     //delivery name
     Route::resource('delivery_name', 'DeliveryNameController');
     Route::get('/api/delivery_name', 'DeliveryNameController@apidelivery_name')->name('api.delivery_name');
