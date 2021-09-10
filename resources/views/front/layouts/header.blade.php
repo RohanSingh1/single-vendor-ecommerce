@@ -32,9 +32,9 @@
                     <li>
                         <a href="{{ route('offers') }}" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
                     </li>
-                    <li>
-                        <a href="{{ route('faqs.index') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
-                    </li>
+                    {{-- <li>
+                        <a href="{{ route('faq') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
+                    </li> --}}
                     @if(auth()->check())
                     <li>
                         <a href="{{ route('front.wishlists') }}" class="option_links" title="Wishlist">
@@ -63,7 +63,7 @@
                             <a href="{{ route('front.wishlists') }}" class="item channel_item"><i class="uil uil-heart icon__1"></i>My Wishlist</a>
                             <a href="{{ route('front.myaddress') }}" class="item channel_item"><i class="uil uil-location-point icon__1"></i>My Address</a>
                             <a href="{{ route('offers') }}" class="item channel_item"><i class="uil uil-gift icon__1"></i>Offers</a>
-                            <a href="{{ route('faqs.index') }}" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a>
+                            {{-- <a href="{{ route('faqs.index') }}" class="item channel_item"><i class="uil uil-info-circle icon__1"></i>Faq</a> --}}
                             <a href="{{ route('logout') }}" class="item channel_item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="uil uil-lock-alt icon__1"></i>{{ __('Logout') }}</a>
 
@@ -117,7 +117,7 @@
                                             </div>
                                         @endif
                                 </div>
-                            </li> 
+                            </li>
                             @endif
                             @endforeach
                             @endif

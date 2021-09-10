@@ -42,7 +42,6 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/contact-us', 'HomeController@contact_us')->name('contact-us.index');
     Route::post('/contact-us', 'HomeController@storeContactUs')->name('contact-us.store');
     Route::get('/thank-you', 'RequestProductController@show')->name('thank-you');
-    Route::get('/faqs', 'FaqsController@index')->name('faqs.index');
 });
 
 //cart
@@ -103,7 +102,7 @@ Route::group(['namespace' => 'Admin\Auth', 'as' => 'admin.'], function () {
     Route::post('admin-login/password/reset', 'ResetPasswordController@reset');
     Route::get('admin-login/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 });
- 
+
 // admins
 Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => 'admin', 'as' => 'admin.'], function () {
 
@@ -190,7 +189,7 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
 //delivery boys
 Route::group(['middleware' => ['auth:admin','DeliveryRoleValidation'], 'as' => 'admin.', 'prefix' => 'admin','namespace' => 'DeliveryBoys'], function () {
     Route::get('/search-product', 'DashboardController@searchProduct')->name('search.product');
-    Route::get('/my-dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/my-dashboard', 'DashboardController@index')->name('my-dashboard');
      //orders
      Route::resource('delivery_orders', 'OrderController')->except('create','store');
      Route::get('/api/delivery_orders', 'OrderController@apiOrders')->name('api.delivery_orders');

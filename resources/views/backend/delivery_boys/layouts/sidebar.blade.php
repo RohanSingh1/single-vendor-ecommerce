@@ -30,12 +30,12 @@
             </button>
         </span>
     </div>
-    <div class="scrollbar-sidebar"> 
+    <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Dashboards</li>
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="{{ active(['admin/dashboard'], 'mm-active') }}">
+                    <a href="{{ route('admin.my-dashboard') }}" class="{{ active(['admin/my-dashboard'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>

@@ -21,8 +21,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="panel-group accordion" id="accordion0">
-                    <iframe style="border: 0;" width="100%" height="450"
-                    src="{{ get_general_settings_text('map_code') }}" __idm_frm__="201"></iframe>
+                    {!! get_general_settings_text('map_code')['text'] !!}
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -107,7 +106,7 @@
                             </div>
                             @error('message')
                             <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror 
+                            @enderror
                         </div>
                         <button class="next-btn16 hover-btn mt-3" type="submit" data-btntext-sending="Sending...">Submit
                             Request</button>
