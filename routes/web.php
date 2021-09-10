@@ -114,7 +114,9 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     //faq
     Route::resource('faq', 'FaqController');
     Route::get('/api/faq', 'FaqController@apifaq')->name('api.faq');
-
+    // coupon discount
+    Route::resource('coupons', 'CouponController');
+    Route::get('/api/coupon', 'CouponController@apiCoupon')->name('api.coupon');
     Route::post('category/saveOrder', ['uses' => 'CategoryController@saveOrder', 'as' => 'category.saveOrder']);
     Route::resource('category', 'CategoryController');
 

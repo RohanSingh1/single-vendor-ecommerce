@@ -81,6 +81,14 @@
                         <i class="metismenu-state-icon "></i>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.coupons.index') }}"
+                       class="{{ active(['admin/coupons*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Coupons
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{ route('admin.orders.index') }}"
