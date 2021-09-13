@@ -90,8 +90,8 @@
                                 <br>
                                 <p>Current Image</p>
                                 <span>
-                                    <a href="{{ asset('storage/Uploads/Deal/'.$deal->image) }}">
-                                        <img src="{{ asset('storage/Uploads/Deal/'.$deal->image)  }}" style="width:300px" alt="Deal Image">
+                                    <a href="{{ asset('storage/uploads/Deal/'.$deal->image) }}">
+                                        <img src="{{ asset('storage/uploads/Deal/'.$deal->image)  }}" style="width:300px" alt="Deal Image">
                                     </a>
                                 </span>
                                 @if ($errors->has('image'))

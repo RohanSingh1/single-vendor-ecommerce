@@ -3,13 +3,11 @@
 namespace App;
 
 use App\Model\ContactProduct;
-use App\Model\Coupon;
 use App\Model\SettingsUser;
 use App\Model\WishList;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 

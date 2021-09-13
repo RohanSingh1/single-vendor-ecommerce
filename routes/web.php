@@ -150,6 +150,9 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     // deals
     Route::resource('deals', 'DealController');
     Route::get('/api/deal', 'DealController@apiDeal')->name('api.deal');
+    //customer
+    Route::resource('/customers', 'CustomersController');
+    Route::get('/api/customers', 'CustomersController@apiCustomers')->name('api.customers');
     //users
     Route::get('/users', 'UsersController@index')->name('users');
     Route::get('/api/users', 'UsersController@apiuser')->name('api.users');
