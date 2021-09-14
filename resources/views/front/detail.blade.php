@@ -111,7 +111,7 @@
                                         <ul class="ordr-crt-share">
                                             <li><button class="add-cart-btn hover-btn add-to-cart-btn" attr-slug="{{ $product->slug }}">
                                                 <i class="uil uil-shopping-cart-alt"></i>Add to Cart</button></li>
-                                            <li><button class="order-btn hover-btn">Order Now</button></li>
+                                            <li><button class="order-btn hover-btn add-to-cart-btn" attr-slug="{{ $product->slug }}" attr-from="buy_now">Order Now</button></li>
                                         </ul>
                                     </div>
                                     <div class="pdp-details">

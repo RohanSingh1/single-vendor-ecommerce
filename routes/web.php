@@ -6,11 +6,12 @@
 //     return view('backend.dashboard');
 // });
 
-use App\Model\Product;
+use App\Model\Order;
 use Illuminate\Support\Facades\Cookie;
 
 Route::get('test',function(){
-
+    $ad = Order::find(29);
+    dd(unserialize($ad->shipping_address));
 });
 
 Route::get('/', 'Front\HomeController@index')->name('index');

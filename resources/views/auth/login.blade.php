@@ -40,7 +40,7 @@
                                 <a href="index.html"><img class="logo-inverse"
                                         src="{{ asset('fornt/images/dark-logo.svg') }}" alt=""></a>
                             </div>
-                            <div class="form-dt"> 
+                            <div class="form-dt">
                                 <div class="form-inpts checout-address-step">
                                     <form action="{{ route('login') }}" method="POST">
                                         @csrf

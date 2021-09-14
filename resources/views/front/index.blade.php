@@ -1,4 +1,12 @@
 @extends('front.layouts.layout')
+@push('css')
+<style>
+    .new_btn{
+        margin-left: 14px;
+        font-size: 12px;
+    }
+</style>
+@endpush
 @section('content')
     <div class="main-banner-slider">
         <div class="container">

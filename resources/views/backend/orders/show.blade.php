@@ -57,7 +57,8 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-12 col-md-5 col-xl-4">
+
+    <div class="col-sm-12 col-md-5 col-xl-4">
         <div class="mb-3 card">
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
@@ -80,6 +81,109 @@
                   </div>
                 </div>
             </div>
+        </div>
+
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header-tab-animation card-header">
+                <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                   <p>Delivery Boy</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <span style="font-weight:bold;">
+
+                            @if(isset($data->delivery_boy)) {{  $data->delivery_boy->name }}
+                            | E-Mail :- {{ $data->delivery_boy->email }} @else Not Assigned  @endif
+
+                        </span>
+                        </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header-tab-animation card-header">
+                <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                   <p>Delivery Notes</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <span style="font-weight:bold;">{!! $order->order_note !!}</span>
+                        </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-12 col-md-7 col-xl-8">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header-tab-animation card-header">
+                <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                        Shipping Address Details
+                </div>
+            </div>
+            @if($order->shipping_address != null)
+            @php $shipping_address = unserialize($order->shipping_address); @endphp
+            <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <h2>Customer Name: {{ $shipping_address->email }} </h2>
+                        <ul>
+                          <li>E-Mail: {{ $shipping_address->email }} </li>
+                          <li>Phone: {!! $shipping_address->phone !!} </li>
+                          <li>Address: <span class="f_price"> {!! $shipping_address->address1 !!} </span> </li>
+                          <li>Address 2: <span class="f_price"> {!! $shipping_address->address2 !!} </span> </li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-7 col-xl-8">
+        <div class="mb-3 card">
+            <div class="card-header-tab card-header-tab-animation card-header">
+                <div class="card-header-title">
+                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                        Billing Address Details
+                </div>
+            </div>
+            @if($order->billing_address != null)
+            @php $billing_address = unserialize($order->billing_address); @endphp
+            <div class="card-body">
+                <div class="tab-content">
+                  <div class="row">
+                      <div class="col-md-12">
+                        <h2>Customer Name: {{ $billing_address->name }} </h2>
+                        <ul>
+                            <li>E-Mail: {{ $billing_address->email }} </li>
+                            <li>Phone: {!! $billing_address->phone !!} </li>
+                            <li>Address: <span class="f_price"> {!! $billing_address->address1 !!} </span> </li>
+                            <li>Address 2: <span class="f_price"> {!! $billing_address->address2 !!} </span> </li>
+                          </ul>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            @else
+                <span class="text-center alert alert-info">Not Found</span>
+            @endif
         </div>
     </div>
 </div>

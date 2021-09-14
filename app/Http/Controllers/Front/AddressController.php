@@ -16,7 +16,7 @@ class AddressController extends BaseController
         ]);
         $addressData = [
             'type' => 'SHIPPING',
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
             'full_name' => $request->s_full_name,
             'email' => $request->s_email,
             'phone' => $request->s_phone,
@@ -38,7 +38,7 @@ class AddressController extends BaseController
 
         $addressData = [
             'type' => 'BILLING',
-            'user_id' => 1,
+            'user_id' => auth()->user()->id,
             'full_name' => $request->b_full_name,
             'email' => $request->b_email,
             'phone' => $request->b_phone,

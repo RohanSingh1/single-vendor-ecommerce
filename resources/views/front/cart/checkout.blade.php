@@ -172,8 +172,8 @@ $final = get_price_check_coupon();
                                                 <div class="address-fieldset">
                                                     <div class="row">
                                                         <div class="form-group">
-                                                            <input type="checkbox" class="same-as-shipping">
-                                                            <label class="control-label"> Billing Address Same As Shipping Address </label>
+                                                            <input type="checkbox" class="same-as-shipping" id="sb">
+                                                            <label class="control-label" for="sb"> Billing Address Same As Shipping Address </label>
                                                         </div>
                                                         <div class="col-lg-6 col-md-12">
                                                             <div class="form-group">
@@ -298,7 +298,18 @@ $final = get_price_check_coupon();
                                             </div>
                                             <form action="{{ route('front.checkout.store') }}" method="post">
                                                 @csrf
-                                                <button class="next-btn16 hover-btn" type="submit">Place Order</button>
+                                                <textarea name="order_note" id="order_note" cols="75" rows="10"
+                                                placeholder="Your Order Note Here"></textarea>
+                                                <br>
+                                                    <input type="radio" name="meat_condition" value="poleko" required>Poleko
+                                                    <input type="radio" name="meat_condition" value="na_poleko" required>Na Poleko
+                                                    <br>
+                                                    <input type="radio" name="meat_state" value="poleko" required>With Skin
+                                                    <input type="radio" name="meat_state" value="na_poleko" required>Without Skin
+
+
+                                                <br>
+                                                <button class="next-btn16 hover-btn pull-right" type="submit">Place Order</button>
                                             </form>
                                         </div>
                                     </div>
@@ -369,7 +380,7 @@ $final = get_price_check_coupon();
                     <div class="total-checkout-group">
                         <div class="cart-total-dil pt-3">
                             <h4>Subtotal</h4>
-                            <span> {{ currency_type().\Cart::getSubTotal() }}</span> 
+                            <span> {{ currency_type().\Cart::getSubTotal() }}</span>
                         </div>
                     </div>
                     <div class="total-checkout-group">

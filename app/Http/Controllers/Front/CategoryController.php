@@ -20,7 +20,7 @@ class CategoryController extends BaseController
             ->withCount('products')
             ->firstOrFail();
 
-            $data['products'] = $data['category']->products()->paginate(4);
+            $data['products'] = $data['category']->products()->get();
 
         return view(parent::loadViewData('front.category.show'),compact('data'));
     }

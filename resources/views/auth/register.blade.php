@@ -51,16 +51,16 @@
                                         </div>
                                         <div class="form-group pos_rel">
                                             <input id="full[name]" name="name" type="text" placeholder="Full name"
-                                                class="form-control lgn_input" required="">
+                                                class="form-control lgn_input" required="" value="{{ old('name') }}">
                                             <i class="uil uil-user-circle lgn_icon"></i>
                                         </div>
                                         <div class="form-group pos_rel">
-                                            <input id="email[address]" name="email" type="email"
+                                            <input id="email[address]" name="email" type="email" value="{{ old('email') }}"
                                                 placeholder="Email Address" class="form-control lgn_input" required="">
                                             <i class="uil uil-envelope lgn_icon"></i>
                                         </div>
                                         <div class="form-group pos_rel">
-                                            <input id="phone[number]" name="phone_no" type="text"
+                                            <input id="phone[number]" name="phone_no" type="text" value="{{ old('phone_no') }}"
                                                 placeholder="Phone Number" class="form-control lgn_input" required="">
                                             <i class="uil uil-mobile-android-alt lgn_icon"></i>
                                         </div>
@@ -75,6 +75,13 @@
                                             <input id="password1" name="password_confirmation" type="password"
                                                 placeholder="Confirm Password" class="form-control lgn_input" required="">
                                             <i class="uil uil-padlock lgn_icon"></i>
+                                        </div>
+                                        <div class="form-group pos_rel">
+                                            <label for="">Gender:</label>
+                                            <input id="gender" name="gender" type="radio" value="male"
+                                               required="">Male
+                                                <input id="gender" name="gender" type="radio" value="female"
+                                               required="">Female
                                         </div>
                                         <button class="login-btn hover-btn" type="submit">Sign Up Now</button>
                                     </form>

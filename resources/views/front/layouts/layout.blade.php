@@ -51,7 +51,7 @@
                     <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
                         <i class="uil uil-multiply"></i>
                     </button>
-                </div> 
+                </div>
                 <div class="category-model-content modal-content">
                     <div class="search-header">
                         <form action="">
@@ -87,9 +87,7 @@
         var $this = $(this);
         var slug = $this.attr('attr-slug');
         $this.prop('disabled', true);
-        setTimeout(() => {
             var quantity = $this.closest('.qty_section').find('.now_quantity').val();
-            console.log(quantity);
         $.ajax({
             method: 'POST',
             url: '{{ route('front.cart.add') }}',
@@ -99,28 +97,25 @@
                 quantity: quantity,
             },
             beforeSend:function(){
-                $('.qty_section').LoadingOverlay("show");
-                },
+            },
             success: function (response) {
                 var data = $.parseJSON(response);
                 if (data.error) {
                     $.notify(data.message,'error');
                     $('.session_message').html(data.message + "<br>");
                 } else {
-                    console.log('success');
                     $('#cart-item-wrapper').html(data.html);
                     $('.cart_total').html(data.data.cart_total);
                     $('.cart_total_qty').html(data.data.cart_total_qty);
                     $.notify(data.message,'success');
-
+                    $this.prop('disabled', false);
+                    console.log($this.attr('attr-from'));
+                    if($this.attr('attr-from') == 'buy_now'){
+                        location.href = "{{ route('front.checkout') }}";
+                    }
                 }
             },
-            complete:function(){
-                $('.qty_section').LoadingOverlay("hide");
-        $this.prop('disabled', false);
-                }
         });
-        }, 1000);
     });
 
     $('#app').on('click', '.remove_items', function () {
