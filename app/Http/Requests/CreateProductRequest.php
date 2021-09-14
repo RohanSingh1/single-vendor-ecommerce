@@ -35,4 +35,11 @@ class CreateProductRequest extends FormRequest
             'description' => 'nullable|string|max:1699999',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'category_id.required'=>'Please Select Valid Category',
+        ];
+    }
 }

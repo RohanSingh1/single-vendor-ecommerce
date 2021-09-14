@@ -15,8 +15,10 @@
             <div class="search120">
                 <div class="ui search">
                     <div class="ui left icon input swdh10">
+                        <form action="{{ route('search') }}" method="POST" class="d-flex col-sm-12">
+                            @csrf
                         <input class="prompt srch10" type="text" id="search_now"  placeholder="Search for products..">
-                        <button class="btn btn-success search-button" id="search"><i class='uil uil-search-alt icon icon1'></i></button>
+                        <button class="btn btn-success search-button" id="search" type="submit"><i class='uil uil-search-alt icon icon1'></i></button>
                         <div class="search_list" style="position:absolute"></div>
                     </div>
                 </div>

@@ -55,7 +55,7 @@
                 <div class="category-model-content modal-content">
                     <div class="search-header">
                         <form action="">
-                            <input type="search" placeholder="Search for products..." id="search_now" >
+                            <input type="search" placeholder="Search for products..." class="search_now" >
                             <button type="submit"  class="search-button"><i class="uil uil-search"></i></button>
                         </form>
                     </div>

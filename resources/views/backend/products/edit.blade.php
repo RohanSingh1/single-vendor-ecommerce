@@ -73,6 +73,13 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="col-md-3">
+                                        <div class="form-group">
+                                            {{Form::label('Enable Disable Price')}}
+                                            {!! Form::select('price_status',['1' => 'Enable','0' => 'Disable'],old('price_status'),['class'=>'form-control']) !!}
+                                        </div>
+                                    </div> --}}
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {{Form::label('Quantity')}}

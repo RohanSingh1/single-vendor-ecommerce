@@ -1,6 +1,11 @@
 @extends('backend.layouts.master')
 @section('styles')
     <link rel="stylesheet" href="{{asset('backend/plugins/image-uploader/image-uploader.min.css')}}">
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="app-page-title">
@@ -42,7 +47,7 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     {{Form::label('Product Name')}}
-                                    {{Form::text('name','',['class'=>'form-control'])}}
+                                    {{Form::text('name','',['class'=>'form-control','required'])}}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -54,7 +59,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {{Form::label('Selling Price')}}
-                                    {{Form::number('price','',['class'=>'form-control'])}}
+                                    {{Form::number('price','',['class'=>'form-control','required'])}}
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -63,7 +68,12 @@
                                     {{Form::number('old_price','',['class'=>'form-control'])}}
                                 </div>
                             </div>
-
+                            {{-- <div class="col-md-3">
+                                <div class="form-group">
+                                    {{Form::label('Enable Disable Price')}}
+                                    {!! Form::select('price_status',['1' => 'Enable','0' => 'Disable'],old('price_status'),['class'=>'form-control']) !!}
+                                </div>
+                            </div> --}}
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {{Form::label('Quantity')}}
@@ -81,7 +91,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{Form::label('Category Name')}}
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control" name="category_id" required>
+                                        <option selected disabled>Select Category</option>
                                         @foreach($categories as $category)
                                             @if(count($category->parents))
                                                 <option value="{{$category->id}}"
@@ -96,6 +107,9 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                    @error('category_id')
+                                        <span class="error">Please Select Valid Category</span>
+                                    @enderror
                                 </div>
                             </div>
 

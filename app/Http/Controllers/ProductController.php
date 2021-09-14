@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -44,20 +46,28 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $data = $request->all();
-        $data['slug'] = generateUniqueSlug('App\Model\Product', $request->name);
-        $data['published'] = switch_case_check($request->published);
-        $data['is_featured'] = switch_case_check($request->is_featured);
-        if ($request->custom == 'on' & $request->file('feature_image') != '') {
-            $data['feature_image'] = Product::saveProductImage($request->file('feature_image'), $request->product_name, $request->selling_price);
-        } elseif ($request->file('feature_image') != '') {
-            $data['feature_image'] = Product::saveProductImageWithoutEdit($request->file('feature_image'));
+        try{
+            DB::beginTransaction();
+            $data['slug'] = generateUniqueSlug('App\Model\Product', $request->name);
+            $data['published'] = switch_case_check($request->published);
+            $data['is_featured'] = switch_case_check($request->is_featured);
+            if ($request->custom == 'on' & $request->file('feature_image') != '') {
+                $data['feature_image'] = Product::saveProductImage($request->file('feature_image'), $request->product_name, $request->selling_price);
+            } elseif ($request->file('feature_image') != '') {
+                $data['feature_image'] = Product::saveProductImageWithoutEdit($request->file('feature_image'));
+            }
+            $product = Product::create($data);
+            $cat_array = buildCategory($request->category_id);
+            $product->categories()->attach($cat_array);
+            $product->colors()->attach($request->colors);
+            storeMeta($product, $request);
+            toast(__('global.data_saved'), 'success');
+        }catch (Exception $exception){
+            DB::rollBack();
+            $request->session()->flash('error','Problem While Adding Your Product Try Again Or Contact System Administrator');
+            return redirect()->route('admin.products.index');
         }
-        $product = Product::create($data);
-        $cat_array = buildCategory($request->category_id);
-        $product->categories()->attach($cat_array);
-        $product->colors()->attach($request->colors);
-        storeMeta($product, $request);
-        toast(__('global.data_saved'), 'success');
+        DB::commit();
         return redirect()->route('admin.products.edit', $product->id);
     }
 
