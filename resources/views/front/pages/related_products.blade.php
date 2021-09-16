@@ -1,7 +1,6 @@
 @extends('front.layouts.layout')
 
 @section('content')
-
 <div class="gambo-Breadcrumb">
     <div class="container">
         <div class="row">
@@ -9,7 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Search Result for ({{ request()->get('query') }})</li>
+                        <li class="breadcrumb-item active" aria-current="page">All Products</li>
                     </ol>
                 </nav>
             </div>
@@ -20,7 +19,7 @@
     <div class="container">
         <div class="product-list-view">
             <div class="row">
-                @forelse ($data as $product)
+                @forelse ($related_products->products as $product)
                 <div class="col-lg-3 col-md-6">
                     <div class="product-item mb-30">
                         <a href="{{ route('product.show',$product->slug) }}" class="product-img">
@@ -53,20 +52,10 @@
                     </div>
                 </div>
                 @empty
-
-                @endforelse
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="more-product-btn">
-                                {{ $data->links() }}
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-12">
+                    <p class="no_products">Sorry No Product Found</p>
                 </div>
-
-
+                @endforelse
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\helpers\SaveImage;
 use App\Model\Coupon;
 use App\Model\Product;
 use Illuminate\Http\Request;
@@ -77,6 +78,10 @@ class CouponController extends Controller
             'status'=>'required|boolean',
         ]);
 
+        if ($request->hasFile('image')) {
+            $file_name = SaveImage::save($request->image, 'Coupon');
+        }
+
         $coupon_code = strtoupper(str_slug($request->coupon_name).'-'.rand(0,9999).substr(str_slug($request->coupon_name),3,6));
 
 
@@ -84,7 +89,9 @@ class CouponController extends Controller
         $coupon = Coupon::create([
             'user_id'=>auth()->check() ? auth()->user()->id:1,
             'coupon_name'=>$request->coupon_name,
+            'slug'=>str_slug($request->coupon_name),
             'coupon_code'=>$coupon_code,
+            'image'=>isset($file_name)?$file_name:null,
             'expiry_date'=>$request->expiry_date,
             'value'=>$request->value,
             'type'=>$request->type,
@@ -153,6 +160,15 @@ class CouponController extends Controller
             return redirect()->route('dashboard.coupons.index');
         }
 
+        if ($request->hasFile('image')) {
+            $file_name = SaveImage::update($request->image, 'Coupon', $coupon->image != '' ? $coupon->image : '');
+            if($coupon->image != null && file_exists('storage/Uploads/Coupon/'.$coupon->image)){
+                unlink(base_path().'/public/storage/Uploads/Coupon/'.$coupon->image);
+            }
+        } else {
+            $file_name = $coupon->image;
+        }
+
         $coupon_code = strtoupper(str_slug($request->coupon_name).'-'.rand(0,9999).substr(str_slug($request->coupon_name),3,6));
 
 
@@ -161,7 +177,9 @@ class CouponController extends Controller
 
         $coupon->update([
             'coupon_name'=>$request->coupon_name,
+            'slug'=>str_slug($request->coupon_name),
             'coupon_code'=>$coupon_code,
+            'image'=>isset($file_name)?$file_name:$coupon->image,
             'expiry_date'=>$request->expiry_date,
             'value'=>$request->value,
             'type'=>$request->type,

@@ -115,7 +115,7 @@
                 </div>
                @foreach ($data['deals'] as $deal)
                <div class="col-lg-4 col-md-6">
-                    <a href="" class="best-offer-item offr-none">
+                    <a href="{{ route('deal_products',$deal->slug) }}" class="best-offer-item offr-none">
                         <img src="{{ asset('storage/uploads/Deal/'.$deal->image) }}" alt="{{ $deal->name }}">
                         <div class="cmtk_dt">
                             <div class="product_countdown-timer offer-counter-text"
@@ -126,9 +126,11 @@
                 @endforeach
 
                 <div class="col-md-12">
-                    <a href="#" class="code-offer-item">
-                        <img src="{{ asset('front/images/best-offers/offer-4') }}.jpg" alt="">
+                    @foreach ($data['coupons'] as $coupon)
+                    <a href="{{ route('coupon_products',$coupon->slug) }}" class="code-offer-item">
+                        <img src="{{ asset('storage/uploads/Coupon/'.$coupon->image) }}" alt="{{ $coupon->coupon_name }}">
                     </a>
+                    @endforeach
                 </div>
             </div>
         </div>

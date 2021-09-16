@@ -8,6 +8,16 @@
         .cart-btn{
             margin-top:4px;
         }
+        .custom_head{
+            margin-bottom: 33px;
+        }
+        .no_products{
+            font-size: 20px;
+            font-weight: bold;
+            margin: auto;
+            text-align: center;
+            color:rgb(207, 16, 16)
+        }
     </style>
 </head>
 <body>

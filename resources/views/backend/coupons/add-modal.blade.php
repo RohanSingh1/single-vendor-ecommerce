@@ -8,7 +8,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['action' => ['CouponController@store'],'method' => 'POST' ]) !!}
+                    {!! Form::open(['action' => ['CouponController@store'],'method' => 'POST','enctype'=>'multipart/form-data' ]) !!}
                     <div class="form-group">
                         {{Form::label('Coupon Name')}}
                         {{Form::text('coupon_name','',['class'=>'form-control'])}}
@@ -51,6 +51,17 @@
                         @if ($errors->has('value'))
                             <span class="help-block">
                                 {{ $errors->first('value') }}
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                        {!! Form::label('image','Image *') !!}
+                        {!! Form::file('image', ['class'=> 'form-control']) !!}
+
+                        @if ($errors->has('image'))
+                            <span class="help-block">
+                                {{ $errors->first('image') }}
                             </span>
                         @endif
                     </div>

@@ -25,7 +25,7 @@
                     <img src="images/line.svg" alt="">
                 </div>
             </div>
-
+            @if($offers->count() > 0)
             @foreach ($offers as $offer)
             <div class="col-lg-4">
                 <a href="#" class="offers-item">
@@ -39,7 +39,11 @@
                 </a>
             </div>
             @endforeach
-
+            @else
+            <div class="col-sm-12">
+                <p class="no_products">Sorry No Product Found</p>
+            </div>
+            @endif
         </div>
     </div>
 </div>

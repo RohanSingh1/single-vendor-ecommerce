@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                        {!! Form::label('image','Expiry Date *') !!}
+                        {!! Form::label('image','Image *') !!}
                         {!! Form::file('image', ['class'=> 'form-control']) !!}
 
                         @if ($errors->has('image'))

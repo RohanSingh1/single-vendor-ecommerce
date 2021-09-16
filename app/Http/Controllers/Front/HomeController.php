@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\ContactUs;
 use App\Model\Category;
+use App\Model\Coupon;
 use App\Model\Deal;
 use App\Model\Faq;
 use App\Model\NewsLetter;
@@ -17,9 +18,9 @@ class HomeController extends BaseController
         $data['sliders'] = Slider::active()->get();
         $data['featured_products'] = Product::featured()->get();
         $data['fresh_products'] = Product::Isfresh()->get();
-        $data['new_products'] = Product::latest()->limit(9)->get();
+        $data['new_products'] = Product::published()->latest()->limit(9)->get();
         $data['deals'] = Deal::where('status',1)->get();
-
+        $data['coupons'] = Coupon::where('status',1)->where('expiry_date','>',date('Y-m-d'))->get();
         return view(parent::loadViewData('front.index'),compact('data'));
     }
 
@@ -108,5 +109,15 @@ class HomeController extends BaseController
             ]);
 
          return redirect()->back()->with('success','Thank you for your interest!');
+    }
+
+    public function coupon_products(Request $request,$related_products){
+        $related_products = Coupon::where(['slug'=>$related_products,'status'=>1])->where('expiry_date','>',date('Y-m-d'))->first();
+        return view(parent::loadViewData('front.pages.related_products'),compact('related_products'));
+    }
+
+    public function deal_products(Request $request,$related_products){
+        $related_products = Deal::where(['slug'=>$related_products,'status'=>1])->where('expiry_date','>',date('Y-m-d'))->first();
+        return view(parent::loadViewData('front.pages.related_products'),compact('related_products'));
     }
 }

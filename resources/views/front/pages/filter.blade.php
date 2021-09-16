@@ -110,7 +110,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $data['category']->name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Filter Result</li>
                     </ol>
                 </nav>
             </div>
@@ -195,7 +195,7 @@
 
             $('#product-filter-btn').click(function () {
             var slug = window.location.pathname.split("/").pop();
-            var url = "{{ route('product-filter') }}";
+            var url = "{{ url()->current() }}";
             var checked_categories = "";
             $('.category').each(function () {
                 var categories = (this.checked ? this.value : '');

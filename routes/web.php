@@ -17,6 +17,10 @@ Route::get('test',function(){
 Route::get('/', 'Front\HomeController@index')->name('index');
 Auth::routes();
 
+Route::get('coupon_products/{coupon}','Front\HomeController@coupon_products')->name('coupon_products');
+Route::get('deal_products/{deal}','Front\HomeController@deal_products')->name('deal_products');
+Route::get('product-filter','Front\FilterController@product_filter')->name('product-filter');
+
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
 Route::get('/product/{slug}', 'Front\HomeController@show')->name('product.show');
 Route::get('/faq', 'Front\HomeController@faq')->name('faq');

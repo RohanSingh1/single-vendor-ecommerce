@@ -34,7 +34,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            {!! Form::open(['route' => ['admin.coupons.update',$coupon->id],'method' => 'PUT' ]) !!}
+                            {!! Form::open(['route' => ['admin.coupons.update',$coupon->id],'method' => 'PUT' ,'enctype'=>'multipart/form-data']) !!}
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -101,6 +101,23 @@
                                 <span class="help-block">
                                     {{ $errors->first('value') }}
                                 </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                {!! Form::label('image','Image *') !!}
+                                {!! Form::file('image', ['class'=> 'form-control']) !!}
+                                <br>
+                                <p>Current Image</p>
+                                <span>
+                                    <a href="{{ asset('storage/uploads/Coupon/'.$coupon->image) }}">
+                                        <img src="{{ asset('storage/uploads/Coupon/'.$coupon->image)  }}" style="width:300px" alt="Coupon Image">
+                                    </a>
+                                </span>
+                                @if ($errors->has('image'))
+                                    <span class="help-block">
+                                        {{ $errors->first('image') }}
+                                    </span>
                                 @endif
                             </div>
 
