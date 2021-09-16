@@ -54,44 +54,44 @@
                     </div>
                     <div class="custom-control custom-checkbox pb2">
                         <input type="checkbox" class="custom-control-input price" name="price[]"
-                        {{  $data['price_range'] !='' && $data['price_range']['max'] ==100 ? 'checked'  : ''}}
+
                          value="100" id="price_2">
                         <label class="custom-control-label" for="price_2">{{ currency_type() }} 20 to {{ currency_type() }} 100 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
                         <input type="checkbox" class="custom-control-input price"
-                        {{  $data['price_range'] !='' && $data['price_range']['max'] ==250 ? 'checked'  : ''}} name="price[]" value="250" id="price_3">
+                        name="price[]" value="250" id="price_3">
                         <label class="custom-control-label" for="price_3">{{ currency_type() }} 100 to {{ currency_type() }} 250 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
                         <input type="checkbox" class="custom-control-input price"
-                        {{  $data['price_range'] !='' && $data['price_range']['max'] ==500 ? 'checked'  : ''}} name="price[]" value="500" id="price_4">
+                        name="price[]" value="500" id="price_4">
                         <label class="custom-control-label" for="price_4">{{ currency_type() }} 250 to {{ currency_type() }} 500 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
                         <input type="checkbox" class="custom-control-input price"
-                        {{  $data['price_range'] !='' && $data['price_range']['max'] ==1000 ?  'checked' : '' }} name="price[]" value="1000" id="price_5">
+                      name="price[]" value="1000" id="price_5">
                         <label class="custom-control-label" for="price_5">{{ currency_type() }} 500 to {{ currency_type() }} 1000 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
                         <input type="checkbox" class="custom-control-input price"
-                        {{ $data['price_range'] !='' && $data['price_range']['max'] > 1000 ? 'checked':'' }} name="price[]" value="100000" id="price_6">
+                        name="price[]" value="100000" id="price_6">
                         <label class="custom-control-label" for="price_6">More than {{ currency_type() }} 1000<span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="form-group d-flex">
                         <h4 class="custom_head">custom</h4>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price[]" value="{{ $data['price_range'] != '' ? $data['price_range']['min'] : ''}}" id="custom-min-price">
+                            <input type="text" class="price form-control" name="price[]" value="" id="custom-min-price">
                             <label class="" for="">Min<span
                                     class=""></span></label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price[]" value="{{ $data['price_range'] != '' ? $data['price_range']['max'] : ''}}" id="custom-max-price">
+                            <input type="text" class="price form-control" name="price[]" value="" id="custom-max-price">
                             <label class="" for="price_6">Max<span
                                     class=""></span></label>
                         </div>
