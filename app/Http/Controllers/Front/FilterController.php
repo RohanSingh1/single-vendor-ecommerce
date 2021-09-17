@@ -11,20 +11,20 @@ class FilterController extends BaseController
         $data = [];
         if($request->has('sort-by')){
             switch (request()->get('sort-by')) {
-                    case 'latest':
+                case 'latest':
                     $sort = 'products.created_at';
                     $sorting = 'desc';
                     break;
-                case 'price-high':
+                    case 'price-high':
                     $sort ='products.price';
                     $sorting = 'desc';
                     break;
-                case 'price-low':
+                    case 'price-low':
                     $sort = 'products.price';
                     $sorting = 'asc';
                     break;
-                default:
-                $sort ='products.id';
+                    default:
+                    $sort ='products.id';
                 $sorting = 'asc';
             }
         }else{
@@ -42,7 +42,11 @@ class FilterController extends BaseController
             })
         ->where(function ($query) use ($data,$request) {
             if ($request->has('price-range')){
-                $query->whereBetween('price',[$data['price_range']['min'],$data['price_range']['max']]);
+                if($data['price_range']['max'] == "1000"){
+                $query->where('price','>',"1000");
+                }else{
+                    $query->whereBetween('price',[$data['price_range']['min'],$data['price_range']['max']]);
+                }
             }
         })
         ->orderBy($sort,$sorting)
@@ -64,7 +68,7 @@ class FilterController extends BaseController
 
     public function price_range(){
         if(request()->get('price-range')){
-            $price_range =explode(',',request()->get('price-range'));
+            $price_range =explode('-',request()->get('price-range'));
             if(count($price_range) == 2){
                 $data['min']= $price_range[0];
                 $data['max'] =$price_range[1];
@@ -75,11 +79,6 @@ class FilterController extends BaseController
                 $data['max'] = request()->get('price-range');
                 return $data;
             }
-        }else{
-            $data = [];
-            $data['min'] = "1";
-            $data['max'] = request()->get('price-range');
-            return $data;
         }
     }
 

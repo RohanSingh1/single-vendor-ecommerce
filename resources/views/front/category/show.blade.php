@@ -134,7 +134,7 @@
                             <div class="menu filter">
 
                                 <div class="item product-sort-btn" data-value="latest"
-                                {{ request()->get('sort-by') == 'price'?'selected="selected"':"" }}>latest</div>
+                                {{ request()->get('sort-by') == 'price'?'selected="selected"':"" }}>Latest</div>
                                 <div class="item product-sort-btn" data-value="price-low"
                                 {{ request()->get('sort-by') == 'price-low'?'selected="selected"':"" }}>Price - Low to High</div>
                                 <div class="item product-sort-btn" data-value="price-high"
@@ -231,7 +231,7 @@
             if (checked_price !== '') {
 
                 if (flag) {
-                    url += '&price-range=' + checked_price.trim(',');
+                    url += '&price-range=' + checked_price.trim('-');
                 } else {
                     url += '?price-range='  + checked_price.trim(',');
                 }
