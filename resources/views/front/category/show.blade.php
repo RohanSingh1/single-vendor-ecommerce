@@ -199,7 +199,7 @@
 
             $('#product-filter-btn').click(function () {
             var slug = window.location.pathname.split("/").pop();
-            var url = "{{ url()->current() }}";
+            var url = "{{ route('product-filter') }}";
             var checked_categories = "";
             $('.category').each(function () {
                 var categories = (this.checked ? this.value : '');
