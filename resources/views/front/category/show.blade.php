@@ -48,50 +48,54 @@
             <div class="price-pack-item-body scrollstyle_4">
                 <div class="brand-list">
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price" name="price[]" value="20"  id="price_1">
+                        <input type="radio" class="custom-control-input price" name="price" value="1-20"
+                        {{  $data['price_range'] !='' && $data['price_range']['max'] =="20" ? 'checked'  : ''}} id="price_1">
                         <label class="custom-control-label" for="price_1">Less than {{ currency_type() }} 20 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price" name="price[]"
-
-                         value="100" id="price_2">
+                        <input type="radio" class="custom-control-input price" name="price"
+                        {{  $data['price_range'] !='' && $data['price_range']['max'] =="100" ? 'checked'  : ''}}
+                         value="20-100" id="price_2">
                         <label class="custom-control-label" for="price_2">{{ currency_type() }} 20 to {{ currency_type() }} 100 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price"
-                        name="price[]" value="250" id="price_3">
+                        <input type="radio" class="custom-control-input price"
+                        {{  $data['price_range'] !='' && $data['price_range']['max'] =="250" ? 'checked'  : ''}} name="price"
+                         value="100-250" id="price_3">
                         <label class="custom-control-label" for="price_3">{{ currency_type() }} 100 to {{ currency_type() }} 250 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price"
-                        name="price[]" value="500" id="price_4">
+                        <input type="radio" class="custom-control-input price"
+                        {{  $data['price_range'] !='' && $data['price_range']['max'] =="500" ? 'checked'  : ''}} name="price"
+                         value="250-500" id="price_4">
                         <label class="custom-control-label" for="price_4">{{ currency_type() }} 250 to {{ currency_type() }} 500 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price"
-                      name="price[]" value="1000" id="price_5">
-                        <label class="custom-control-label" for="price_5">{{ currency_type() }} 500 to {{ currency_type() }} 1000 <span
+                        <input type="radio" class="custom-control-input price"
+                        {{  $data['price_range'] !='' && $data['price_range']['max'] =="999" ?  'checked' : '' }} name="price"
+                        value="500-999" id="price_5">
+                        <label class="custom-control-label" for="price_5">{{ currency_type() }} 500 to {{ currency_type() }} 999 <span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input price"
-                        name="price[]" value="100000" id="price_6">
+                        <input type="radio" class="custom-control-input price"
+                        {{ $data['price_range'] !='' && $data['price_range']['max'] == "1000" ? 'checked':'' }} name="price" value="1000" id="price_6">
                         <label class="custom-control-label" for="price_6">More than {{ currency_type() }} 1000<span
                                 class="webproduct"></span></label>
                     </div>
                     <div class="form-group d-flex">
                         <h4 class="custom_head">custom</h4>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price[]" value="" id="custom-min-price">
+                            <input type="text" class="price form-control" name="price" value="{{ $data['price_range'] != '' ? $data['price_range']['min'] : ''}}" id="custom-min-price">
                             <label class="" for="">Min<span
                                     class=""></span></label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price[]" value="" id="custom-max-price">
+                            <input type="text" class="price form-control" name="price[]" value="{{ $data['price_range'] != '' ? $data['price_range']['max'] : ''}}" id="custom-max-price">
                             <label class="" for="price_6">Max<span
                                     class=""></span></label>
                         </div>
@@ -110,7 +114,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $data['category']->name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Filter Result</li>
                     </ol>
                 </nav>
             </div>
@@ -195,7 +199,7 @@
 
             $('#product-filter-btn').click(function () {
             var slug = window.location.pathname.split("/").pop();
-            var url = "{{ route('product-filter') }}";
+            var url = "{{ url()->current() }}";
             var checked_categories = "";
             $('.category').each(function () {
                 var categories = (this.checked ? this.value : '');
@@ -207,38 +211,29 @@
                         checked_categories += "," + categories;
                 }
             });
-            var price = "";
-            var checked_price = "";
-            $('.price').each(function () {
-                var price = (this.checked ? this.value : '');
-                if (checked_price == "") {
-                    checked_price += price;
-                } else {
-                    if (price !== '')
-                        checked_price += "," + price;
-                }
-            });
-            if($('#custom-min-price').val() != '' && $('#custom-max-price').val() != ''){
-                checked_price =$('#custom-min-price').val() +','+$('#custom-max-price').val();
+
+            if($('#custom-max-price').val() != ''){
+                checked_price =$('#custom-min-price').val() +'-'+$('#custom-max-price').val();
             }
-            console.log(checked_categories);
+
             var flag = false;
 
             if (checked_categories !== '') {
                 url += '?categories=' + checked_categories.trim(',');
                 flag = true;
             }
+            var checked_price = $('.price:radio:checked').val();
+
             if (checked_price !== '') {
 
                 if (flag) {
-                    url += '&price-range=' + checked_price.trim('-');
+                    url += '&price-range=' + checked_price;
                 } else {
-                    url += '?price-range='  + checked_price.trim(',');
+                    url += '?price-range='  + checked_price;
                 }
 
                 }
-
-            location.href=url;
+                location.href = url;
             });
 
         });
