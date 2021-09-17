@@ -20,7 +20,7 @@
             </div>
             <div class="qty_section qty-cart">
                 <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus minus-btn" >
+                    <input type="button" value="-" class="minus minus-btn">
                     <input type="number" step="1" name="quantity" class="input-text now_quantity qty text" min="1"
                      value="{{ \Cart::get($product->id) != null ? \Cart::get($product->id)->quantity : 1}}">
                     <input type="button" value="+" class="plus plus-btn">

@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('coupon_products/{coupon}','Front\HomeController@coupon_products')->name('coupon_products');
 Route::get('deal_products/{deal}','Front\HomeController@deal_products')->name('deal_products');
+Route::get('show_all/{product}','Front\HomeController@show_all')->name('show_all');
 Route::get('product-filter','Front\FilterController@product_filter')->name('product-filter');
 
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');

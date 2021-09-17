@@ -5,6 +5,12 @@
         margin-left: 14px;
         font-size: 12px;
     }
+    .product-item img{
+        height: 158px;
+    }
+    .cate-img img{
+        height: 50px;
+    }
 </style>
 @endpush
 @section('content')
@@ -85,7 +91,7 @@
                             <span>For You</span>
                             <h2>Top Featured Products</h2>
                         </div>
-                        <a href="#" class="see-more-btn">See All</a>
+                        <a href="{{ route('show_all','is_featured') }}" class="see-more-btn">See All</a>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -146,7 +152,7 @@
                             <span>For You</span>
                             <h2>Fresh Vegetables & Fruits</h2>
                         </div>
-                        <a href="#" class="see-more-btn">See All</a>
+                        <a href="{{ route('show_all','is_fresh') }}" class="see-more-btn">See All</a>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -174,7 +180,7 @@
                             <span>For You</span>
                             <h2>Added New Products</h2>
                         </div>
-                        <a href="#" class="see-more-btn">See All</a>
+                        <a href="{{ route('show_all','new_products') }}" class="see-more-btn">See All</a>
                     </div>
                 </div>
                 <div class="col-md-12">

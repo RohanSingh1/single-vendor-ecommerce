@@ -19,7 +19,7 @@ class HomeController extends BaseController
         $data['featured_products'] = Product::featured()->get();
         $data['fresh_products'] = Product::Isfresh()->get();
         $data['new_products'] = Product::published()->latest()->limit(9)->get();
-        $data['deals'] = Deal::where('status',1)->get();
+        $data['deals'] = Deal::where('status',1)->where('expiry_date','>',date('Y-m-d'))->get();
         $data['coupons'] = Coupon::where('status',1)->where('expiry_date','>',date('Y-m-d'))->get();
         return view(parent::loadViewData('front.index'),compact('data'));
     }
@@ -113,11 +113,24 @@ class HomeController extends BaseController
 
     public function coupon_products(Request $request,$related_products){
         $related_products = Coupon::where(['slug'=>$related_products,'status'=>1])->where('expiry_date','>',date('Y-m-d'))->first();
-        return view(parent::loadViewData('front.pages.related_products'),compact('related_products'));
+        $products = $related_products->products;
+        return view(parent::loadViewData('front.pages.related_products'),compact('related_products','products'));
     }
 
     public function deal_products(Request $request,$related_products){
         $related_products = Deal::where(['slug'=>$related_products,'status'=>1])->where('expiry_date','>',date('Y-m-d'))->first();
-        return view(parent::loadViewData('front.pages.related_products'),compact('related_products'));
+        $products = $related_products->products;
+        return view(parent::loadViewData('front.pages.related_products'),compact('related_products','products'));
+    }
+
+    public function show_all(Request $request,$related_products){
+        $products = Product::where(function($query) use ($related_products){
+            if($related_products == 'is_featured'){
+                $query->where('is_featured',1);
+            }elseif ('is_fresh') {
+                $query->where('is_fresh',1);
+            }
+        })->published()->latest()->get();
+        return view(parent::loadViewData('front.pages.related_products'),compact('products'));
     }
 }

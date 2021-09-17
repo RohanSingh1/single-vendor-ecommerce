@@ -37,7 +37,7 @@ class FilterController extends BaseController
             $data['products'] = Product::join( 'category_product', 'category_id', '=', 'product_id')
             ->whereHas('categories', function($q) use($request) {
                 if($request->has('categories')){
-                    $q->whereIn('slug', [$request->categories]);
+                    $q->where('slug', $request->categories);
                 }
             })
         ->where(function ($query) use ($data,$request) {

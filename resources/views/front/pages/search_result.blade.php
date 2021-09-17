@@ -1,5 +1,11 @@
 @extends('front.layouts.layout')
-
+@push('css')
+    <style>
+        .product-item a img{
+        height: 200px;
+    }
+    </style>
+@endpush
 @section('content')
 
 <div class="gambo-Breadcrumb">

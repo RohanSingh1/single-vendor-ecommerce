@@ -11,6 +11,9 @@
         text-align: center;
         color:rgb(207, 16, 16)
     }
+    .product-item a img{
+        height: 200px;
+    }
 </style>
 @endpush
 @section('content')

@@ -11,6 +11,9 @@
         text-align: center;
         color:rgb(207, 16, 16)
     }
+     .product-item a img{
+        height: 200px;
+    }
 </style>
 @endpush
 @section('content')
@@ -28,11 +31,11 @@
                 <div class="brand-list">
                     @foreach ($categories as $cats)
                     <div class="custom-control custom-checkbox pb2">
-                        <input type="checkbox" class="custom-control-input category" class="category"
+                        <input type="radio" class="custom-control-input category" class="category"
                         @if (isset($data['filter_data']['checked_categories']))
                             {!! in_array($cats->slug, $data['filter_data']['checked_categories'])?"checked":""  !!}
                         @endif
-                         name="category[]" id="category{{ $loop->iteration }}" value="{{ $cats->slug }}">
+                         name="category" id="category{{ $loop->iteration }}" value="{{ $cats->slug }}">
                         <label class="custom-control-label" for="category{{ $loop->iteration }}">{{ $cats->name }}<span
                                 class="webproduct"></span></label>
                     </div>

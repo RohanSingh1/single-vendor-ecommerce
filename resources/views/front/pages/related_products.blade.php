@@ -1,5 +1,11 @@
 @extends('front.layouts.layout')
-
+@push('css')
+    <style>
+        .product-item a img{
+        height: 200px;
+    }
+    </style>
+@endpush
 @section('content')
 <div class="gambo-Breadcrumb">
     <div class="container">
@@ -19,7 +25,7 @@
     <div class="container">
         <div class="product-list-view">
             <div class="row">
-                @forelse ($related_products->products as $product)
+                @forelse ($products as $product)
                 <div class="col-lg-3 col-md-6">
                     <div class="product-item mb-30">
                         <a href="{{ route('product.show',$product->slug) }}" class="product-img">
