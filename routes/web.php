@@ -10,6 +10,7 @@ use App\Model\Order;
 use Illuminate\Support\Facades\Cookie;
 
 Route::get('test',function(){
+    dd($_COOKIE['address']);
     $ad = Order::find(29);
     dd(unserialize($ad->shipping_address));
 });
@@ -49,12 +50,17 @@ Route::group(['namespace' => 'Front'], function () {
     Route::post('/contact-us', 'HomeController@storeContactUs')->name('contact-us.store');
     Route::get('/thank-you', 'RequestProductController@show')->name('thank-you');
 });
-
+//checkouts
+Route::get('checkout','Front\CheckoutController@checkout')->name('front.checkout');
+Route::post('checkout','Front\CheckoutController@checkoutStore')->name('front.checkout.store');
 //cart
 Route::get('cart', 'Front\CartController@index')->name('front.cart.index');
 Route::post('addToCart', 'Front\CartController@addToCart')->name('front.cart.add');
 Route::post('updateToCart', 'Front\CartController@updateToCart')->name('front.cart.update');
 Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.destroy');
+
+Route::post('/addShippingAddress', 'Front\AddressController@addShippingAddress')->name('front.addShippingAddress');
+Route::post('/addBillingAddress', 'Front\AddressController@addBillingAddress')->name('front.addBillingAddress');
 
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
 
@@ -67,12 +73,8 @@ Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], funct
     Route::get('/myaddress', 'AddressController@myaddress')->name('myaddress');
     //shipping address
 
-    Route::post('/addShippingAddress', 'AddressController@addShippingAddress')->name('addShippingAddress');
-    Route::post('/addBillingAddress', 'AddressController@addBillingAddress')->name('addBillingAddress');
 
-    //checkouts
-    Route::get('checkout','CheckoutController@checkout')->name('checkout');
-    Route::post('checkout','CheckoutController@checkoutStore')->name('checkout.store');
+
 
     Route::get('/wishlists', 'WishListController@index')->name('wishlists');
     Route::post('/wishlists', 'WishListController@store')->name('wishlist.store');

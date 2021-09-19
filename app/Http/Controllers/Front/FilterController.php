@@ -34,8 +34,7 @@ class FilterController extends BaseController
         $data['filter_data'] = $this->getFilterData();
         $data['price_range'] = $this->price_range();
         $data['sorting_params'] = json_encode($this->getSortingParams());
-            $data['products'] = Product::join( 'category_product', 'category_id', '=', 'product_id')
-            ->whereHas('categories', function($q) use($request) {
+            $data['products'] = Product::whereHas('categories', function($q) use($request) {
                 if($request->has('categories')){
                     $q->where('slug', $request->categories);
                 }

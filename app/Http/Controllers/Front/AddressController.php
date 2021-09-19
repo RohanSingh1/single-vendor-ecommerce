@@ -16,7 +16,7 @@ class AddressController extends BaseController
         ]);
         $addressData = [
             'type' => 'SHIPPING',
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->check() ? auth()->user()->id:0,
             'full_name' => $request->s_full_name,
             'email' => $request->s_email,
             'phone' => $request->s_phone,
@@ -24,7 +24,11 @@ class AddressController extends BaseController
             'address2' => $request->s_address2,
         ];
         $request->session()->flash('success','SHIPPING Address Added Successfully');
-        Address::updateOrCreate(['user_id' => auth()->id()], $addressData);
+        if(auth()->check()){
+            Address::updateOrCreate(['user_id' => auth()->id(),'type'=>'SHIPPING'], $addressData);
+        }else{
+            setcookie('shipping_address', serialize($addressData), time()+3600);
+        }
         return redirect()->back();
     }
 
@@ -38,14 +42,18 @@ class AddressController extends BaseController
 
         $addressData = [
             'type' => 'BILLING',
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->check() ? auth()->user()->id:0,
             'full_name' => $request->b_full_name,
             'email' => $request->b_email,
             'phone' => $request->b_phone,
             'address1' => $request->b_address1,
             'address2' => $request->b_address2,
         ];
-        Address::updateOrCreate(['user_id' => auth()->id(),'type'=>'BILLING'], $addressData);
+        if(auth()->check()){
+            Address::updateOrCreate(['user_id' => auth()->id(),'type'=>'BILLING'], $addressData);
+        }else{
+            setcookie('billing_address', serialize($addressData), time()+3600);
+        }
         $request->session()->flash('success','Billing Address Added Successfully');
         return redirect()->back();
     }

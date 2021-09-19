@@ -64,7 +64,8 @@
                 </div>
                 <div class="category-model-content modal-content">
                     <div class="search-header">
-                        <form action="">
+                        <form action="{{ route('search') }}">
+                            @csrf
                             <input type="search" placeholder="Search for products..." class="search_now" >
                             <button type="submit"  class="search-button"><i class="uil uil-search"></i></button>
                         </form>

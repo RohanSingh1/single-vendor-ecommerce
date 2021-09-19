@@ -20,6 +20,7 @@
                         <input class="prompt srch10" type="text" id="search_now"  placeholder="Search for products..">
                         <button class="btn btn-success search-button" id="search" type="submit"><i class='uil uil-search-alt icon icon1'></i></button>
                         <div class="search_list" style="position:absolute"></div>
+                        </form>
                     </div>
                 </div>
             </div>

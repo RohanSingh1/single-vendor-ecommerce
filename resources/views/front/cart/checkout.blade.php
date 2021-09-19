@@ -58,7 +58,7 @@ $final = get_price_check_coupon();
                                                                 <div class="form-group">
                                                                     <label class="control-label">Name*</label>
                                                                     <input id="s_full_name" name="s_full_name" type="text"
-                                                                        placeholder="Name" class="form-control input-md"
+                                                                       class="form-control input-md"
                                                                         required="" value="{{ isset($shipping_address)
                                                                         ? $shipping_address->full_name : old('s_full_name') }}">
                                                                         @error('s_full_name')

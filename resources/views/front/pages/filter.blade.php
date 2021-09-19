@@ -93,12 +93,12 @@
                     <div class="form-group d-flex">
                         <h4 class="custom_head">custom</h4>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price" value="{{ $data['price_range'] != '' ? $data['price_range']['min'] : ''}}" id="custom-min-price">
+                            <input type="text" class="price form-control" name="price" value="" id="custom-min-price">
                             <label class="" for="">Min<span
                                     class=""></span></label>
                         </div>
                         <div class="col-sm-4">
-                            <input type="text" class="price form-control" name="price[]" value="{{ $data['price_range'] != '' ? $data['price_range']['max'] : ''}}" id="custom-max-price">
+                            <input type="text" class="price form-control" name="price" value="" id="custom-max-price">
                             <label class="" for="price_6">Max<span
                                     class=""></span></label>
                         </div>
@@ -117,7 +117,11 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Filter Result</li>
+                        <li class="breadcrumb-item active" aria-current="page">Filter Result With Category
+                           ({{ $data['products'][0]->categories != '' ? $data['products'][0]->categories[0]['name'] : '' }})
+                           : Price Range:- {{ $data['price_range']['min'].'-'.$data['price_range']['max'] }}
+
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -215,10 +219,6 @@
                 }
             });
 
-            if($('#custom-max-price').val() != ''){
-                checked_price =$('#custom-min-price').val() +'-'+$('#custom-max-price').val();
-            }
-
             var flag = false;
 
             if (checked_categories !== '') {
@@ -226,7 +226,9 @@
                 flag = true;
             }
             var checked_price = $('.price:radio:checked').val();
-
+            if($('#custom-max-price').val() != ''){
+                checked_price =$('#custom-min-price').val() +'-'+$('#custom-max-price').val();
+            }
             if (checked_price !== '') {
 
                 if (flag) {
