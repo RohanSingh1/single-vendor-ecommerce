@@ -30,7 +30,8 @@ class OrderController extends Controller
             return $modal->id;
         })
         ->addColumn('full_names', function ($data) {
-           return $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email;
+           return isset($data->user) ? $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email
+           :'Guest With Shipping Name:-'.unserialize($data->shipping_address)['full_name'];
         })
         ->addColumn('order_assigned_to', function ($data) {
             return isset($data->delivery_boy) ? $data->delivery_boy->name : 'Not Assigned';
@@ -44,7 +45,7 @@ class OrderController extends Controller
         ->editColumn('total_discounts', function($data) {
                 return round($data->total_discounts,2);
         })
-        ->editColumn('grand_totals', function($data) { 
+        ->editColumn('grand_totals', function($data) {
             return round($data->grand_totals,2);
         })
         ->addColumn('status', function ($data) {

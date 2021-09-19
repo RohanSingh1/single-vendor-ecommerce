@@ -39,9 +39,11 @@
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <h2>Customer Name: {{$order->user->f_name.' '.$order->user_l_name}} </h2>
+                        <h2>Customer Name: {{isset($order->user) ? $order->user->f_name.' '.$order->user_l_name
+                        : 'Guest With Shipping Name:-'.unserialize($order->shipping_address)['full_name']}} </h2>
                         <ul>
-                          <li>E-Mail: {{ $order->user->email }} </li>
+                          <li>E-Mail: {{ isset($order->user) ? $order->user->email
+                          : 'Guest With Shipping E-Mail:-'.unserialize($order->shipping_address)['full_name'] }}</li>
                           <li>Delivery Boy Name:- @if(isset($data->delivery_boy)) {{  $data->delivery_boy->name }}
                             | E-Mail :- {{ $data->delivery_boy->email }} @else Not Assigned  @endif</li>
                           <li>Status: {{$order->status}} </li>
@@ -141,12 +143,12 @@
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <h2>Customer Name: {{ $shipping_address->email }} </h2>
+                        <h2>Customer Name: {{ $shipping_address['full_name'] }} </h2>
                         <ul>
-                          <li>E-Mail: {{ $shipping_address->email }} </li>
-                          <li>Phone: {!! $shipping_address->phone !!} </li>
-                          <li>Address: <span class="f_price"> {!! $shipping_address->address1 !!} </span> </li>
-                          <li>Address 2: <span class="f_price"> {!! $shipping_address->address2 !!} </span> </li>
+                          <li>E-Mail: {{ $shipping_address['email'] }} </li>
+                          <li>Phone: {!! $shipping_address['phone'] !!} </li>
+                          <li>Address: <span class="f_price"> {!! $shipping_address['address1'] !!} </span> </li>
+                          <li>Address 2: <span class="f_price"> {!! $shipping_address['address2'] !!} </span> </li>
                         </ul>
                       </div>
                   </div>
@@ -170,12 +172,12 @@
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <h2>Customer Name: {{ $billing_address->name }} </h2>
+                        <h2>Customer Name: {{ $billing_address['name'] }} </h2>
                         <ul>
-                            <li>E-Mail: {{ $billing_address->email }} </li>
-                            <li>Phone: {!! $billing_address->phone !!} </li>
-                            <li>Address: <span class="f_price"> {!! $billing_address->address1 !!} </span> </li>
-                            <li>Address 2: <span class="f_price"> {!! $billing_address->address2 !!} </span> </li>
+                            <li>E-Mail: {{ $billing_address['email'] }} </li>
+                            <li>Phone: {!! $billing_address['phone'] !!} </li>
+                            <li>Address: <span class="f_price"> {!! $billing_address['address1'] !!} </span> </li>
+                            <li>Address 2: <span class="f_price"> {!! $billing_address['address2'] !!} </span> </li>
                           </ul>
                       </div>
                   </div>
