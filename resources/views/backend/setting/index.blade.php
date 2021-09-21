@@ -76,11 +76,27 @@
                                                    class="form-control">
                                         </div>
 
-                                         <div class="form-group">
-                                            <label class="control-label">Shipping Price<em
+                                        <div class="form-group">
+                                            <label class="control-label">Delivery Price<em
                                                     class="asterisk">*</em></label>
                                             <input type="number" name="shipping_price" min="1"
                                                    value="{{old('shipping_price')?? $shipping_price->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Replacement Guarantee<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="replacement_text" min="1"
+                                                   value="{{old('replacement_text')?? $replacement_text->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Genuine Product<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="genuine_product" min="1"
+                                                   value="{{old('genuine_product')?? $genuine_product->text ?? ''}}"
                                                    class="form-control">
                                         </div>
 
@@ -101,10 +117,26 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 3<em
+                                            <label class="control-label">Front Product Title 1<em
                                                     class="asterisk">*</em></label>
-                                            <input type="text" name="front_info3"
-                                                   value="{{old('front_info3')?? $front_info3->text ?? ''}}"
+                                            <input type="text" name="front_title1"
+                                                   value="{{old('front_title1')?? $front_title1->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Front Product Title 2<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="text" name="front_title2"
+                                                   value="{{old('front_title2')?? $front_title2->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Front Product 3<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="text" name="front_title3"
+                                                   value="{{old('front_title3')?? $front_title3->text ?? ''}}"
                                                    class="form-control">
                                         </div>
 

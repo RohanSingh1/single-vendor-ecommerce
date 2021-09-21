@@ -86,7 +86,12 @@
                                             {{Form::text('quantity',$product->quantity,['class'=>'form-control'])}}
                                         </div>
                                     </div>
-
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            {{Form::label('Model Name')}}
+                                            {{Form::text('model_no',$product->model_no,['class'=>'form-control'])}}
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {{Form::label('Category Name')}}

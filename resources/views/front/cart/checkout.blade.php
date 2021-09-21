@@ -293,19 +293,49 @@ $final = get_price_check_coupon();
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group return-departure-dts" data-method="card">
 
-                                            </div>
                                             <form action="{{ route('front.checkout.store') }}" method="post">
                                                 @csrf
-                                                <textarea name="order_note" id="order_note" cols="75" rows="10"
+                                                <textarea name="order_note" id="order_note" cols="75" rows="10" required
                                                 placeholder="Your Order Note Here"></textarea>
                                                 <br>
-                                                    <input type="radio" name="meat_condition" value="poleko" required>Poleko
-                                                    <input type="radio" name="meat_condition" value="na_poleko" required>Na Poleko
+                                                <br>
+                                                <div class="rpt100">
+                                                    <ul class="radio--group-inline-container_1">
+                                                        <li>
+                                                            <div class="radio-item_1">
+                                                                <input type="radio" name="meat_condition" value="poleko" required id="poleko">
+
+                                                                <label for="poleko" class="radio-label_1">Poleko</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="radio-item_1">
+                                                                <input type="radio" name="meat_condition" value="na_poleko" required id="na_poleko">
+                                                                <label for="na_poleko" class="radio-label_1">Na Poleko</label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="rpt100">
+                                                    <ul class="radio--group-inline-container_1">
+                                                        <li>
+                                                            <div class="radio-item_1">
+                                                                <input type="radio" name="meat_state" value="with_skin" required id="with_skin">
+
+                                                                <label for="with_skin" class="radio-label_1">With Skin</label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="radio-item_1">
+                                                                <input type="radio" name="meat_state" value="without_skin" required id="without_skin">
+
+                                                                <label for="without_skin" class="radio-label_1">Without Skin</label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                     <br>
-                                                    <input type="radio" name="meat_state" value="poleko" required>With Skin
-                                                    <input type="radio" name="meat_state" value="na_poleko" required>Without Skin
 
 
                                                 <br>

@@ -3,7 +3,9 @@
         <a href="{{ route('product.show',$product->slug) }}" class="product-img">
             <img src="{{ product_image($product) }}" alt="">
             <div class="product-absolute-options">
+                @if(product_price($product,'discount_percentage') > 0)
                 <span class="offer-badge-1">{{ product_price($product,'discount_percentage') }}% off</span>
+                @endif
                 <span class="like-icon" title="wishlist"></span>
             </div>
         </a>

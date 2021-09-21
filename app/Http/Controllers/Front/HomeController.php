@@ -9,6 +9,7 @@ use App\Model\Deal;
 use App\Model\Faq;
 use App\Model\NewsLetter;
 use App\Model\Product;
+use App\Model\Setting;
 use App\Model\Slider;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class HomeController extends BaseController
         $data['new_products'] = Product::published()->latest()->limit(9)->get();
         $data['deals'] = Deal::where('status',1)->where('expiry_date','>',date('Y-m-d'))->get();
         $data['coupons'] = Coupon::where('status',1)->where('expiry_date','>',date('Y-m-d'))->get();
+        $data['settings'] = Setting::select('id','text')->whereIn('slug',['front_title1','front_title2','front_title3'])->get();
         return view(parent::loadViewData('front.index'),compact('data'));
     }
 

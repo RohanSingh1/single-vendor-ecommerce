@@ -30,7 +30,7 @@ class OrderController extends Controller
             return $modal->id;
         })
         ->addColumn('full_names', function ($data) {
-           return isset($data->user) ? $data->user->f_name.' '. $data->user->l_name.'<br> Email:'.$data->user->email
+           return isset($data->user) ? $data->user->name.'<br> Email:'.$data->user->email
            :'Guest With Shipping Name:-'.unserialize($data->shipping_address)['full_name'];
         })
         ->addColumn('order_assigned_to', function ($data) {
