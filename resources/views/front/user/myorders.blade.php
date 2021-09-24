@@ -63,34 +63,27 @@
                                         <div class="track-order">
                                             <h4>Track Order</h4>
                                             <div class="bs-wizard" style="border-bottom:0;">
-                                                <div class="bs-wizard-step complete">
-                                                    <div class="text-center bs-wizard-stepnum">Pending</div>
+                                                @foreach (\App\Model\DeliveryName::where('step','!=',0)->where('status',1)->orderBy('step','asc')->get() as $key=>$dn)
+                                                <div class="bs-wizard-step
+                                                @if($dn->delivery_name == $order->status)
+                                                active
+                                                @php
+                                                    $active =true;
+                                                @endphp
+                                                @elseif (isset($active))
+                                                disabled
+                                                @else
+                                                 complete
+                                                @endif
+                                                ">
+                                                    <div class="text-center bs-wizard-stepnum">{{ $dn->delivery_name }}</div>
                                                     <div class="progress">
                                                         <div class="progress-bar"></div>
                                                     </div>
                                                     <a href="#" class="bs-wizard-dot"></a>
                                                 </div>
-                                                <div class="bs-wizard-step complete">
-                                                    <div class="text-center bs-wizard-stepnum">Packed</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar"></div>
-                                                    </div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                </div>
-                                                <div class="bs-wizard-step active">
-                                                    <div class="text-center bs-wizard-stepnum">On the way</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar"></div>
-                                                    </div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                </div>
-                                                <div class="bs-wizard-step disabled">
-                                                    <div class="text-center bs-wizard-stepnum">Delivered</div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar"></div>
-                                                    </div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                </div>
+                                                @endforeach
+
                                             </div>
                                         </div>
                                         <div class="alert-offer">

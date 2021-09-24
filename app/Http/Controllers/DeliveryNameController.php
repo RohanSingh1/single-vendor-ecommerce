@@ -60,7 +60,11 @@ class DeliveryNameController extends Controller
             'delivery_name' => 'required',
             'status'=>'required|boolean'
         ]);
-        DeliveryName::create(['delivery_name'=>$request->delivery_name,'status'=>$request->status]);
+        DeliveryName::create([
+            'delivery_name'=>$request->delivery_name,
+            'step'=>$request->step,
+            'status'=>$request->status
+        ]);
         return redirect()->route('admin.delivery_name.index')->with('success', 'Delivery Name Added');
     }
 
@@ -98,7 +102,11 @@ class DeliveryNameController extends Controller
         $this->validate($request, [
             'delivery_name' => 'required',
         ]);
-        $delivery_name->update(['delivery_name'=>$request->delivery_name,'status'=>$request->status]);
+        $delivery_name->update([
+            'delivery_name'=>$request->delivery_name,
+            'step'=>$request->step,
+            'status'=>$request->status
+        ]);
         return redirect()->route('admin.delivery_name.index')->with('success', 'delivery_name Updated');
     }
 

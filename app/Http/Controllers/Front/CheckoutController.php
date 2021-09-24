@@ -25,7 +25,7 @@ class CheckoutController extends BaseController
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
         }
-        if(!isset($_COOKIE['shipping_address'])){
+        if(!auth()->check() && !isset($_COOKIE['shipping_address'])){
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
         }

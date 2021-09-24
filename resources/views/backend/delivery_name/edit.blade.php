@@ -49,7 +49,10 @@
                                 {{Form::label('Delivery Status Name')}}
                                 {{Form::text('delivery_name',$delivery_name->delivery_name,['class'=>'form-control'])}}
                             </div>
-
+                            <div class="form-group">
+                                {{Form::label('Step')}}
+                                {{Form::text('step',$delivery_name->step,['class'=>'form-control'])}}
+                            </div>
                             <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                 {!! Form::label('status','Delivery Status *') !!}
                                 {!! Form::select('status',['1' => 'Active','0' => 'In-Active'],

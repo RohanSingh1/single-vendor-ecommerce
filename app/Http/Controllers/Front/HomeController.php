@@ -8,9 +8,11 @@ use App\Model\Coupon;
 use App\Model\Deal;
 use App\Model\Faq;
 use App\Model\NewsLetter;
+use App\Model\Page;
 use App\Model\Product;
 use App\Model\Setting;
 use App\Model\Slider;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
@@ -26,7 +28,7 @@ class HomeController extends BaseController
         return view(parent::loadViewData('front.index'),compact('data'));
     }
 
-    public function show(Request $request,$slug){
+    public function product_show(Request $request,$slug){
         if (!$product = Product::where('slug', $slug)->first()) {
             $request->session()->flash('success','Sorry Product Not Found');
            return redirect()->route('index');
@@ -134,5 +136,14 @@ class HomeController extends BaseController
             }
         })->published()->latest()->get();
         return view(parent::loadViewData('front.pages.related_products'),compact('products'));
+    }
+
+    public function show($slug)
+    {
+        $page = Page::whereSlug($slug)
+            ->where('created_at', '<=', Carbon::now())
+            ->published()
+            ->firstOrFail();
+        return view(parent::loadViewData('front.pages.index'),compact('page'));
     }
 }

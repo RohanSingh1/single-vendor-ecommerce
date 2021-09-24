@@ -86,6 +86,7 @@
             ajax: '{{ route('admin.api.delivery_name') }}',
             columns: [
                 { data: 'delivery_name', title:'Delivery Status Name'},
+                { data: 'step', title:'Step'},
                 {data:'status',title:'Status', mRender:  function(data, type, full) {
                     return data == 1 ? 'Active' : 'In-Active';
             }},

@@ -14,6 +14,11 @@
                         {{Form::text('delivery_name',old('delivery_name'),['class'=>'form-control'])}}
                     </div>
 
+                    <div class="form-group">
+                        {{Form::label('Delivery Status Name')}}
+                        {{Form::number('step',old('step'),['class'=>'form-control'])}}
+                    </div>
+
                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                         {!! Form::label('status','Status *') !!}
 

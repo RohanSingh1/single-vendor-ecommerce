@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @if(Request::url() != env('APP_URL'))
+    <title>@yield('site_title','Home') - {{get_general_settings_text('site_title')->text ?? app_name()}}</title>
+    @yield('meta')
+    @else
+    <title>{{get_general_settings_text('site_title')->text ??'Home'}}
+        - {{get_general_settings_text('tagline')->text??app_name()}}</title>
+    <meta name="title" content="{{ get_general_settings_text('meta_title')->text ?? app_name()}}">
+    <meta name="keyword" content="{{ get_general_settings_text('meta_keyword')->text ?? app_name() }}">
+    <meta name="description" content="{{ get_general_settings_text('meta_desc')->text ?? app_name() }}">
+    @endif
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('front.layouts.head')
 
     @stack('css')

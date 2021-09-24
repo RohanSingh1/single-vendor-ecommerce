@@ -9,27 +9,44 @@ require("./bootstrap");
 window.Vue = require("vue");
 
 window.bus = new Vue();
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component("example-component",require("./components/ExampleComponent.vue").default);
 Vue.component("products",require("./components/ProductsComponent.vue").default);
 Vue.component("cart-count",require("./components/CartCount.vue").default)
 Vue.component("cart-detail",require("./components/CartDetail.vue").default)
+Vue.component("GmapMap",require("./components/Maps.vue").default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the pages. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+ import * as VueGoogleMaps from 'vue2-google-maps'
+
+ Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyBCPYKfOKFC6qluIWWrS-I_pWybwacO_sE',
+      v: '3.26',
+    },
+    // Demonstrating how we can customize the name of the components
+    installComponents: false,
+  });
+
+    Vue.component('google-map', VueGoogleMaps.Map);
+    Vue.component('ground-overlay', VueGoogleMaps.MapElementFactory({
+      mappedProps: {
+        'opacity': {}
+      },
+      props: {
+        'source': {type: String},
+        'bounds': {type: Object},
+      },
+      events: ['click', 'dblclick'],
+      name: 'groundOverlay',
+      ctr: () => google.maps.GroundOverlay,
+      ctrArgs: (options, {source, bounds}) => [source, bounds, options],
+    }));
+
+
 
 const app = new Vue({
     el: "#app",

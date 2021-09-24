@@ -24,7 +24,7 @@ Route::get('show_all/{product}','Front\HomeController@show_all')->name('show_all
 Route::get('product-filter','Front\FilterController@product_filter')->name('product-filter');
 
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
-Route::get('/product/{slug}', 'Front\HomeController@show')->name('product.show');
+Route::get('/product/{slug}', 'Front\HomeController@product_show')->name('product.show');
 Route::get('/faq', 'Front\HomeController@faq')->name('faq');
 Route::get('/offers', 'Front\HomeController@offers')->name('offers');
 //cart

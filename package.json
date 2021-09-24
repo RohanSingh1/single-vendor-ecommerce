@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "sweetalert2": "^9.17.2"
+        "sweetalert2": "^9.17.2",
+        "vue2-google-maps": "^0.10.7"
     }
 }

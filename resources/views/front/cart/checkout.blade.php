@@ -2,6 +2,7 @@
 
 @push('css')
 <link href="{{ asset('front/css/step-wizard.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 @endpush
 @section('content')
 @php
@@ -430,6 +431,7 @@ $final = get_price_check_coupon();
                         <h2>Total</h2>
                         <span>{{currency_type().' '.$final['total'] }}</span>
                     </div>
+
                 </div>
                 <div class="checkout-safety-alerts">
                     <p><i class="uil uil-sync"></i>100% Replacement Guarantee</p>

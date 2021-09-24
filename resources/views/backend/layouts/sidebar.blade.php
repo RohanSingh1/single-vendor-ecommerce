@@ -181,6 +181,14 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.pages.index') }}"
+                       class="{{ active(['admin/cms/pages*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Pages
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.content-management.settings.index') }}"
                        class="{{ active(['admin/cms/settings*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>
