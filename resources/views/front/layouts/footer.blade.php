@@ -168,7 +168,7 @@
                         </ul>
                     </div>
                     <div class="copyright-text">
-                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>Gambolthemes</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>freshco</b> . All rights reserved
                     </div>
                 </div>
             </div>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+<!-- Mirrored from freshco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-    <meta name="description" content="Gambolthemes">
-    <meta name="author" content="Gambolthemes">
+    <meta name="description" content="freshco">
+    <meta name="author" content="freshco">
     <title>Gambo - Sign In</title>
 
     <link rel="icon" type="image/png" href="images/fav.png">
@@ -36,7 +36,7 @@
                     <div class="sign-form">
                         <div class="sign-inner">
                             <div class="sign-logo" id="logo">
-                                <a href="index.html"><img src="{{ asset('front/images/logo.svg') }}" alt=""></a>
+                                <a href="index.html"><img src="{{ asset('front/images/freco.png') }}" alt=""></a>
                                 <a href="index.html"><img class="logo-inverse"
                                         src="{{ asset('fornt/images/dark-logo.svg') }}" alt=""></a>
                             </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="copyright-text text-center mt-3">
-                        <i class="uil uil-copyright"></i>Copyright 2020 <b>Gambolthemes</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright 2020 <b>freshco</b> . All rights reserved
                     </div>
                 </div>
             </div>
@@ -92,6 +92,6 @@
     <script src="{{ asset('front/js/night-mode.js') }}"></script>
 </body>
 
-<!-- Mirrored from gambolthemes.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+<!-- Mirrored from freshco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
 
 </html>
