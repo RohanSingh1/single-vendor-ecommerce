@@ -172,6 +172,14 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.locations.index') }}"
+                       class="{{ active(['admin/locations*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Locations
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.delivery_name.index') }}"
                        class="{{ active(['admin/delivery_name*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>

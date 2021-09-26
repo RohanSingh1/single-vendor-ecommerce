@@ -67,6 +67,7 @@ class SettingController extends Controller
         $this->general->setTextTitle($request->front_title3, 'front_title3');
 
         $this->general->setTextTitle($request->map_code, 'map_code');
+        $this->general->setTextTitle($request->perkm_price, 'perkm_price');
         toast(__('global.data_update'),'success');
         return redirect()->back();
     }

@@ -119,6 +119,9 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     Route::get('/api/contact_messages', 'ContactMessageController@apicontact_messages')->name('api.contact_messages');
     Route::get('/contact_messages/{id}', 'ContactMessageController@show')->name('show_contact_messages');
     Route::post('/contact_messages', 'ContactMessageController@destroy')->name('destroy_contact_messages');
+    //locations
+    Route::resource('locations', 'LocationController');
+    Route::get('/api/locations', 'LocationController@apilocations')->name('api.locations');
     //delivery name
     Route::resource('delivery_name', 'DeliveryNameController');
     Route::get('/api/delivery_name', 'DeliveryNameController@apidelivery_name')->name('api.delivery_name');

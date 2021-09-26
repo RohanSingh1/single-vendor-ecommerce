@@ -51,6 +51,7 @@ class SettingsRepository implements SettingsRepositoryInterface
         $data['front_title1'] = get_general_settings_text('front_title1');
         $data['front_title2'] = get_general_settings_text('front_title2');
         $data['front_title3'] = get_general_settings_text('front_title3');
+        $data['perkm_price'] = get_general_settings_text('perkm_price');
         return $data;
     }
 

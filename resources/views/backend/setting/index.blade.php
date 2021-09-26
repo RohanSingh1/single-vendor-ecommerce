@@ -85,6 +85,14 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label class="control-label">Per KM Price<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="perkm_price" min="1"
+                                                   value="{{old('perkm_price')?? $perkm_price->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="control-label">Replacement Guarantee<em
                                                     class="asterisk">*</em></label>
                                             <input type="number" name="replacement_text" min="1"

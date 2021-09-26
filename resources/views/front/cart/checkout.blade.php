@@ -3,6 +3,12 @@
 @push('css')
 <link href="{{ asset('front/css/step-wizard.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<style>
+    .delivery_note{
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
 @endpush
 @section('content')
 @php
@@ -336,9 +342,8 @@ $final = get_price_check_coupon();
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                    <br>
-
-
+                                                    <span id="delivery_note">Note: Delivery Charges Cost per km {{ currency_type() }}.{{ get_general_settings_text('perkm_price') != ''
+                                                        ?get_general_settings_text('perkm_price')->text:'' }}</span>
                                                 <br>
                                                 <button class="next-btn16 hover-btn pull-right" type="submit">Place Order</button>
                                             </form>
