@@ -118,8 +118,10 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Filter Result With Category
-                           ({{ $data['products'][0]->categories != '' ? $data['products'][0]->categories[0]['name'] : '' }})
-                           : Price Range:- {{ $data['price_range']['min'].'-'.$data['price_range']['max'] }}
+                           ({{ $data['products'] !='' && $data['products'][0]->categories != '' ? $data['products'][0]->categories[0]['name'] : '' }})
+                          @if($data['price_range'] !='') : Price Range:- {{ $data['price_range'] !=''?$data['price_range']['min']:"0"}} -
+                            {{ $data['price_range']!=''?$data['price_range']['max']:"0"  }}
+                            @endif
 
                         </li>
                     </ol>

@@ -130,7 +130,7 @@ class LocationController extends Controller
             return redirect()->route('admin.locations.index')->with('success', 'locations Deleted');
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == "23000") { //23000 is sql code for integrity constraint violation
-                return redirect()->route('admin.locations.index')->with('error', 'Cannot delete locations because product exists with this locations, delete the product first then you can delete this locations');
+                return redirect()->route('admin.locations.index')->with('error', 'Cannot delete locations');
             }
         }
     }

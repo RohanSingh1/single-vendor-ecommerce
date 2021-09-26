@@ -46,7 +46,7 @@
                                 @method('PUT')
                                 @csrf
                             <div class="form-group">
-                                {{Form::label('Location Name')}}
+                                {{Form::label('From Location')}}
                                 {{Form::text('from_location',$location->from_location,['class'=>'form-control'])}}
                             </div>
                             <div class="form-group">
