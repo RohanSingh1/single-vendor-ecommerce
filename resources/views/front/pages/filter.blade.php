@@ -117,8 +117,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Filter Result With Category
-                           ({{ $data['products'] !='' && $data['products'][0]->categories != '' ? $data['products'][0]->categories[0]['name'] : '' }})
+                        <li class="breadcrumb-item active" aria-current="page">Filter Result {{ request()->has('categories') ? 'Category' : '' }}
+                           ({{ $data['products']->count() > 0 && $data['products'][0]->categories != '' ? $data['products'][0]->categories[0]['name'] : '' }})
                           @if($data['price_range'] !='') : Price Range:- {{ $data['price_range'] !=''?$data['price_range']['min']:"0"}} -
                             {{ $data['price_range']!=''?$data['price_range']['max']:"0"  }}
                             @endif
