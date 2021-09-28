@@ -55,7 +55,7 @@
                               </div>
                               <div class="form-group">
                                 {{Form::label('password', 'Password')}}
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
 
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="password-confirm" class="">{{ __('Confirm Password') }}</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                             </div>
 
                             <div class="form-group">
@@ -103,7 +103,19 @@
                                 @endif
                             </div>
 
+                            <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+                                {!! Form::label('status','Status *') !!}
+                                {!! Form::select('status',['1' => 'Active','0' => 'In-Active'],
+                                $data->status, ['class'=>'form-control']); !!}
+
+                                @if ($errors->has('status'))
+                                <span class="help-block">
+                                    {{ $errors->first('status') }}
+                                </span>
+                                @endif
                             </div>
+                            </div>
+
                             <div class="card-footer">
                               {{Form::submit('Update',['class'=>'btn btn-success'])}}
                             {!! Form::close() !!}

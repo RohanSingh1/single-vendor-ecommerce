@@ -67,6 +67,7 @@ class SliderController extends Controller
             'description' => $request->description,
             'image' => $request->image,
             'btn_text' => $request->btn_text,
+            'offer_text' => $request->offer_text,
             'target_url' => $target_url,
             'target' => $request->target,
             'order' => $order,
@@ -83,7 +84,7 @@ class SliderController extends Controller
         toast(__('global.data_update'), 'success');
         return redirect()->back();
     }
-
+ 
     /**
      * Display the specified resource.
      *
@@ -123,7 +124,7 @@ class SliderController extends Controller
             'target_url' => 'nullable|string|max:255',
             'target' => 'required',
         ]);
-        if ($slider->image != null) {
+        if ($request->hasFile('image')) {
             if(Storage::disk('public')->exists('uploads'.DIRECTORY_SEPARATOR.'slider-item' . DIRECTORY_SEPARATOR . $slider->image)){
                 Storage::disk('public')->delete('uploads'.DIRECTORY_SEPARATOR.'slider-item'. DIRECTORY_SEPARATOR . $slider->image );
             }
@@ -140,6 +141,7 @@ class SliderController extends Controller
             'description' => $request->description,
             'image' =>isset($file_name) ? $file_name : $slider->image,
             'btn_text' => $request->btn_text,
+            'offer_text' => $request->offer_text,
             'target_url' => $target_url,
             'target' => $request->target,
             'order' => $order,

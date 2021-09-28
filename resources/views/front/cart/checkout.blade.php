@@ -8,9 +8,12 @@
         font-size: 16px;
         font-weight: bold;
     }
+    #valley{
+        margin-top: 35px;
+    }
 </style>
 @endpush
-@section('content')
+@section('content') 
 @php
 $final = get_price_check_coupon();
 @endphp
@@ -35,7 +38,7 @@ $final = get_price_check_coupon();
                 <div id="checkout_wizard" class="checkout accordion left-chck145">
                     <div class="checkout-step">
                         <div class="checkout-card" id="headingOne">
-                            <span class="checkout-step-number">1</span>
+                            {{--  <span class="checkout-step-number">1</span>  --}}
                             <h4 class="checkout-step-title">
                                 <button class="wizard-btn" type="button" data-toggle="collapse"
                                     data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Shipping Address</button>
@@ -98,12 +101,25 @@ $final = get_price_check_coupon();
                                                                         @enderror
                                                                 </div>
                                                             </div>
+                                                            <div class="col-lg-6 col-md-12">
+                                                                <div class="form-group" id="valley">
+                                                                    <label class="control-label">From Valley*</label>
+                                                                    <label class="control-label" for="inside">&nbsp;&nbsp;<input type="radio"  id="inside" name="from_valley" value="inside" required
+                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'inside' ? 'checked': ''  }}> Inside Valley</label>
+                                                                    <label for="outside" class="control-label">
+                                                                        &nbsp;&nbsp;  <input type="radio" name="from_valley" value="outside" required id="outside"
+                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'outside' ? 'checked': ''  }}> Outside Valley </label>
+                                                                        @error('from_valley')
+                                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                                        @enderror
+                                                                </div>
+                                                            </div>
 
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Address*</label>
                                                                     <input id="s_address1" name="s_address1" type="text"
-                                                                        placeholder="Address"   value="{{ isset($shipping_address)
+                                                                        placeholder="Address" value="{{ isset($shipping_address)
                                                                             ? $shipping_address->address1 : old('s_address1') }} "
                                                                         class="form-control input-md" required="">
                                                                         @error('address1')
@@ -127,7 +143,6 @@ $final = get_price_check_coupon();
                                                             </div>
 
 
-
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <div class="address-btns">
@@ -140,9 +155,9 @@ $final = get_price_check_coupon();
                                                     </div>
                                                 </form>
 
-                                                <a class="collapsed chck-btn hover-btn" role="button"
+                                                {{--  <a class="collapsed chck-btn hover-btn" role="button"
                                                     data-toggle="collapse" data-parent="#checkout_wizard"
-                                                    href="#collapseTwo">Next</a>
+                                                    href="#collapseTwo">Next</a>  --}}
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +165,7 @@ $final = get_price_check_coupon();
                             </div>
                         </div>
                     </div>
-                    <div class="checkout-step">
+                    {{--  <div class="checkout-step">
                         <div class="checkout-card" id="headingTwo">
                             <span class="checkout-step-number">2</span>
                             <h4 class="checkout-step-title">
@@ -263,7 +278,7 @@ $final = get_price_check_coupon();
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  --}}
                     <div class="checkout-step">
                             <div class="checkout-step-body">
                                 <div class="payment_method-checkout">
@@ -303,8 +318,9 @@ $final = get_price_check_coupon();
 
                                             <form action="{{ route('front.checkout.store') }}" method="post">
                                                 @csrf
-                                                <textarea name="order_note" id="order_note" cols="75" rows="10" required
-                                                placeholder="Your Order Note Here"></textarea>
+                                                <textarea name="order_note" id="order_note" cols="75" rows="10" placeholder="Your Order Note Here"
+                                                @if(isset($shipping_address) && $shipping_address->from_valley == 'outside') required @endif
+                                                ></textarea>
                                                 <br>
                                                 <br>
                                                 <div class="rpt100">

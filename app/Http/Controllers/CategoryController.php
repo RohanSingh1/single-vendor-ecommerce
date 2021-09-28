@@ -57,7 +57,7 @@ class CategoryController extends Controller
             if($model->image != null && Storage::disk('public')->exists('uploads'.DIRECTORY_SEPARATOR.'category' . DIRECTORY_SEPARATOR . $model->image)){
                 Storage::disk('public')->delete('uploads'.DIRECTORY_SEPARATOR.'category'. DIRECTORY_SEPARATOR . $model->image );
             }
-            $file_name =  'Slider'. '_' . rand(0, 999999).'.'.$file->extension();
+            $file_name =  'Category'. '_' . rand(0, 999999).'.'.$file->extension();
             $data['image'] = $file_name;
             $file->storeAs('uploads'.DIRECTORY_SEPARATOR.'category',$file_name);
         } else {
