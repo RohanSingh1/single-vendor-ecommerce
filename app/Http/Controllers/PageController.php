@@ -74,8 +74,8 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        return view('frontend.pages.inner-page', compact('page'));
-    }
+        return view('backend.pages.index', compact('page'));
+    } 
 
     /**
      * Show the form for editing the specified resource.

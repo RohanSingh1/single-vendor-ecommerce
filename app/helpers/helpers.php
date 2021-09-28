@@ -27,6 +27,10 @@ function product_image($product){
             ->getMedia('products')
             ->get(0)
             ->getURl();
+    }
+    elseif ($product->getMedia('products')->count()>0) {
+        $p_image = $product->getMedia('products')->get(0)->getUrl();
+
     } else {
         $p_image = asset('storage/defaults.png');
     }

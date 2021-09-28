@@ -95,7 +95,7 @@
                                             <input type="text" class="form-control" placeholder="Enter button text here"
                                                    name="btn_text" value="{{ old('btn_text') ?? '' }}">
                                             @if ($errors->has('btn_text'))
-                                                <span class="text-danger" role="alert">
+                                                 <span class="text-danger" role="alert">
 										    {{ $errors->first('btn_text') }}
 									    </span>
                                             @endif
@@ -118,9 +118,9 @@
                                             <label for="offer_text" class="control-label">Offer Text</label>
                                             <input type="text" class="form-control" name="btn_text"
                                                    value="{{ $slider->offer_text ?? '' }}">
-                                            @if ($errors->has('btn_text'))
+                                            @if ($errors->has('offer_text'))
                                                 <span class="text-danger" role="alert">
-                                                {{ $errors->first('btn_text') }}
+                                                {{ $errors->first('offer_text') }}
                                             </span>
                                             @endif
                                         </div>

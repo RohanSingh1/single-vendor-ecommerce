@@ -168,7 +168,6 @@ class DealController extends Controller
             $request->session()->flash('error','Sorry The Selected Deal Has Found Or Has Been Deleted');
             return redirect()->route('admin.deals.index');
         }
-        dd(unlink(base_path().'/public/storage/Uploads/Deal/'.$deal->image));
         $deal->delete();
         $deal->products()->sync([]);
         if($deal->image != null && file_exists('storage/Uploads/Deal/'.$deal->image)){
@@ -176,5 +175,5 @@ class DealController extends Controller
         }
         $request->session()->flash('success','SuccessFully Deleted');
         return redirect()->route('admin.deals.index');
-    }
+    } 
 }
