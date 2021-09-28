@@ -14229,8 +14229,8 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			item.top = p.top;
 		}
 
-		if(this.options.custom && this.options.custom.refreshContainers) {
-			this.options.custom.refreshContainers.call(this);
+		if(this.options.custom && this.options.custom.refrescontainers) {
+			this.options.custom.refrescontainers.call(this);
 		} else {
 			for (i = this.containers.length - 1; i >= 0; i--){
 				p = this.containers[i].element.offset();

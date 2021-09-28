@@ -159,16 +159,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-bottom-links">
-                        <ul>
+                        {{-- <ul>
                             <li><a href="about_us.html">About</a></li>
                             <li><a href="contact_us.html">Contact</a></li>
                             <li><a href="privacy_policy.html">Privacy Policy</a></li>
                             <li><a href="term_and_conditions.html">Term & Conditions</a></li>
                             <li><a href="refund_and_return_policy.html">Refund & Return Policy</a></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                     <div class="copyright-text">
-                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>freshco</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b><a href="https://megabytetech.com/">Megabytetech pvt ltd</a></b> All rights reserved
                     </div>
                 </div>
             </div>
