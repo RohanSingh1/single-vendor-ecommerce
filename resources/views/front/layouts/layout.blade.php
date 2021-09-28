@@ -14,6 +14,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('front.layouts.head')
 
+    <link rel="stylesheet" href="{{ asset('front/css/sweetalert.min.css') }}">
     @stack('css')
     <style>
         .cart-btn{
@@ -98,13 +99,17 @@
         @include('front.layouts.session_messages')
         @yield('content')
     </div>
-
+ 
 
     @include('front.layouts.footer')
 </div>
     @include('front.layouts.scripts')
 
+<script src="{{ asset('front/js/sweetalert.min.js') }}" type="text/javascript"></script>
 <script>
+    @if(url()->previous() == route('front.checkout.store') && Session::has('success'))
+    swal("Completed", "{!! session('success') !!}", "success");
+    @endif
     $('#app').on('click', '.add-to-cart-btn', function () {
         var $this = $(this);
         var slug = $this.attr('attr-slug');

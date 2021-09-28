@@ -40,7 +40,11 @@ class PageRepository implements PageRepositoryInterface
     public function requestDataUpdate($request, $page)
     {
         $data = $this->commonData($request);
+
         if ($request->hasFile('featured_image')) {
+            if($page->featured_image != null && file_exists('storage/Uploads/Pages/'.$page->featured_image)){
+                unlink(base_path().'/public/storage/Uploads/Pages/'.$page->featured_image);
+            }
             $data['featured_image'] = SaveImage::update($request->featured_image, $this->imagePath, $page->featured_image ? $page->prevImagePath : '');
         }
         return $data;

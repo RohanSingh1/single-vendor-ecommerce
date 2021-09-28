@@ -35,7 +35,7 @@ class CheckoutController extends BaseController
             ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
             $billing_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
             ->where('type','BILLING')->latest()->first() : null;
-       // Create new order
+       // Create new order 
        $cdt = isset($carts['coupon_discount_total'])?$carts['coupon_discount_total']: 0;
        $cd = isset($carts['coupon_discount']) ?  $carts['coupon_discount'] : 0;
        $order = Order::create([
@@ -43,6 +43,8 @@ class CheckoutController extends BaseController
             'full_names' => auth()->check() ? auth()->user()->name:$shipping_address['full_name'],
             'payment_option' => 'cash_on_delivery',
             'order_note' => $request->order_note,
+            'meat_condition' => $request->meat_condition,
+            'meat_state' => $request->meat_state,
             'shipping_price' => isset($carts['shipping'])?$carts['shipping']:0,
             'shipping_address'=>serialize($shipping_address),
             'billing_address'=>$billing_address != null ? serialize($billing_address): null,

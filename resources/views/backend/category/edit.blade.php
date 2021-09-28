@@ -64,35 +64,6 @@
                                     {{Form::label('Description')}}
                                     {{Form::textarea('description',$category->description,['class'=>'form-control'])}}
                                 </div>
-                                <div class="form-group">
-                                    <label for="Colors">Colors</label>
-                                    <div class="row">
-                                        @foreach($colors as $color)
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-check">
-                                                    <label for="" class="form-check-label">
-                                                        <input type="checkbox" value="{{$color->id}}" name="colors[]"
-                                                               @if(old('colors'))
-                                                               @foreach(old('colors') as $item)
-                                                               @if(number_format($item) == $color->id)
-                                                               checked
-                                                               @endif
-                                                               @endforeach
-                                                               @else
-                                                               @foreach($category->colors as $item)
-                                                               @if($item->id == $color->id)
-                                                               checked
-                                                            @endif
-                                                            @endforeach
-                                                            @endif
-                                                        >
-                                                        {{$color->name}}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,3 +79,4 @@
         $('.dropify').dropify();
     </script>
 @endpush
+ 

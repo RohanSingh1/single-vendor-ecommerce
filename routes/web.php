@@ -7,9 +7,12 @@
 // });
 
 use App\Model\Order;
+use App\Model\Product;
 use Illuminate\Support\Facades\Cookie;
 
 Route::get('test',function(){
+    $pr = Product::find(5);
+    dd(product_image($pr));
     dd($_COOKIE['address']);
     $ad = Order::find(29);
     dd(unserialize($ad->shipping_address));

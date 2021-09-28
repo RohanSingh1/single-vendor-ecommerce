@@ -8,27 +8,34 @@ use Illuminate\Http\Request;
 class AddressController extends BaseController
 {
     public function addShippingAddress(Request $request){
-        $this->validate($request,[
+       $this->validate($request,[
             's_full_name'=>'required',
             's_email'=>'required',
             's_phone'=>'required',
             's_address1'=>'required',
-        ]);
+            'from_valley'=>'required|in:inside,outside'
+        ]); 
         $addressData = [
             'type' => 'SHIPPING',
             'user_id' => auth()->check() ? auth()->user()->id:0,
             'full_name' => $request->s_full_name,
             'email' => $request->s_email,
             'phone' => $request->s_phone,
+            'from_valley' => $request->from_valley,
             'address1' => $request->s_address1,
             'address2' => $request->s_address2,
         ];
         $request->session()->flash('success','SHIPPING Address Added Successfully');
         if(auth()->check()){
-            Address::updateOrCreate(['user_id' => auth()->id(),'type'=>'SHIPPING'], $addressData);
-        }else{
-            setcookie('shipping_address', serialize($addressData), time()+3600);
+            if($saddress = Address::where('user_id',auth()->user()->id)->where('type','SHIPPING')
+            ->orderBy('id', 'DESC')->get()[0]){
+                $saddress->update($addressData);
+            }else{
+                Address::create($addressData);
+            }
         }
+            setcookie('shipping_address', serialize($addressData), time()+3600);
+
         return redirect()->back();
     }
 
@@ -38,6 +45,7 @@ class AddressController extends BaseController
             'b_email'=>'required',
             'b_phone'=>'required',
             'b_address1'=>'required',
+            'from_valley'=>'required|in:inside,outside'
         ]);
 
         $addressData = [
@@ -46,6 +54,7 @@ class AddressController extends BaseController
             'full_name' => $request->b_full_name,
             'email' => $request->b_email,
             'phone' => $request->b_phone,
+            'from_valley' => $request->from_valley,
             'address1' => $request->b_address1,
             'address2' => $request->b_address2,
         ];

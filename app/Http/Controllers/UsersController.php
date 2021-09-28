@@ -91,7 +91,7 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
         ]);
         $data = Admin::findOrFail($request->id);
-        if ($data->image != null) {
+        if ($request->hasFile('image')) {
             if(Storage::disk('public')->exists('uploads'.DIRECTORY_SEPARATOR.'Users' . DIRECTORY_SEPARATOR . $data->image)){
                 Storage::disk('public')->delete('uploads'.DIRECTORY_SEPARATOR.'Users'. DIRECTORY_SEPARATOR . $data->image );
             }
@@ -103,11 +103,12 @@ class UsersController extends Controller
             'password'=>$request->has('password') ? Hash::make($request->password): $data->password,
             'image'=>isset($file_name)?$file_name:$data->image,
             'address'=>$request->address,
-            'is_admin'=>$request->is_admin
+            'is_admin'=>$request->is_admin,
+            'status'=>$request->status
         ]);
         return redirect()->back()->with('success', 'User Information Updated');
     }
-
+ 
     public function destroy(Request $request)
     {
         $user = Admin::find($request->id);

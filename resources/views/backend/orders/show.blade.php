@@ -119,7 +119,8 @@
                 <div class="tab-content">
                   <div class="row">
                       <div class="col-md-12">
-                        <span style="font-weight:bold;">{!! $order->order_note !!}</span>
+                        <span style="font-weight:bold;">Meat Condition :- {!! $order->meat_condition.' '.$order->meat_state !!}</span> <br>
+                        <span style="font-weight:bold;">Order Note :- {!! $order->order_note !!}</span> <br>
                         </div>
                   </div>
                 </div>
@@ -147,6 +148,8 @@
                         <ul>
                           <li>E-Mail: {{ $shipping_address['email'] }} </li>
                           <li>Phone: {!! $shipping_address['phone'] !!} </li>
+                          <li>From Valley: {!! isset($shipping_address['from_valley']) ?
+                            $shipping_address['from_valley'] : '' !!} </li>
                           <li>Address: <span class="f_price"> {!! $shipping_address['address1'] !!} </span> </li>
                           <li>Address 2: <span class="f_price"> {!! $shipping_address['address2'] !!} </span> </li>
                         </ul>

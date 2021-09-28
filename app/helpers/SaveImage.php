@@ -25,7 +25,7 @@ class SaveImage{
 
     public static function update($image, $path,$previousPath=null)
     {
-       if ($previousPath!=' '){
+       if ($previousPath!=''){
            deleteFile($previousPath);
        }
         return self::save($image, $path);

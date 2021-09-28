@@ -88,17 +88,17 @@
                         </div>
                         <div class="form-group @if ($errors->has('offer_text')) has-error @endif">
                             <label for="offer_text" class="control-label">Offer Text</label>
-                            <input type="text" class="form-control" name="btn_text"
+                            <input type="text" class="form-control" name="offer_text"
                                    value="{{ $slider->offer_text ?? '' }}">
-                            @if ($errors->has('btn_text'))
+                            @if ($errors->has('offer_text'))
                                 <span class="text-danger" role="alert">
-								{{ $errors->first('btn_text') }}
+								{{ $errors->first('offer_text') }}
 							</span>
                             @endif
                         </div>
                         <div class="form-group @if ($errors->has('link')) has-error @endif">
                             <label for="link" class="control-label">Link:</label>
-                            <input type="text" class="form-control" name="target_url"
+                             <input type="text" class="form-control" name="target_url"
                                    value="{{ $slider->target_url ?? '' }}">
                             @if ($errors->has('target_url'))
                                 <span class="text-danger" role="alert">

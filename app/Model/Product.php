@@ -114,9 +114,9 @@ class Product extends Model implements HasMedia
 
     public function meta()
     {
-        return $this->morphOne(Meta::class, 'metaable');
+        return $this->morphOne(Meta::class, 'metaable')->orderBy('id','desc');
     }
-
+ 
     public static function saveProductImageWithoutEdit($image)
     {
         $filename = time().'-'.$image->getClientOriginalName();
