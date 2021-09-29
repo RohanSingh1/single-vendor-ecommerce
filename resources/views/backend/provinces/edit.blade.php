@@ -1,5 +1,6 @@
 @extends('backend.layouts.master')
 @section('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
 <div class="app-page-title">
@@ -10,8 +11,8 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Edit Location
-                <div class="page-title-subheading">Edit Location here
+            <div>Edit Province Name
+                <div class="page-title-subheading">Edit Province here
                 </div>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                    Edit Location
+                    Edit Province Name
                 </div>
             </div>
             <div class="card-body">
@@ -33,6 +34,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
+                            {!! Form::open(['route' => ['admin.provinces.update',$province->id],'method' => 'PUT','enctype'=>'multipart/form-data' ]) !!}
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -42,52 +44,24 @@
                                 </ul>
                             </div>
                             @endif
-                            <form action="{{ route('admin.locations.update',$location->id) }}" method="post">
-                                @method('PUT')
-                                @csrf
 
                             <div class="form-group">
-                                {{Form::label('Province No')}}
-                                <select name="province_id" class="form-control">
-                                    @foreach (\App\Model\Province::where('status',1)->get() as $province)
-                                    <option value="{{ $province->id }}"
-                                        {{ $province->id == $location->province->id ? 'selected':'' }}>{{ $province->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                {{Form::label('Districts')}}
-                                <select name="district_id" class="form-control">
-                                    @foreach (\App\Model\District::where('status',1)->get() as $district)
-                                    <option value="{{ $district->id }}"
-                                        {{ $district->id == $location->district->id ? 'selected':'' }}>{{ $district->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                {{Form::label('Name')}}
-                                {{Form::text('name',$location->name,['class'=>'form-control'])}}
-                            </div>
-
-                            <div class="form-group">
-                                {{Form::label('Price')}}
-                                {{Form::text('price',$location->price,['class'=>'form-control'])}}
+                                {{Form::label('Province Name')}}
+                                {{Form::text('name',$province->name,['class'=>'form-control'])}}
                             </div>
 
                             <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
-                                {!! Form::label('status','Location *') !!}
+                                {!! Form::label('status','Province *') !!}
                                 {!! Form::select('status',['1' => 'Active','0' => 'In-Active'],
-                                $location->status, ['class'=>'form-control']); !!}
+                                $province->status, ['class'=>'form-control']); !!}
                                 @if ($errors->has('status'))
                                 <span class="help-block">
                                     {{ $errors->first('status') }}
                                 </span>
                                 @endif
                             </div>
-
                             {{Form::submit('Update',['class'=>'btn btn-primary'])}}
-                        </form>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

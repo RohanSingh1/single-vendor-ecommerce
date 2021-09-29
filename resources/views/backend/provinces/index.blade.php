@@ -41,13 +41,13 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Locations Name
-                <div class="page-title-subheading">Here are all the locations you have
+            <div>Provinces Name
+                <div class="page-title-subheading">Here are all the provincess you have
                 </div>
             </div>
         </div>
         <div class="page-title-actions">
-            <button class="btn btn-success" data-toggle="modal" data-target="#addlocations">Add New</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#addProvince">Add New</button>
 
         </div>
     </div>
@@ -59,12 +59,12 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                        All Locations Name
+                        All Provinces Name
                 </div>
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <table class="table table-striped table-bordered" id="locations-table">
+                    <table class="table table-striped table-bordered" id="provinces-table">
                     </table>
                 </div>
             </div>
@@ -74,21 +74,18 @@
 @endsection
 
 @section('modal')
-    @include('backend.locations.add-modal')
+    @include('backend.provinces.add-modal')
 @endsection
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
     $(function() {
-        $('#locations-table').DataTable({
+        $('#provinces-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('admin.api.locations') }}',
+            ajax: '{{ route('admin.api.provinces') }}',
             columns: [
-                { data: 'name', title:'Location Name'},
-                { data: 'provinces', title:'Provinces'},
-                { data: 'districts', title:'Districts'},
-                { data: 'price', title:'Price'},
+                { data: 'name', title:'Name'},
                 {data:'status',title:'Status', mRender:  function(data, type, full) {
                     return data == 1 ? 'Active' : 'In-Active';
             }},

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\DeliveryName;
+use App\Model\Province;
 use Yajra\Datatables\Datatables;
 
-class DeliveryNameController extends Controller
+class ProvinceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class DeliveryNameController extends Controller
     }
     public function index()
     {
-        return view('backend.delivery_name.index');
+        return view('backend.provinces.index');
     }
 
     /**
@@ -27,13 +27,13 @@ class DeliveryNameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function apidelivery_name()
+    public function apiProvinces()
     {
-        $delivery_name = DeliveryName::all();
-        return Datatables::of($delivery_name)
-            ->addColumn('action', function ($delivery_name) {
-                return '<a href="delivery_name/' . $delivery_name->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
-                <form action= "' . route('admin.delivery_name.destroy', $delivery_name->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
+        $provinces = Province::orderBy('id', 'DESC')->get();
+        return Datatables::of($provinces)
+            ->addColumn('action', function ($provinces) {
+                return '<a href="provinces/' . $provinces->id . '/edit" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
+                <form action= "' . route('admin.provinces.destroy', $provinces->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
                     <input type="hidden" value="DELETE" name="_method">
                     <span class="input-group-btn">
                     <button class="btn btn-danger btn-xs delete-item" type="submit" value="delete"><i class ="fa fa-trash"></i></button>
@@ -57,15 +57,14 @@ class DeliveryNameController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'delivery_name' => 'required',
+            'name' => 'required',
             'status'=>'required|boolean'
         ]);
-        DeliveryName::create([
-            'delivery_name'=>$request->delivery_name,
-            'step'=>$request->step,
+        Province::create([
+            'name'=>$request->name,
             'status'=>$request->status
         ]);
-        return redirect()->route('admin.delivery_name.index')->with('success', 'Delivery Name Added');
+        return redirect()->route('admin.provinces.index')->with('success', 'Province Added');
     }
 
     /**
@@ -85,9 +84,9 @@ class DeliveryNameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(DeliveryName $delivery_name)
+    public function edit(Province $province)
     {
-        return view('backend.delivery_name.edit', compact('delivery_name'));
+        return view('backend.provinces.edit', compact('province'));
     }
 
     /**
@@ -97,17 +96,17 @@ class DeliveryNameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DeliveryName $delivery_name)
+    public function update(Request $request, Province $province)
     {
         $this->validate($request, [
-            'delivery_name' => 'required',
+            'name' => 'required',
+            'status'=>'required|boolean'
         ]);
-        $delivery_name->update([
-            'delivery_name'=>$request->delivery_name,
-            'step'=>$request->step,
+        $province->update([
+            'name'=>$request->name,
             'status'=>$request->status
         ]);
-        return redirect()->route('admin.delivery_name.index')->with('success', 'delivery_name Updated');
+        return redirect()->route('admin.provinces.index')->with('success', 'Provinces Updated');
     }
 
     /**
@@ -116,15 +115,14 @@ class DeliveryNameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DeliveryName $delivery_name)
+    public function destroy(Request $request,$id)
     {
-        try {
-            $delivery_name->forceDelete();
-            return redirect()->route('admin.delivery_name.index')->with('success', 'delivery_name Deleted');
-        } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->getCode() == "23000") { //23000 is sql code for integrity constraint violation
-                return redirect()->route('admin.delivery_name.index')->with('error', 'Sorry The Selected Data Has Found Or Has Been Deleted');
-            }
+        if(!$province = province::find($id)){
+            $request->session()->flash('error','Sorry The Selected province Has Found Or Has Been Deleted');
+            return redirect()->route('admin.provinces.index');
         }
+        $province->delete();
+        $request->session()->flash('success','SuccessFully Deleted');
+        return redirect()->route('admin.provinces.index');
     }
 }
