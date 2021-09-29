@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from freshco.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
+<!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-    <meta name="description" content="freshco">
-    <meta name="author" content="freshco">
+    <meta name="description" content="fresco">
+    <meta name="author" content="fresco">
     <title>Gambo - Sign Up</title>
 
     <link rel="icon" type="image/png" href="images/fav.png">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="copyright-text text-center mt-3">
-                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>freshco</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>fresco</b> . All rights reserved
                     </div>
                 </div>
             </div>
@@ -111,6 +111,6 @@
     <script src="{{ asset('front/js/night-mode.js') }}"></script>
 </body>
 
-<!-- Mirrored from freshco.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
+<!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_up.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:43 GMT -->
 
 </html>

@@ -6,11 +6,14 @@
 //     return view('backend.dashboard');
 // });
 
+use App\Model\District;
 use App\Model\Order;
 use App\Model\Product;
 use Illuminate\Support\Facades\Cookie;
 
 Route::get('test',function(){
+    $district = District::where('status',1)->get();
+    dd($district[0]->province);
     $pr = Product::find(5);
     dd(product_image($pr));
     dd($_COOKIE['address']);
@@ -125,6 +128,12 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     //locations
     Route::resource('locations', 'LocationController');
     Route::get('/api/locations', 'LocationController@apilocations')->name('api.locations');
+    //district
+    Route::resource('districts', 'DistrictController');
+    Route::get('/api/districts', 'DistrictController@apiDistricts')->name('api.districts');
+     //province
+     Route::resource('provinces', 'ProvinceController');
+     Route::get('/api/provinces', 'ProvinceController@apiProvinces')->name('api.provinces');
     //delivery name
     Route::resource('delivery_name', 'DeliveryNameController');
     Route::get('/api/delivery_name', 'DeliveryNameController@apidelivery_name')->name('api.delivery_name');

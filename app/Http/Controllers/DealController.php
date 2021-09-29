@@ -175,5 +175,5 @@ class DealController extends Controller
         }
         $request->session()->flash('success','SuccessFully Deleted');
         return redirect()->route('admin.deals.index');
-    } 
+    }
 }
