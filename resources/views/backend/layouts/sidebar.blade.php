@@ -180,6 +180,22 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.districts.index') }}"
+                       class="{{ active(['admin/districts*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Districts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.provinces.index') }}"
+                       class="{{ active(['admin/provinces*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Provinces
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.delivery_name.index') }}"
                        class="{{ active(['admin/delivery_name*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>

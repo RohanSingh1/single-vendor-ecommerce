@@ -10,8 +10,8 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Edit Location
-                <div class="page-title-subheading">Edit Location here
+            <div>Edit district
+                <div class="page-title-subheading">Edit district here
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                    Edit Location
+                    Edit district
                 </div>
             </div>
             <div class="card-body">
@@ -42,43 +42,27 @@
                                 </ul>
                             </div>
                             @endif
-                            <form action="{{ route('admin.locations.update',$location->id) }}" method="post">
+                            <form action="{{ route('admin.districts.update',$district->id) }}" method="post">
                                 @method('PUT')
                                 @csrf
-
-                            <div class="form-group">
-                                {{Form::label('Province No')}}
-                                <select name="province_id" class="form-control">
-                                    @foreach (\App\Model\Province::where('status',1)->get() as $province)
-                                    <option value="{{ $province->id }}"
-                                        {{ $province->id == $location->province->id ? 'selected':'' }}>{{ $province->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                {{Form::label('Districts')}}
-                                <select name="district_id" class="form-control">
-                                    @foreach (\App\Model\District::where('status',1)->get() as $district)
-                                    <option value="{{ $district->id }}"
-                                        {{ $district->id == $location->district->id ? 'selected':'' }}>{{ $district->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
                             <div class="form-group">
                                 {{Form::label('Name')}}
-                                {{Form::text('name',$location->name,['class'=>'form-control'])}}
+                                {{Form::text('name',$district->name,['class'=>'form-control'])}}
                             </div>
 
                             <div class="form-group">
-                                {{Form::label('Price')}}
-                                {{Form::text('price',$location->price,['class'=>'form-control'])}}
+                                {{Form::label('Province No')}} 
+                                <select name="province_id" class="form-control">
+                                    @foreach (\App\Model\Province::where('status',1)->get() as $province)
+                                    <option value="{{ $province->id }}" {{ $province->id == $district->province->id ? 'selected':'' }}>{{ $province->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
-                                {!! Form::label('status','Location *') !!}
+                                {!! Form::label('status','district *') !!}
                                 {!! Form::select('status',['1' => 'Active','0' => 'In-Active'],
-                                $location->status, ['class'=>'form-control']); !!}
+                                $district->status, ['class'=>'form-control']); !!}
                                 @if ($errors->has('status'))
                                 <span class="help-block">
                                     {{ $errors->first('status') }}

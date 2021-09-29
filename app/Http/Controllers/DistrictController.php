@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Location;
+use App\Model\District;
 use Yajra\Datatables\Datatables;
 
-class LocationController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class LocationController extends Controller
     }
     public function index()
     {
-        return view('backend.locations.index');
+        return view('backend.districts.index');
     }
 
     /**
@@ -27,19 +27,16 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function apilocations()
+    public function apiDistricts()
     {
-        $locations = Location::orderBy('id', 'DESC')->get();
-        return Datatables::of($locations)
-        ->addColumn('provinces', function ($locations) {
-            return isset($locations->province) && $locations->province !=''?$locations->province->name:'Not Found';
-        })
-        ->addColumn('districts', function ($locations) {
-            return isset($locations->district) && $locations->district !=''?$locations->district->name:'Not Found';
-        })
-            ->addColumn('action', function ($locations) {
-                return '<a href="' . route('admin.locations.edit', $locations->id) . '" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
-                <form action= "' . route('admin.locations.destroy', $locations->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
+        $district = District::orderBy('id', 'DESC')->get();
+        return Datatables::of($district)
+            ->addColumn('provinces', function ($district) {
+                return isset($district->province) && $district->province !='' ? $district->province->name : 'Not Found';
+            })
+            ->addColumn('action', function ($district) {
+                return '<a href="' . route('admin.districts.edit', $district->id) . '" class="btn btn-xs btn-info " style="float:left; margin-right:5px" ><i class ="fa fa-edit"></i></a>
+                <form action= "' . route('admin.districts.destroy', $district->id) . '" method="POST" accept-charset ="UTF-8" class="form-inline">
                     <input type="hidden" value="DELETE" name="_method">
                     <span class="input-group-btn">
                     <button class="btn btn-danger btn-xs delete-item" type="submit" value="delete"><i class ="fa fa-trash"></i></button>
@@ -47,7 +44,7 @@ class LocationController extends Controller
                     <input type="hidden" value="' . csrf_token() . '" name="_token">
                 </form>';
             })
-            ->rawColumns(['provinces', 'districts','action'])
+            ->rawColumns(['provinces', 'action'])
             ->make(true);
     }
     public function create()
@@ -64,21 +61,17 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:locations,name',
+            'name'=>'required',
             'province_id'=>'required|exists:provinces,id',
-            'district_id'=>'required|exists:districts,id',
-            'price' => 'required|numeric',
             'status' => 'required|boolean',
         ]);
-        Location::create([
+        District::create([
             'name'=>$request->name,
             'slug'=>str_slug($request->name),
             'province_id'=>$request->province_id,
-            'district_id'=>$request->district_id,
-            'price'=>$request->price,
             'status'=>$request->status
         ]);
-        return redirect()->route('admin.locations.index')->with('success', 'Location Added');
+        return redirect()->route('admin.districts.index')->with('success', 'Delivery Name Added');
     }
 
     /**
@@ -98,9 +91,9 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Location $location)
+    public function edit(District $district)
     {
-        return view('backend.locations.edit', compact('location'));
+        return view('backend.districts.edit', compact('district'));
     }
 
     /**
@@ -110,24 +103,20 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, District $district)
     {
         $this->validate($request, [
-            'name' => 'required|unique:locations,name,'.$location->id,
+            'name'=>'required',
             'province_id'=>'required|exists:provinces,id',
-            'district_id'=>'required|exists:districts,id',
-            'price' => 'required|numeric',
             'status' => 'required|boolean',
         ]);
-        $location->update([
+        $district->update([
             'name'=>$request->name,
             'slug'=>str_slug($request->name),
             'province_id'=>$request->province_id,
-            'district_id'=>$request->district_id,
-            'price'=>$request->price,
             'status'=>$request->status
         ]);
-        return redirect()->route('admin.locations.index')->with('success', 'Location Updated');
+        return redirect()->route('admin.districts.index')->with('success', 'district Updated');
     }
 
     /**
@@ -138,12 +127,12 @@ class LocationController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        if(!$location = location::find($id)){
-            $request->session()->flash('error','Sorry The Selected Location Has Found Or Has Been Deleted');
-            return redirect()->route('admin.locations.index');
+        if(!$district = District::find($id)){
+            $request->session()->flash('error','Sorry The Selected District Has Found Or Has Been Deleted');
+            return redirect()->route('admin.districts.index');
         }
-        $location->delete();
+        $district->delete();
         $request->session()->flash('success','SuccessFully Deleted');
-        return redirect()->route('admin.locations.index');
+        return redirect()->route('admin.districts.index');
     }
 }
