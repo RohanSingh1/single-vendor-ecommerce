@@ -25,8 +25,9 @@
                         value="{{ \Cart::get($product->id) != null ? \Cart::get($product->id)->quantity : 1}}">
                     <input type="button" value="+" class="plus plus-btn">
                 </div>
-                <span class="cart-icon add-to-cart-btn" attr-slug="{{ $product->slug }}">
-                    <i class="uil uil-shopping-cart-alt"></i></span>
+                <button class="btn btn-info btn-xs new_btn add-to-cart-btn" attr-slug="{{ $product->slug }}" title="Add To Cart" >
+                    Add To Cart</button>
+
             </div>
         </div>
     </div>

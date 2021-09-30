@@ -32,7 +32,7 @@
                                             <div class="top-text-1">{{ $slider->description }}</div>
                                             <span>{{ $slider->title }}</span>
                                         </div>
-                                        <a href="{{ $slider->target_url }}}" {{ $slider->target == 1 ? '_blank' : '' }}
+                                        <a href="{{ $slider->target_url }}" {{ $slider->target == 1 ? '_blank' : '' }}
                                             class="Offer-shop-btn hover-btn">{{ $slider->btn_text }}</a>
                                     </div>
                                 </div>

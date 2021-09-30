@@ -1,8 +1,8 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-    <meta name="description" content="Gambolthemes">
-    <meta name="author" content="Gambolthemes">
+    <meta name="description" content="{{ $site_title }}">
+    <meta name="author" content="{{ $site_title }}">
     <title>{{ $site_title }} - Index</title>
 
     <link rel="icon" type="image/png" href="{{asset($favicon->file)}}">

@@ -59,7 +59,7 @@ class HomeController extends BaseController
     public function search_now(Request $request){
         $query_data = $request->get('query');
         if ($request->ajax()){
-            $data = Product::where('name','LIKE',"%$query_data%")->where('products.published',1)->get();
+            $data = Product::where('name','LIKE',"%$query_data")->where('products.published',1)->orderBy('name','asc')->get();
             $response['html'] = '<div class="lists_here"><ul class="dropdown-menu search_list" style="display:block;position:relative;width:529px;margin-top:36px;margin-left:1px;">';
             foreach($data as $search){
                 $router = \URL::to('product',$search->slug);
