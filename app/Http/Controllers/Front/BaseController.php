@@ -20,6 +20,7 @@ class BaseController extends Controller
             $view->with('categories', Category::where('parent_id',0)->get());
             $view->with('current_route',$route = \Route::currentRouteName());
             $view->with('site_title',Setting::select('id', 'text')->where('slug', 'site_title')->first()['text']);
+            $view->with('address',Setting::select('id', 'text')->where('slug', 'address')->first()['text']);
             $view->with('delivery_price',Setting::select('id', 'text')->where('slug','shipping_price')
             ->where('text', '!=', '')->first()['text'] ?? '');
             $view->with('phone_no',get_general_settings_text('phone_no') != ''

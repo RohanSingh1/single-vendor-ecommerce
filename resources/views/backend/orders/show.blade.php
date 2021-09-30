@@ -121,6 +121,7 @@
                       <div class="col-md-12">
                         <span style="font-weight:bold;">Meat Condition :- {!! $order->meat_condition.' '.$order->meat_state !!}</span> <br>
                         <span style="font-weight:bold;">Order Note :- {!! $order->order_note !!}</span> <br>
+                        <span style="font-weight:bold;">Delivery Date And Time :- {!! date('Y-m-d',strtotime($order->delivery_date)) .' '. $order->delivery_time !!}</span> <br>
                         </div>
                   </div>
                 </div>

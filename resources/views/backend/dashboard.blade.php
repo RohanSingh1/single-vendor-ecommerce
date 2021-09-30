@@ -12,6 +12,9 @@
             <div>Dashboard
                 <div class="page-title-subheading">Welcome to {{get_general_settings_text('site_title')->text??app_name()}}
                 </div>
+                <div class="form-group">
+                    <a class="btn btn-info" href="{{ route('create_menu') }}">create_menu</a>
+                </div>
             </div>
         </div>
         <div class="page-title-actions">

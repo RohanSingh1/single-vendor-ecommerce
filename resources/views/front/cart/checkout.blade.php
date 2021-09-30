@@ -13,7 +13,7 @@
     }
 </style>
 @endpush
-@section('content') 
+@section('content')
 @php
 $final = get_price_check_coupon();
 @endphp
@@ -105,10 +105,10 @@ $final = get_price_check_coupon();
                                                                 <div class="form-group" id="valley">
                                                                     <label class="control-label">From Valley*</label>
                                                                     <label class="control-label" for="inside">&nbsp;&nbsp;<input type="radio"  id="inside" name="from_valley" value="inside" required
-                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'inside' ? 'checked': ''  }}> Inside Valley</label>
+                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'inside' ? 'checked': ''  }}> Inside RingRoad</label>
                                                                     <label for="outside" class="control-label">
                                                                         &nbsp;&nbsp;  <input type="radio" name="from_valley" value="outside" required id="outside"
-                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'outside' ? 'checked': ''  }}> Outside Valley </label>
+                                                                        {{ isset($shipping_address) && $shipping_address->from_valley == 'outside' ? 'checked': ''  }}> Outside RingRoad </label>
                                                                         @error('from_valley')
                                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                                         @enderror
@@ -131,9 +131,9 @@ $final = get_price_check_coupon();
 
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Street Address*</label>
+                                                                    <label class="control-label">LandMark*</label>
                                                                     <input id="s_address2" name="s_address2" type="text"
-                                                                        placeholder="Street Address"  value="{{ isset($shipping_address)
+                                                                        placeholder="LandMark"  value="{{ isset($shipping_address)
                                                                             ? $shipping_address->address2 : old('s_address2') }} "
                                                                         class="form-control input-md">
                                                                         @error('s_address2')
@@ -309,8 +309,6 @@ $final = get_price_check_coupon();
                                                     <div class="col-lg-12">
                                                         <div class="pymnt_title">
                                                             <h4>Cash on Delivery</h4>
-                                                            <p>Cash on Delivery will not be available if your order
-                                                                value exceeds $10.</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -323,8 +321,23 @@ $final = get_price_check_coupon();
                                                 ></textarea>
                                                 <br>
                                                 <br>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group d-flex">
+                                                        <label for="delivery_date" class="control-label col-sm-2">Delivery Date</label>
+                                                       <div class="col-sm-4">
+                                                           <input type="date" name="delivery_date" required id='delivery_date' class="form-control">
+                                                       </div>
+                                                       <label for="delivery_time" class="control-label col-sm-2">Delivery Time</label>
+                                                       <div class="col-sm-2">
+                                                       <input type="time" name="delivery_time" required id="delivery_time" class="form-control">
+                                                    </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="rpt100">
                                                     <ul class="radio--group-inline-container_1">
+
+
                                                         <li>
                                                             <div class="radio-item_1">
                                                                 <input type="radio" name="meat_condition" value="poleko" required id="poleko">
@@ -358,8 +371,10 @@ $final = get_price_check_coupon();
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                @if(isset($shipping_address) && $shipping_address->from_valley == 'outside')
                                                     <span id="delivery_note">Note: Delivery Charges Cost per km {{ currency_type() }}.{{ get_general_settings_text('perkm_price') != ''
                                                         ?get_general_settings_text('perkm_price')->text:'' }}</span>
+                                                @endif
                                                 <br>
                                                 <button class="next-btn16 hover-btn pull-right" type="submit">Place Order</button>
                                             </form>
@@ -436,10 +451,12 @@ $final = get_price_check_coupon();
                         </div>
                     </div>
                     <div class="total-checkout-group">
+                        @if(isset($shipping_address) && $shipping_address->from_valley == 'outside')
                         <div class="cart-total-dil pt-3">
                             <h4>Delivery Charges</h4>
                             <span>+ {{ currency_type().$delivery_price }}</span>
                         </div>
+                        @endif
                     </div>
                     @if(isset($_COOKIE['coupon_code']))
                     <div class="cart-total-dil saving-total ">
@@ -450,7 +467,11 @@ $final = get_price_check_coupon();
 
                     <div class="main-total-cart">
                         <h2>Total</h2>
+                        @if(isset($shipping_address) && $shipping_address->from_valley == 'outside')
                         <span>{{currency_type().' '.$final['total'] }}</span>
+                        @else
+                        <span> {{ currency_type() }} {{$final['total']-(int)$delivery_price }}</span>
+                        @endif
                     </div>
 
                 </div>

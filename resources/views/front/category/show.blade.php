@@ -14,6 +14,9 @@
     .product-item a img{
         height: 200px;
     }
+    .add-to-cart-btn{
+        margin-left: 45px;
+    }
 </style>
 @endpush
 @section('content')

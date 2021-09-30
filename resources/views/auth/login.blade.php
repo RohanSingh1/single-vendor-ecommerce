@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+=======
+@php
+    $site_logo_1 = \App\Model\Setting::select('id', 'file')->where('slug', 'site_logo_1')->first();
+    $site_title =  get_general_settings_text('site_title')['text'];
+@endphp
+>>>>>>> sanjy
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
-    <meta name="description" content="fresco">
-    <meta name="author" content="fresco">
-    <title>Gambo - Sign In</title>
+    <meta name="description" content="{{ $site_title }}">
+    <meta name="author" content="{{ $site_title }}">
+    <title>{{ ucfirst($site_title) }} - Sign In</title>
 
     <link rel="icon" type="image/png" href="images/fav.png">
 
@@ -36,9 +43,9 @@
                     <div class="sign-form">
                         <div class="sign-inner">
                             <div class="sign-logo" id="logo">
-                                <a href="index.html"><img src="{{ asset('front/images/freco.png') }}" alt=""></a>
+                                <a href="index.html"><img src="{{ asset($site_logo_1->file)  }}" alt="{{ $site_title }}"></a>
                                 <a href="index.html"><img class="logo-inverse"
-                                        src="{{ asset('fornt/images/dark-logo.svg') }}" alt=""></a>
+                                        src="{{ asset($site_logo_1->file)  }}" alt="{{ $site_title }}"></a>
                             </div>
                             <div class="form-dt">
                                 <div class="form-inpts checout-address-step">
@@ -65,7 +72,7 @@
                                     </form>
                                 </div>
                                 <div class="password-forgor">
-                                    <a href="forgot_password.html">Forgot Password?</a>
+                                    <a href="">Forgot Password?</a>
                                 </div>
                                 <div class="signup-link">
                                     <p>Don't have an account? - <a href="{{ route('register') }}">Sign Up Now</a></p>
@@ -74,7 +81,7 @@
                         </div>
                     </div>
                     <div class="copyright-text text-center mt-3">
-                        <i class="uil uil-copyright"></i>Copyright 2020 <b>fresco</b> . All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright 2020 <b>{{ $site_title }}</b> . All rights reserved
                     </div>
                 </div>
             </div>
@@ -92,6 +99,10 @@
     <script src="{{ asset('front/js/night-mode.js') }}"></script>
 </body>
 
+<<<<<<< HEAD
 <!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+=======
+<!-- Mirrored from {{ get_general_settings_text('site_title') }}.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
+>>>>>>> sanjy
 
 </html>

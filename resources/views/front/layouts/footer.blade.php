@@ -2,6 +2,7 @@
     $firstFooterMenus = footerMenu('first-footer');
     $secondFooterMenus = footerMenu('second-footer');
     $thirdFooterMenus = footerMenu('third-footer');
+    $footerMenu = footerMenu('footer-menu');
     $facebook = get_general_settings_text('facebook');
     $twitter = get_general_settings_text('twitter');
     $google_plus = get_general_settings_text('google_plus');
@@ -18,9 +19,13 @@
                         <li>
                             <a href="#" class="callemail">
                             <i class="uil uil-dialpad-alt"></i>{{$phone_no}}</a></li>
+                            <li>
+                                <a href="#" class="callemail">
+                                <i class="uil uil-location-alt"></i>{{$address}}</a></li>
                         <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>
                             <span class="__cf_email__" data-cfemail="e980878f86a98e88848b869a9c998c9b84889b828c9dc78a8684">
                                 [email&#160;{{ $email }}]</span></a></li>
+
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -159,16 +164,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-bottom-links">
-                        {{-- <ul>
-                            <li><a href="about_us.html">About</a></li>
-                            <li><a href="contact_us.html">Contact</a></li>
-                            <li><a href="privacy_policy.html">Privacy Policy</a></li>
-                            <li><a href="term_and_conditions.html">Term & Conditions</a></li>
-                            <li><a href="refund_and_return_policy.html">Refund & Return Policy</a></li>
-                        </ul> --}}
+                        <ul>
+                            @if(count($footerMenu)>0)
+                            @foreach($footerMenu as $menu)
+                            @if($menu->publishedPost)
+                            <li><a href="{{$menu->publishedPost->post_type_id==1?url($menu->publishedPost->slug)
+                                :$menu->publishedPost->url}}" {{targetBlank($menu->url_target)}}>
+                                {{$menu->display_name??$menu->publishedPost->post_title}}</a></li>
+                            @endif
+                            @endforeach
+                            @endif
+                        </ul>
                     </div>
                     <div class="copyright-text">
-                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b><a href="https://megabytetech.com/">Megabytetech pvt ltd</a></b> All rights reserved
+                        <i class="uil uil-copyright"></i>Copyright {{ date('Y') }} <b>{{ $site_title }}</b> . All rights reserved
                     </div>
                 </div>
             </div>
