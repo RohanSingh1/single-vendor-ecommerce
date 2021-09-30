@@ -19,11 +19,10 @@ class CategoryController extends BaseController
             ->published()
             ->withCount('products')
             ->firstOrFail();
-
         $data['filter_data'] = $this->getFilterData();
         $data['price_range'] = $this->price_range();
         $data['sorting_params'] = json_encode($this->getSortingParams());
-            $data['products'] = $data['category']->products()->get();
+        $data['products'] = $data['category']->products()->get();
 
         return view(parent::loadViewData('front.category.show'),compact('data'));
     }

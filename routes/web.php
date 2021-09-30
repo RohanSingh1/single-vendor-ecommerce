@@ -6,11 +6,18 @@
 //     return view('backend.dashboard');
 // });
 
+use App\Model\Address;
 use App\Model\District;
 use App\Model\Order;
 use App\Model\Product;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
+Route::get('create_menu',function(){
+    DB::table('menus')->insert(['title' => 'Footer Menu','slug'=>str_slug('Footer Menu'),'is_active'=>1,'is_selected'=>0,
+    'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')]);
+    dd('menu created');
+})->name('create_menu');
 Route::get('test',function(){
     $district = District::where('status',1)->get();
     dd($district[0]->province);

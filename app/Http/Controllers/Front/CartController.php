@@ -16,23 +16,23 @@ class CartController extends BaseController
             if(isset($_COOKIE['coupon_code']) && !empty($_COOKIE['coupon_code'])){
                 setcookie('coupon_code', "", time() - 1);
             }
-	        $request->session()->flash('message','Success The Coupon Has Been Removed');
+	        $request->session()->flash('success','Success The Coupon Has Been Removed');
         }
 	    return redirect()->back();
     }
 
     public function apply_coupon(Request $request){
         if(!$coupon = Coupon::where('coupon_code',$request->coupon_code)->first()){
-            $request->session()->flash('message','Sorry Coupon Does Not Exists Or Has Been Removed');
+            $request->session()->flash('error','Sorry Coupon Does Not Exists Or Has Been Expired');
             return redirect()->back();
         }
 
         if($coupon->expiry_date < date('Y-m-d')){
-            $request->session()->flash('message','Sorry The Coupon Has Been Expired');
+            $request->session()->flash('error','Sorry The Coupon Has Been Expired');
             return redirect()->back();
         }
         setcookie('coupon_code', $request->coupon_code, time()+360000);
-        $request->session()->flash('message','Success Coupon Applied');
+        $request->session()->flash('success','Success Coupon Applied');
         return redirect()->back();
     }
 
