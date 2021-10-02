@@ -329,7 +329,7 @@ $final = get_price_check_coupon();
                                                        </div>
                                                        <label for="delivery_time" class="control-label col-sm-2">Delivery Time</label>
                                                        <div class="col-sm-2">
-                                                       <input type="time" name="delivery_time" required id="delivery_time" class="form-control">
+                                                       <input type="time" name="delivery_time" required id="delivery_time" class=" width-100">
                                                     </div>
                                                     </div>
                                                 </div>
@@ -340,14 +340,14 @@ $final = get_price_check_coupon();
 
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_condition" value="poleko" required id="poleko">
+                                                                <input type="radio" name="meat_condition" value="poleko" id="poleko">
 
                                                                 <label for="poleko" class="radio-label_1">Poleko</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_condition" value="na_poleko" required id="na_poleko">
+                                                                <input type="radio" name="meat_condition" value="na_poleko" id="na_poleko">
                                                                 <label for="na_poleko" class="radio-label_1">Na Poleko</label>
                                                             </div>
                                                         </li>
@@ -357,14 +357,14 @@ $final = get_price_check_coupon();
                                                     <ul class="radio--group-inline-container_1">
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_state" value="with_skin" required id="with_skin">
+                                                                <input type="radio" name="meat_state" value="with_skin" id="with_skin">
 
                                                                 <label for="with_skin" class="radio-label_1">With Skin</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_state" value="without_skin" required id="without_skin">
+                                                                <input type="radio" name="meat_state" value="without_skin" id="without_skin">
 
                                                                 <label for="without_skin" class="radio-label_1">Without Skin</label>
                                                             </div>

@@ -24,8 +24,8 @@ class CheckoutController extends BaseController
 
     public function checkoutStore(Request $request){
         $this->validate($request,[
-            'meat_condition'=>'required|in:poleko,na_poleko',
-            'meat_state'=>'required|in:with_skin,without_skin',
+            'meat_condition'=>'nullable|in:poleko,na_poleko',
+            'meat_state'=>'nullable|in:with_skin,without_skin',
             'delivery_date'=>'required|date|after:'.date('m-d-Y'),
             'delivery_time'=>'required',
         ]);
