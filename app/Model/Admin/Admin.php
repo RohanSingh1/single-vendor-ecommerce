@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use Notifiable,HasRoles;
+    use Notifiable,HasRoles,Notifiable;
 
     protected $guard = 'admin';
 

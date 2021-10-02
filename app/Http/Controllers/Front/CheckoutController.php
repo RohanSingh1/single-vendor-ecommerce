@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Model\Address;
+use App\Model\Admin\Admin;
 use App\Model\Order;
+use App\Notifications\OrderNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class CheckoutController extends BaseController
 {
@@ -54,7 +57,7 @@ class CheckoutController extends BaseController
             'delivery_date' => $request->delivery_date,
             'meat_condition' => $request->meat_condition,
             'meat_state' => $request->meat_state,
-            'shipping_price' => $shipping_address != '' && $shipping_address->from_valley == 'inside' ? 0  :$carts['shipping'],
+            'shipping_price' => $shipping_address != '' && $shipping_address['from_valley'] == 'inside' ? 0  :$carts['shipping'],
             'shipping_address'=>serialize($shipping_address),
             'billing_address'=>$billing_address != null ? serialize($billing_address): null,
             'coupon_discounts' =>$cd,
@@ -79,9 +82,12 @@ class CheckoutController extends BaseController
             );
             }
         }
-        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
         \Cart::clear();
         session_unset();
+        $letter = collect(['title'=>'New Order Has Arrived By on Date'.date('Y-m-d H:i:s'),
+        'body'=>'Total '.\Cart::getContent()->count().' Products Ordered By :-'.$shipping_address['full_name']]);
+        Notification::send(Admin::find(1),new OrderNotification($letter));
+        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
         return redirect()->route('index');
         } catch (\Exception $exception) {
         \Log::alert('At Product Checkout '.$exception->getMessage());

@@ -7,11 +7,16 @@
 // });
 
 use App\Model\Address;
+use App\Model\Admin\Admin;
 use App\Model\District;
 use App\Model\Order;
 use App\Model\Product;
+use App\Notifications\OrderNotification;
+use App\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 Route::get('create_menu',function(){
     DB::table('menus')->insert(['title' => 'Footer Menu','slug'=>str_slug('Footer Menu'),'is_active'=>1,'is_selected'=>0,
@@ -19,8 +24,28 @@ Route::get('create_menu',function(){
     dd('menu created');
 })->name('create_menu');
 Route::get('test',function(){
-    $district = District::where('status',1)->get();
-    dd($district[0]->province);
+    $options = array(
+        'cluster' => 'ap2',
+        'useTLS' => true
+      );
+      $pusher = new Pusher\Pusher(
+        '920fbe198f23cfa1e146',
+        '41364937430cb6bdf5a7',
+        '1275466',
+        $options
+      );
+
+      $letter = collect(['title'=>'ffNew Order Has Arrived By on Date'.date('Y-m-d H:i:s'),
+      'body'=>'Total '.\Cart::getContent()->count().' Products Ordered By :-'.'ffsanjay']);
+      Notification::send(Admin::find(1),new OrderNotification($letter));
+      $data['message'] = $letter;
+      $pusher->trigger('my-channel', 'my-event', $data);
+      dd('ok');
+    $user = User::all();
+    $letter = collect(['title'=>'New Order By:- Sanjay WW ','body'=>'New Order Has Arrived']);
+    Notification::send($user,new OrderNotification($letter));
+    Notification::send(Admin::find(1),new OrderNotification($letter));
+    dd('heres');
     $pr = Product::find(5);
     dd(product_image($pr));
     dd($_COOKIE['address']);
@@ -35,7 +60,7 @@ Route::get('coupon_products/{coupon}','Front\HomeController@coupon_products')->n
 Route::get('deal_products/{deal}','Front\HomeController@deal_products')->name('deal_products');
 Route::get('show_all/{product}','Front\HomeController@show_all')->name('show_all');
 Route::get('product-filter','Front\FilterController@product_filter')->name('product-filter');
-
+//notifiction
 Route::post('currency', 'Front\HomeController@change_currency')->name('change_currency');
 Route::get('/product/{slug}', 'Front\HomeController@product_show')->name('product.show');
 Route::get('/faq', 'Front\HomeController@faq')->name('faq');
@@ -132,6 +157,10 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     Route::get('/api/contact_messages', 'ContactMessageController@apicontact_messages')->name('api.contact_messages');
     Route::get('/contact_messages/{id}', 'ContactMessageController@show')->name('show_contact_messages');
     Route::post('/contact_messages', 'ContactMessageController@destroy')->name('destroy_contact_messages');
+    //notifications
+    Route::get('notifications_list','DashboardController@notifications_list')->name('notifications_list');
+    Route::post('delete_notifications','DashboardController@delete_notifications')->name('delete_notifications');
+    Route::post('new_notify','DashboardController@new_notify')->name('admin.new_notify');
     //locations
     Route::resource('locations', 'LocationController');
     Route::get('/api/locations', 'LocationController@apilocations')->name('api.locations');
