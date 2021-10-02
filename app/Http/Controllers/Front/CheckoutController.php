@@ -82,11 +82,25 @@ class CheckoutController extends BaseController
             );
             }
         }
-        \Cart::clear();
-        session_unset();
+
+        $options = array(
+            'cluster' => 'ap2',
+            'useTLS' => true
+          );
+          $pusher = new \Pusher\Pusher(
+            '920fbe198f23cfa1e146',
+            '41364937430cb6bdf5a7',
+            '1275466',
+            $options
+          );
+
         $letter = collect(['title'=>'New Order Has Arrived By on Date'.date('Y-m-d H:i:s'),
         'body'=>'Total '.\Cart::getContent()->count().' Products Ordered By :-'.$shipping_address['full_name']]);
         Notification::send(Admin::find(1),new OrderNotification($letter));
+        $data['message'] = $letter;
+        $pusher->trigger('my-channel', 'my-event', $data);
+        \Cart::clear();
+        session_unset();
         $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
         return redirect()->route('index');
         } catch (\Exception $exception) {

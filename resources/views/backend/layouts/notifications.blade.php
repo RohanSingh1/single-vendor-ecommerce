@@ -30,7 +30,9 @@
                             {{--  <notifications title="{{ $notification->data['data']['title'] }}"
                                 description="{{ $notification->data['data']['body'] }}"></notifications>  --}}
                                 <strong class="text-success" style="font-size: 15px;">{{ $notification->data['data']['title'] }}</strong>
-                                <small class="text-info" style="font-size: 14px;">{{ $notification->data['data']['body'] }}</small>
+                               <div>
+                                   <small class="text-info" style="font-size: 14px;">{{ $notification->data['data']['body'] }}</small>
+                                   </div>
                         </div>
                         </div>
                    </li>
