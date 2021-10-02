@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Model\Address;
+use App\Model\Admin\Admin;
 use App\Model\Order;
+use App\Notifications\OrderNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class CheckoutController extends BaseController
 {
@@ -20,14 +23,14 @@ class CheckoutController extends BaseController
     }
 
     public function checkoutStore(Request $request){
-        $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
-            ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
         $this->validate($request,[
-            'meat_condition'=>'required|in:poleko,na_poleko',
-            'meat_state'=>'required|in:with_skin,without_skin',
+            'meat_condition'=>'nullable|in:poleko,na_poleko',
+            'meat_state'=>'nullable|in:with_skin,without_skin',
             'delivery_date'=>'required|date|after:'.date('m-d-Y'),
             'delivery_time'=>'required',
         ]);
+        $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
+            ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
         if(auth()->check() && !$shipping_address = Address::where('user_id',auth()->user()->id)->where('type','SHIPPING')->latest()->first()){
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
@@ -54,7 +57,7 @@ class CheckoutController extends BaseController
             'delivery_date' => $request->delivery_date,
             'meat_condition' => $request->meat_condition,
             'meat_state' => $request->meat_state,
-            'shipping_price' => $shipping_address != '' && $shipping_address->from_valley == 'inside' ? 0  :$carts['shipping'],
+            'shipping_price' => $shipping_address != '' && $shipping_address['from_valley'] == 'inside' ? 0  :$carts['shipping'],
             'shipping_address'=>serialize($shipping_address),
             'billing_address'=>$billing_address != null ? serialize($billing_address): null,
             'coupon_discounts' =>$cd,
@@ -79,9 +82,26 @@ class CheckoutController extends BaseController
             );
             }
         }
-        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
+
+        $options = array(
+            'cluster' => 'ap2',
+            'useTLS' => true
+          );
+          $pusher = new \Pusher\Pusher(
+            '920fbe198f23cfa1e146',
+            '41364937430cb6bdf5a7',
+            '1275466',
+            $options
+          );
+
+        $letter = collect(['title'=>'New Order Has Arrived By on Date '.date('Y-m-d H:i:s'),
+        'body'=>'Total '.\Cart::getContent()->count().' Products Ordered By :-'.$shipping_address['full_name']]);
+        Notification::send(Admin::find(1),new OrderNotification($letter));
+        $data['message'] = $letter;
+        $pusher->trigger('my-channel', 'my-event', $data);
         \Cart::clear();
         session_unset();
+        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
         return redirect()->route('index');
         } catch (\Exception $exception) {
         \Log::alert('At Product Checkout '.$exception->getMessage());

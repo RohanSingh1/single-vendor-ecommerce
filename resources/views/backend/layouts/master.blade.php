@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>window.laravel = {csrfToken: '{{ csrf_token()}}'}</script>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="user-id" content="{{ auth('admin')->check() ? auth('admin')->user()->id : '' }}">
     <title>
         @yield('site_title')  {{get_general_settings_text('site_title')?get_general_settings_text('site_title')->text:app_name()}}
     </title>
@@ -15,11 +16,66 @@
     <link rel="stylesheet" href="{{asset('backend/bower_components/font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.js" defer></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/dist/css/datatables.min.css') }}"/>
     <link href="{{asset('backend/assets/css/custom.css')}}" rel="stylesheet">
     @livewireStyles()
     @yield('styles')
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <style>
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+background-color: #17A2B8;
+}
+.dropdown-menu{
+top: 60px;
+right: 0px;
+left: unset;
+width: 460px;
+box-shadow: 0px 5px 7px -1px #c1c1c1;
+padding-bottom: 0px;
+padding: 0px;
+}
+.dropdown-menu:before{
+content: "";
+position: absolute;
+top: -20px;
+right: 12px;
+border:10px solid #343A40;
+border-color: transparent transparent #343A40 transparent;
+}
+.head{
+padding:5px 15px;
+border-radius: 3px 3px 0px 0px;
+}
+.footer{
+padding:5px 15px;
+border-radius: 0px 0px 3px 3px;
+}
+.notification-box{
+padding: 10px 0px;
+}
+.bg-gray{
+background-color: #eee;
+}
+@media (max-width: 640px) {
+.dropdown-menu{
+top: 50px;
+left: -16px;
+width: 290px;
+}
+.nav{
+display: block;
+}
+.nav .nav-item,.nav .nav-item a{
+padding-left: 0px;
+}
+.message{
+font-size: 13px;
+}
+}
+    </style>
 </head>
 <body class="hold-transition skin-yellow sidebar-mini ">
 {{--@include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])--}}
@@ -55,11 +111,10 @@
     </div>
 </div>
 
-{{--<script src="{{ asset('js/app.js') }}"></script>--}}
 @yield('modal')
+<script src="{{ asset('js/app.js') }}"></script>
 @livewireScripts(['asset_url'=>env('APP_URL')])
 @include('backend.layouts.scripts')
 @stack('script')
-
 </body>
 </html>

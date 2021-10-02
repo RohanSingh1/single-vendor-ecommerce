@@ -329,7 +329,7 @@ $final = get_price_check_coupon();
                                                        </div>
                                                        <label for="delivery_time" class="control-label col-sm-2">Delivery Time</label>
                                                        <div class="col-sm-2">
-                                                       <input type="time" name="delivery_time" required id="delivery_time" class="form-control">
+                                                       <input type="time" name="delivery_time" required id="delivery_time" class=" width-100">
                                                     </div>
                                                     </div>
                                                 </div>
@@ -340,14 +340,14 @@ $final = get_price_check_coupon();
 
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_condition" value="poleko" required id="poleko">
+                                                                <input type="radio" name="meat_condition" value="poleko" id="poleko">
 
                                                                 <label for="poleko" class="radio-label_1">Poleko</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_condition" value="na_poleko" required id="na_poleko">
+                                                                <input type="radio" name="meat_condition" value="na_poleko" id="na_poleko">
                                                                 <label for="na_poleko" class="radio-label_1">Na Poleko</label>
                                                             </div>
                                                         </li>
@@ -357,14 +357,14 @@ $final = get_price_check_coupon();
                                                     <ul class="radio--group-inline-container_1">
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_state" value="with_skin" required id="with_skin">
+                                                                <input type="radio" name="meat_state" value="with_skin" id="with_skin">
 
                                                                 <label for="with_skin" class="radio-label_1">With Skin</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="radio-item_1">
-                                                                <input type="radio" name="meat_state" value="without_skin" required id="without_skin">
+                                                                <input type="radio" name="meat_state" value="without_skin" id="without_skin">
 
                                                                 <label for="without_skin" class="radio-label_1">Without Skin</label>
                                                             </div>
@@ -394,19 +394,19 @@ $final = get_price_check_coupon();
                         @php $savings = 0; @endphp
                         @if (Cart::getContent()->count() > 0)
                             @foreach($cart as $key=>$cart_item)
-                            @php
-                            $savings += product_price($cart_item->product,'discount_prices')*$cart_item->quantity;
-                            @endphp
                             <div class="cart-item border_radius">
                                 <div class="cart-product-img">
                                     <img src="{{ product_image($cart_item->product) }}" alt="{{ $cart_item->product->name }}"
                                      alt="{{ $cart_item->product->name }}">
-                                    <div class="offer-badge">4% OFF</div>
+                                    {{-- <div class="offer-badge">{{ product_price($cart_item->product,'discount_percentage') }} %off</div> --}}
                                 </div>
                                 <div class="cart-text">
                                     <h4>{{$cart_item->product->name  }}</h4>
                                     <div class="cart-item-price">{{ product_price($cart_item->product,'new_price',true) }}
-                                         <span>{{ product_price($cart_item->product,'old_price',true) }}</span></div>
+                                    @if($cart_item->product->old_price != '')
+                                        <span>{{ product_price($cart_item->product,'old_price',true) }}</span>
+                                    @endif
+                                    </div>
                                     <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
                                 </div>
                             </div>

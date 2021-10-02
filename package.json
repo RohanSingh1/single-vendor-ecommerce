@@ -28,6 +28,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "laravel-echo": "^1.11.2",
+        "pusher-js": "^7.0.3",
         "sweetalert2": "^9.17.2",
         "vue2-google-maps": "^0.10.7"
     }

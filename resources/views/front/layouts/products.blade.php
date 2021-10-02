@@ -17,8 +17,12 @@
             @endif
             <h4>{{ $product->name }}</h4>
             <div class="product-price">
-                {{ product_price($product,'new_price',true) }}<span>
-                {{ product_price($product,'old_price',true) }}</span>
+                {{ product_price($product,'new_price',true) }}
+                @if($product->old_price != '')
+                <span>
+                    {{ product_price($product,'old_price',true) }}
+                </span>
+                @endif
             </div>
             <div class="qty_section qty-cart">
                 <div class="quantity buttons_added">
