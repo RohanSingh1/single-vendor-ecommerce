@@ -23,14 +23,14 @@ class CheckoutController extends BaseController
     }
 
     public function checkoutStore(Request $request){
-        $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
-            ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
         $this->validate($request,[
             'meat_condition'=>'required|in:poleko,na_poleko',
             'meat_state'=>'required|in:with_skin,without_skin',
             'delivery_date'=>'required|date|after:'.date('m-d-Y'),
             'delivery_time'=>'required',
         ]);
+        $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
+            ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
         if(auth()->check() && !$shipping_address = Address::where('user_id',auth()->user()->id)->where('type','SHIPPING')->latest()->first()){
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
