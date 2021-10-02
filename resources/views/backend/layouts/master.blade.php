@@ -112,9 +112,9 @@ font-size: 13px;
 </div>
 
 @yield('modal')
+<script src="{{ asset('js/app.js') }}"></script>
 @livewireScripts(['asset_url'=>env('APP_URL')])
 @include('backend.layouts.scripts')
 @stack('script')
-<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

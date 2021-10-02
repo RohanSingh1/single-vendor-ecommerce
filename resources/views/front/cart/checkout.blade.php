@@ -394,19 +394,19 @@ $final = get_price_check_coupon();
                         @php $savings = 0; @endphp
                         @if (Cart::getContent()->count() > 0)
                             @foreach($cart as $key=>$cart_item)
-                            @php
-                            $savings += product_price($cart_item->product,'discount_prices')*$cart_item->quantity;
-                            @endphp
                             <div class="cart-item border_radius">
                                 <div class="cart-product-img">
                                     <img src="{{ product_image($cart_item->product) }}" alt="{{ $cart_item->product->name }}"
                                      alt="{{ $cart_item->product->name }}">
-                                    <div class="offer-badge">4% OFF</div>
+                                    {{-- <div class="offer-badge">{{ product_price($cart_item->product,'discount_percentage') }} %off</div> --}}
                                 </div>
                                 <div class="cart-text">
                                     <h4>{{$cart_item->product->name  }}</h4>
                                     <div class="cart-item-price">{{ product_price($cart_item->product,'new_price',true) }}
-                                         <span>{{ product_price($cart_item->product,'old_price',true) }}</span></div>
+                                    @if($cart_item->product->old_price != '')
+                                        <span>{{ product_price($cart_item->product,'old_price',true) }}</span>
+                                    @endif
+                                    </div>
                                     <button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
                                 </div>
                             </div>
