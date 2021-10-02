@@ -74,8 +74,9 @@
                         </form>
 
                         <span class="time"><i class="fa fa-clock-o"></i> {{ $ns->created_at }}</span>
-
-                        <h3 class="timeline-header">{{ $ns->data['data']['title'] }}</h3>
+                        <a href="{{ route('admin.orders.index') }}">
+                            <h3 class="timeline-header">{{ $ns->data['data']['title'] }}</h3>
+                        </a>
 
                         <div class="timeline-body">
                             {{ $ns->data['data']['body'] }}

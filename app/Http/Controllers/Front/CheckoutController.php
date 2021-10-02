@@ -94,7 +94,7 @@ class CheckoutController extends BaseController
             $options
           );
 
-        $letter = collect(['title'=>'New Order Has Arrived By on Date'.date('Y-m-d H:i:s'),
+        $letter = collect(['title'=>'New Order Has Arrived By on Date '.date('Y-m-d H:i:s'),
         'body'=>'Total '.\Cart::getContent()->count().' Products Ordered By :-'.$shipping_address['full_name']]);
         Notification::send(Admin::find(1),new OrderNotification($letter));
         $data['message'] = $letter;

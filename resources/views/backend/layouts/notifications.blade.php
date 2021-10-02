@@ -10,7 +10,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-bell" style="margin-top:10px"></i>
+                    <i class="{{ isset($new)? 'fa fa-bell':'fa fa-bell-o' }}" style="margin-top:10px"></i>
                     <span class="totaln_count">{{auth('admin')->user()->unreadNotifications()->count() }}</span>
                 </a>
                 <ul class="dropdown-menu">
@@ -23,16 +23,20 @@
                     </li>
                 @if(auth('admin')->user()->notifications->count() > 0)
                    @foreach(auth('admin')->user()->notifications as $notification)
-
+                   @if ($loop->iteration == 10)
+                   @break
+                   @endif
                    <li>
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12">
                             {{--  <notifications title="{{ $notification->data['data']['title'] }}"
                                 description="{{ $notification->data['data']['body'] }}"></notifications>  --}}
+                                <a href="{{ route('admin.orders.index') }}">
                                 <strong class="text-success" style="font-size: 15px;">{{ $notification->data['data']['title'] }}</strong>
                                <div>
                                    <small class="text-info" style="font-size: 14px;">{{ $notification->data['data']['body'] }}</small>
                                    </div>
+                                </a>
                         </div>
                         </div>
                    </li>

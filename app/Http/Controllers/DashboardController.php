@@ -34,7 +34,7 @@ class DashboardController extends Controller
         $response['error'] = true;
                 try {
                     $response['error'] = false;
-                    $response['html'] = view('backend.layouts.notifications')->render();
+                    $response['html'] = view('backend.layouts.notifications',compact('new'))->render();
                     return response()->json($response);
                 } catch (\Throwable $e) {
                 }
