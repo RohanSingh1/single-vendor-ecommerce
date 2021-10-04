@@ -51,7 +51,7 @@ $final = get_price_check_coupon();
                                         <div class="col-lg-12">
                                             <div class="form-group mb-0">
 
-                                                <form class="" action="{{ route('front.addShippingAddress') }}" method="POST">
+                                                <form action="{{ route('front.checkout.store') }}" method="post">
                                                     @csrf
                                                     @if ($errors->any())
                                                         <div class="alert alert-danger">
@@ -115,6 +115,10 @@ $final = get_price_check_coupon();
                                                                 </div>
                                                             </div>
 
+                                                            <div id="locations_li" class='col-sm-12 form-inline'>
+                                                                @include('front.layouts.locations')
+                                                            </div>
+
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Address*</label>
@@ -153,7 +157,7 @@ $final = get_price_check_coupon();
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
+
 
                                                 {{--  <a class="collapsed chck-btn hover-btn" role="button"
                                                     data-toggle="collapse" data-parent="#checkout_wizard"
@@ -314,8 +318,7 @@ $final = get_price_check_coupon();
                                                 </div>
                                             </div>
 
-                                            <form action="{{ route('front.checkout.store') }}" method="post">
-                                                @csrf
+
                                                 <textarea name="order_note" id="order_note" cols="75" rows="10" placeholder="Your Order Note Here"
                                                 @if(isset($shipping_address) && $shipping_address->from_valley == 'outside') required @endif
                                                 ></textarea>
@@ -504,5 +507,67 @@ $final = get_price_check_coupon();
       $('#b_address2').val("");
      };
     });
+
+    $(document).ready(function () {
+        $('#locations_li').on('change', '#province_id', function () {
+            var selected_province_id = $('#province_id').val();
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('getDistrictNLocalLevel') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    selected_province_id: selected_province_id
+                },
+                beforeSend: function () {
+                    $.LoadingOverlay("show");
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response);
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        $('#locations_li').html(' ');
+                        $('#locations_li').html(data.html);
+                        $.LoadingOverlay("hide");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+        $('#locations_li').on('change', '#district_id', function () {
+            var selected_district_id = $('#district_id').val();
+            var selected_province_id = $('#province_id').val();
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('getDistrictNLocalLevel') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    selected_district_id: selected_district_id,
+                    selected_province_id: selected_province_id
+                },
+                beforeSend: function () {
+                    $.LoadingOverlay("show");
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response);
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        $('#locations_li').html(' ');
+                        $('#locations_li').html(data.html);
+                        $.LoadingOverlay("hide");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        })
+    });
+
+
+
 </script>
 @endpush

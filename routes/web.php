@@ -9,10 +9,12 @@
 use App\Model\Address;
 use App\Model\Admin\Admin;
 use App\Model\District;
+use App\Model\Notifications;
 use App\Model\Order;
 use App\Model\Product;
 use App\Notifications\OrderNotification;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,8 @@ Route::get('create_menu',function(){
     'created_at'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')]);
     dd('menu created');
 })->name('create_menu');
+
+Route::post('getDistrictNLocalLevel','Front\CheckoutController@getDistrictNLocalLevel')->name('getDistrictNLocalLevel');
 Route::get('test',function(){
     $options = array(
         'cluster' => 'ap2',
@@ -158,6 +162,17 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
     Route::get('/contact_messages/{id}', 'ContactMessageController@show')->name('show_contact_messages');
     Route::post('/contact_messages', 'ContactMessageController@destroy')->name('destroy_contact_messages');
     //notifications
+    Route::get('markAllAsRead',function(){
+        auth('admin')->user()->notifications->markAsRead();
+        return redirect()->back();
+    })->name('markAllAsRead');
+
+    Route::get('markAsRead/{id}',function($id){
+        $nn = Notifications::find($id);
+        $nn->update(['read_at'=>Carbon::now()]);
+        return redirect()->back();
+    })->name('markAsRead');
+
     Route::get('notifications_list','DashboardController@notifications_list')->name('notifications_list');
     Route::post('delete_notifications','DashboardController@delete_notifications')->name('delete_notifications');
     Route::post('new_notify','DashboardController@new_notify')->name('admin.new_notify');

@@ -18,7 +18,9 @@
                         <div class="row">
                             <div class="col-lg-12 col-sm-12 col-12">
                                 <span>Notifications ({{ auth()->user()->notifications->count() }})</span>
-                                {{--  <a href="" class="float-right text-light">Mark all as read</a>  --}}
+                                @if(auth()->user()->notifications->count() > 0)
+                                 <a href="{{ route('admin.markAllAsRead') }}" class="float-right text-light">Mark all as read</a>
+                                 @endif
                             </div>
                     </li>
                 @if(auth('admin')->user()->notifications->count() > 0)
@@ -36,6 +38,13 @@
                                <div>
                                    <small class="text-info" style="font-size: 14px;">{{ $notification->data['data']['body'] }}</small>
                                    </div>
+                                </a>
+                                <a href="{{ route('admin.markAsRead',$notification->id)  }}" style="float: right">
+                                @if($notification->read_at != null)
+                                <i class="fa fa-circle-o"></i>
+                                @else
+                                <i class="fa fa-circle"></i>
+                                    @endif
                                 </a>
                         </div>
                         </div>

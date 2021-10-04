@@ -4,13 +4,37 @@ namespace App\Http\Controllers\Front;
 
 use App\Model\Address;
 use App\Model\Admin\Admin;
+use App\Model\District;
+use App\Model\Location;
 use App\Model\Order;
+use App\Model\Province;
 use App\Notifications\OrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class CheckoutController extends BaseController
 {
+    public function getDistrictNLocalLevel(Request $request){
+            if($request->selected_province_id != ''){
+                $response['error'] = true;
+                $data['district_id'] = District::where('province_id',$request->selected_province_id)->get();
+                $data['province_id'] = Province::all();
+                $data['province_id_now'] = $request->selected_province_id;
+            }
+            if($request->selected_district_id != ''){
+                $data['district_id'] = District::where('province_id',$request->selected_province_id)->get();
+                $data['province_id'] = Province::all();
+                $data['province_id_now'] = $request->selected_province_id;
+                $data['district_id_now'] = $request->selected_district_id;
+                $data['locations'] = Location::where('district_id',$request->selected_district_id)->get();
+            }
+            $response['html'] = view('front.layouts.locations')->with('data',$data)->render();
+            $response['error'] = false;
+
+
+        return response()->json(json_encode($response,true));
+    }
+
     public function checkout(Request $request){
         if(auth()->check()){
             $shipping_address = Address::where('user_id',auth()->check()?auth()->user()->id:'')->where('type','SHIPPING')->latest()->first();
@@ -19,18 +43,52 @@ class CheckoutController extends BaseController
             $shipping_address = isset($_COOKIE['shipping_address'])?(object)unserialize($_COOKIE['shipping_address']):null;
             $billing_address = isset($_COOKIE['billing_address'])?(object)unserialize($_COOKIE['billing_address']):null;
         }
-        return view(parent::loadViewData('front.cart.checkout'),compact('shipping_address','billing_address'));
+        $data['district_id'] = District::all();
+        $data['locations'] = Location::all();
+        $data['province_id'] = Province::all();
+        return view(parent::loadViewData('front.cart.checkout'),compact('data','shipping_address','billing_address'));
     }
 
     public function checkoutStore(Request $request){
         $this->validate($request,[
+            's_full_name'=>'required',
+            's_email'=>'required',
+            's_phone'=>'required',
+            's_address1'=>'required',
+            'from_valley'=>'required|in:inside,outside',
             'meat_condition'=>'nullable|in:poleko,na_poleko',
             'meat_state'=>'nullable|in:with_skin,without_skin',
             'delivery_date'=>'required|date|after:'.date('m-d-Y'),
             'delivery_time'=>'required',
+            'province_id'=>'required|exists:provinces,id',
+            'district_id'=>'required|exists:districts,id',
+            'locations'=>'required|exists:locations,id',
         ]);
+        $addressData = [
+            'type' => 'SHIPPING',
+            'user_id' => auth()->check() ? auth()->user()->id:0,
+            'full_name' => $request->s_full_name,
+            'email' => $request->s_email,
+            'phone' => $request->s_phone,
+            'from_valley' => $request->from_valley,
+            'address1' => $request->s_address1,
+            'address2' => $request->s_address2,
+            'province_id' => $request->province_id,
+            'district_id' => $request->district_id,
+            'locations' => $request->locations,
+        ];
+        $location = Location::find($request->locations);
+        if(auth()->check()){
+            if($saddress = Address::where('user_id',auth()->user()->id)->where('type','SHIPPING')
+            ->orderBy('id', 'DESC')->get()[0]){
+                $saddress->update($addressData);
+            }else{
+                Address::create($addressData);
+            }
+        }
+            setcookie('shipping_address', serialize($addressData), time()+3600);
         $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
-            ->where('type','SHIPPING')->latest()->first() : unserialize($_COOKIE['shipping_address']);
+            ->where('type','SHIPPING')->latest()->first() : $addressData;
         if(auth()->check() && !$shipping_address = Address::where('user_id',auth()->user()->id)->where('type','SHIPPING')->latest()->first()){
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
@@ -57,7 +115,7 @@ class CheckoutController extends BaseController
             'delivery_date' => $request->delivery_date,
             'meat_condition' => $request->meat_condition,
             'meat_state' => $request->meat_state,
-            'shipping_price' => $shipping_address != '' && $shipping_address['from_valley'] == 'inside' ? 0  :$carts['shipping'],
+            'shipping_price' => $shipping_address != '' && $shipping_address['from_valley'] == 'inside' ? 0  :$location->price,
             'shipping_address'=>serialize($shipping_address),
             'billing_address'=>$billing_address != null ? serialize($billing_address): null,
             'coupon_discounts' =>$cd,
