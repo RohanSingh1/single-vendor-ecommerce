@@ -94,10 +94,6 @@
     <script src="{{ asset('front/js/night-mode.js') }}"></script>
 </body>
 
-<<<<<<< HEAD
-<!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
-=======
 <!-- Mirrored from {{ get_general_settings_text('site_title') }}.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
->>>>>>> sanjy
 
 </html>
