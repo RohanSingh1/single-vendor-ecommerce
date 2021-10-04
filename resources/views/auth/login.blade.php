@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-
-<!-- Mirrored from fresco.net/html-items/gambo_supermarket_demo/sign_in.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Jul 2021 16:06:32 GMT -->
-=======
 @php
     $site_logo_1 = \App\Model\Setting::select('id', 'file')->where('slug', 'site_logo_1')->first();
     $site_title =  get_general_settings_text('site_title')['text'];
 @endphp
->>>>>>> sanjy
 
 <head>
     <meta charset="utf-8">
