@@ -93,10 +93,7 @@ class CheckoutController extends BaseController
             $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
             return redirect()->back();
         }
-        if(!auth()->check() && !isset($_COOKIE['shipping_address'])){
-            $request->session()->flash('error', 'Please Provide Shipping Address. Billing Address Is Optional');
-            return redirect()->back();
-        }
+
         try {
             $carts = get_price_check_coupon();
             $shipping_address = auth()->check() ? Address::where('user_id',auth()->user()->id)
@@ -110,6 +107,7 @@ class CheckoutController extends BaseController
             'user_id' => auth()->check() ? auth()->user()->id : 0,
             'full_names' => auth()->check() ? auth()->user()->name:$shipping_address['full_name'],
             'payment_option' => 'cash_on_delivery',
+            'order_track_id' => 'OD'.rand(0,999999999),
             'order_note' => $request->order_note,
             'delivery_time' => $request->delivery_time,
             'delivery_date' => $request->delivery_date,
@@ -159,10 +157,10 @@ class CheckoutController extends BaseController
         $pusher->trigger('my-channel', 'my-event', $data);
         \Cart::clear();
         session_unset();
-        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon');
+        $request->session()->flash('success','Your Order Has Been Placed Successfully. We Will Contact You Soon. Your Track Order Id Is '.'('.$order->order_track_id.')');
         return redirect()->route('index');
         } catch (\Exception $exception) {
-        \Log::alert('At Product Checkout '.$exception->getMessage());
+        \Log::alert('At Product Checkout '.$exception->getMessage()); 
         $request->session()->flash('error','Opps Something Went Wrong With Procceding To Checkout Please Contact System Administrator');
         return redirect()->route('index');
         }

@@ -35,6 +35,10 @@
                     <li>
                         <a href="{{ route('offers') }}" class="offer-link"><i class="uil uil-gift"></i>Offers</a>
                     </li>
+                    <li>
+                        <a href="{{ route('track_order_id') }}" class="offer-link">
+                        <i class="uil-location-arrow-alt"></i>Track Order</a> 
+                    </li>
                     {{-- <li>
                         <a href="{{ route('faq') }}" class="offer-link"><i class="uil uil-question-circle"></i>Help</a>
                     </li> --}}

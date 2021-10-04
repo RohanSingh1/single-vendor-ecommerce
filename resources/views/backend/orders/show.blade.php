@@ -47,6 +47,7 @@
                           <li>Delivery Boy Name:- <span class="f_price"> @if(isset($data->delivery_boy)) {{  $data->delivery_boy->name }}
                             | E-Mail :- {{ $data->delivery_boy->email }} @else Not Assigned  @endif </span> </li>
                           <li>Status:<span class="f_price"> {{$order->status}} </span></li>
+                          <li>Order Track Id:<span class="f_price"> {{$order->order_track_id}} </span></li>
                           <li>Date:<span class="f_price"> {!! $order->created_at !!} </span></li>
                           <li>Sub Total: <span class="f_price"> {!! $order->sub_totals !!} </span> </li>
                           <li>Shipping Price: <span class="f_price"> {!! $order->shipping_price !!} </span> </li>

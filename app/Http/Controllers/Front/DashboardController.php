@@ -33,4 +33,31 @@ class DashboardController extends BaseController
         $data['my_orders'] = Order::where('user_id',auth()->user()->id)->latest()->get();
         return view(parent::loadViewData('front.user.myorders'), compact('data'));
     }
+
+    public function track_order(Request $request){
+        $track = Order::where('order_track_id',$request->get('order_track_id'))->where('user_id',auth()->user()->id)->get();
+        if($track->count() == 0){
+            $request->session()->flash('error','Sorry Order Not Found With Track Id '.'('.$request->get('order_track_id').')');
+            return redirect()->route('front.dashboard');
+        }
+
+        $data['my_orders'] = $track;
+        return view(parent::loadViewData('front.user.myorders'), compact('data'));
+    }
+
+    public function track_order_id_show(Request $request){
+        $track = Order::where('order_track_id',$request->get('order_track_id'))->get();
+        if($track->count() == 0){
+            $request->session()->flash('error','Sorry Order Not Found With Track Id '.'('.$request->get('order_track_id').')');
+            return redirect()->back(); 
+        }
+
+        $data['my_orders'] = $track;
+        return view(parent::loadViewData('front.user.track_order_id_show'), compact('data'));
+    }
+
+    public function track_order_id(Request $request){
+        return view(parent::loadViewData('front.user.track_order_id'));
+    }
+
 }

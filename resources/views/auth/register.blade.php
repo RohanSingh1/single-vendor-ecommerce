@@ -11,6 +11,10 @@
     <meta name="author" content="Gambolthemes">
     <title>Gambo - Sign Up</title>
 
+    @php
+    $site_logo_1 = \App\Model\Setting::select('id', 'file')->where('slug', 'site_logo_1')->first();
+    $site_title =  get_general_settings_text('site_title')['text'];
+@endphp
     <link rel="icon" type="image/png" href="images/fav.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&amp;display=swap"
@@ -36,8 +40,8 @@
                     <div class="sign-form">
                         <div class="sign-inner">
                             <div class="sign-logo" id="logo">
-                                <a href="index.html"><img src="images/logo.svg" alt=""></a>
-                                <a href="index.html"><img class="logo-inverse" src="images/dark-logo.svg" alt=""></a>
+                                <a href="index.html"><img src="{{ asset($site_logo_1->file)  }}" alt=""></a>
+                                <a href="index.html"><img class="logo-inverse" src="{{ asset($site_logo_1->file)  }}" alt="{{ $site_title }}"></a>
                             </div>
                             <div class="form-dt">
                                 <div class="form-inpts checout-address-step">
@@ -83,6 +87,20 @@
                                                 <input id="gender" name="gender" type="radio" value="female"
                                                required="">Female
                                         </div>
+ 
+                                        <div class="form-group pos_rel">
+                                            <input id="address" name="address1" type="text" placeholder="Address"
+                                                class="form-control lgn_input" required="" value="{{ old('address') }}">
+                                            <i class="uil uil-user-circle lgn_icon"></i>
+                                        </div>
+
+                                        <div class="form-group pos_rel">
+                                            <input id="address2" name="address2" type="text" placeholder="LandMark"
+                                                class="form-control lgn_input" required="" value="{{ old('address2') }}">
+                                            <i class="uil uil-user-circle lgn_icon"></i>
+                                        </div>
+
+
                                         <button class="login-btn hover-btn" type="submit">Sign Up Now</button>
                                     </form>
                                 </div>

@@ -6,6 +6,7 @@
     <div class="">
         <div class="container">
             <div class="row">
+            @include('front.layouts.session_messages')
                 @include('front.user.sidebar')
                 <div class="col-lg-9 col-md-8">
                     <div class="dashboard-right">
@@ -16,7 +17,21 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-12 col-md-12">
+                            <div class="col-lg-12 col-md-12 form-inline">
+                                <form action="{{ route('track_order') }}" method="get">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2">Track Order</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="order_track_id" class="form-control" placeholder="Enter Track Order Id">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </form>
+
                                 @foreach ($data['my_orders'] as $order)
                                 <div class="pdpt-bg">
                                     <div class="pdpt-title">
@@ -61,7 +76,7 @@
                                             </div>
                                         </div>
                                         <div class="track-order">
-                                            <h4>Track Order</h4>
+                                            <h4>Order Status</h4>
                                             <div class="bs-wizard" style="border-bottom:0;">
                                                 @foreach (\App\Model\DeliveryName::where('step','!=',0)->where('status',1)->orderBy('step','asc')->get() as $key=>$dn)
                                                 <div class="bs-wizard-step

@@ -110,11 +110,38 @@ font-size: 13px;
         </div>
     </div>
 </div>
-
+ 
 @yield('modal')
 <script src="{{ asset('js/app.js') }}"></script>
 @livewireScripts(['asset_url'=>env('APP_URL')])
 @include('backend.layouts.scripts')
 @stack('script')
+
+<script>
+    $(document).ready(function(){
+        $('.markAsRead').click(function(){
+            var $this = $(this);
+           var id = $this.attr('attr_id');
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('admin.markAsRead') }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id
+                },
+                success: function (response) {
+                    var data = $.parseJSON(response);
+                    console.log(data);
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        $this.html(' ');
+                        $this.html('<i class="fa fa-circle-o"></i>');
+                    }
+                },
+            })
+        })
+    })
+</script>
 </body>
 </html>

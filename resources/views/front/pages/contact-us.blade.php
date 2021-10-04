@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="panel-group accordion" id="accordion0">
-                    {!! get_general_settings_text('map_code')['text'] !!}
+                    {!! get_general_settings_text('map_code') != '' ?get_general_settings_text('map_code')['text']:'' !!}
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="contact-form">
                     <form action="{{ route('contact-us.store') }}"  method="POST">
-                        @include('front.layouts.form_messages')
+                        @include('front.layouts.form_messages') 
                      @csrf
                         <div class="form-group mt-1">
                             <label class="control-label">Full Name*</label>

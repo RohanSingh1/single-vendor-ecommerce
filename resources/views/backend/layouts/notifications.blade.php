@@ -39,7 +39,7 @@
                                    <small class="text-info" style="font-size: 14px;">{{ $notification->data['data']['body'] }}</small>
                                    </div>
                                 </a>
-                                <a href="{{ route('admin.markAsRead',$notification->id)  }}" style="float: right">
+                                <a href="javascript:void(0)" class="markAsRead" style="float: right" attr_id="{{ $notification->id }}">
                                 @if($notification->read_at != null)
                                 <i class="fa fa-circle-o"></i>
                                 @else
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12">
                             <p style="text-align: center;color:red">
-                                Sorry No Notification Found
+                                Sorry No Notification Found 
                             </p>
                         </div>
                     </div>
