@@ -12,11 +12,11 @@ class AddLocationsToAddressesTable extends Migration
      * @return void
      */
     public function up()
-    {
+    { 
         Schema::table('addresses', function (Blueprint $table) {
-            $table->string('province_id')->nulable()->after('address2');
-            $table->string('district_id')->nulable()->after('province_id');
-            $table->string('locations')->nulable()->after('district_id');
+            $table->string('province_id')->nullable()->after('address2');
+            $table->string('district_id')->nullable()->after('province_id');
+            $table->string('locations')->nullable()->after('district_id');
         });
     }
 

@@ -11,7 +11,7 @@
     .cate-img img{
         height: 50px;
     }
-</style>
+</style> 
 @endpush
 @section('content')
     <div class="main-banner-slider">
@@ -88,7 +88,7 @@
                 <div class="col-md-12">
                     <div class="main-title-tt">
                         <div class="main-title-left">
-                            <span>For You</span>
+                            <span></span>
                             <h2>{{ isset($data['settings'][2]) ? $data['settings'][2]['text'] : 'Top Products' }}</h2>
                         </div>
                         <a href="{{ route('show_all','is_featured') }}" class="see-more-btn">See All</a>
@@ -149,7 +149,7 @@
                 <div class="col-md-12">
                     <div class="main-title-tt">
                         <div class="main-title-left">
-                            <span>For You</span>
+                            <span></span>
                             <h2>{{ isset($data['settings'][1]) ? $data['settings'][1]['text'] : 'Featured Products' }}</h2>
                         </div>
                         <a href="{{ route('show_all','is_fresh') }}" class="see-more-btn">See All</a>
@@ -177,7 +177,7 @@
                 <div class="col-md-12">
                     <div class="main-title-tt">
                         <div class="main-title-left">
-                            <span>For You</span>
+                            <span></span>
                             <h2>{{ isset($data['settings'][0]) ? $data['settings'][0]['text'] : 'New Products' }}</h2>
                         </div>
                         <a href="{{ route('show_all','new_products') }}" class="see-more-btn">See All</a>

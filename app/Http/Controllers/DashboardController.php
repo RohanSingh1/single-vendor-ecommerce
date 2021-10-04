@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Notifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
@@ -41,11 +42,19 @@ class DashboardController extends Controller
                 return response()->json($response);
     }
 
+    public function markAsRead(Request $request){
+        $response['error'] = true;
+        $nn = Notifications::find($request->id);
+        $nn->update(['read_at'=>Carbon::now()]);
+        $response['error'] = false;
+        return response()->json(json_encode($response),200);
+    }
+
     public function searchProduct(Request $request)
     {
       $term = trim($request->input('q'));
       if (empty($term)) {
-        return response()->json([], 200);
+        return response()->json([], 200); 
       }
 
       $products = DB::table('products')->where('name', 'like', '%' . $term . '%')->orderBy('name')->take(15)->get();

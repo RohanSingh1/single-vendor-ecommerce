@@ -9,20 +9,21 @@
     $instagram = get_general_settings_text('instagram');
     $linkedin = get_general_settings_text('linkedin');
     $pinterest = get_general_settings_text('pinterest');
+
 @endphp
-<footer class="footer">
+<footer class="footer"> 
     <div class="footer-first-row">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <ul class="call-email-alt">
                         <li>
-                            <a href="#" class="callemail">
+                            <a href="{{ route('contact-us.index') }}" class="callemail">
                             <i class="uil uil-dialpad-alt"></i>{{$phone_no}}</a></li>
                             <li>
-                                <a href="#" class="callemail">
+                                <a href="{{ route('contact-us.index') }}" class="callemail">
                                 <i class="uil uil-location-alt"></i>{{$address}}</a></li>
-                        <li><a href="#" class="callemail"><i class="uil uil-envelope-alt"></i>
+                        <li><a href="{{ route('contact-us.index') }}" class="callemail"><i class="uil uil-envelope-alt"></i>
                             <span class="__cf_email__" data-cfemail="e980878f86a98e88848b869a9c998c9b84889b828c9dc78a8684">
                                 [email&#160;{{ $email }}]</span></a></li>
 

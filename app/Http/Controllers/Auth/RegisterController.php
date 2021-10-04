@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Model\Address;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,6 +54,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'phone_no' => ['required', 'numeric', 'digits:10'],
             'gender' => ['required', 'in:male,female'],
+            'address1' => ['required'],
+            'address2' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -66,12 +69,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = User::create([
             'phone_no' => $data['phone_no'],
             'name' => $data['name'],
             'email' => $data['email'],
             'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
         ]);
+        Address::create([ 
+            'full_name' => $data['name'],
+            'type' => 'SHIPPING',
+            'user_id' => $user->id,
+            'email' => $data['email'],
+            'phone' => $data['phone_no'],
+            'address1' => $data['address1'],
+            'address2' => $data['address2']
+        ]);
+        return $user;
     }
 }

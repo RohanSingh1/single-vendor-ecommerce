@@ -132,7 +132,7 @@ $final = get_price_check_coupon();
                                                                         @enderror
                                                                 </div>
                                                             </div>
-
+ 
                                                             <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="control-label">LandMark*</label>
@@ -147,14 +147,14 @@ $final = get_price_check_coupon();
                                                             </div>
 
 
-                                                            <div class="col-lg-12 col-md-12">
+                                                            {{-- <div class="col-lg-12 col-md-12">
                                                                 <div class="form-group">
                                                                     <div class="address-btns">
                                                                         <button class="save-btn14 hover-btn"
                                                                             type="submit">Save</button>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
 
@@ -466,7 +466,7 @@ $final = get_price_check_coupon();
                         <h4>Total Coupon Discount</h4>
                         <span>- {{ currency_type().$final['coupon_discount_total'] }}</span>
                     </div>
-                                @endif
+                    @endif
 
                     <div class="main-total-cart">
                         <h2>Total</h2>

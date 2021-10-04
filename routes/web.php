@@ -28,6 +28,8 @@ Route::get('create_menu',function(){
 
 Route::post('getDistrictNLocalLevel','Front\CheckoutController@getDistrictNLocalLevel')->name('getDistrictNLocalLevel');
 Route::get('test',function(){
+    $or = '#'.str_pad(1 + 1, 8, "0", STR_PAD_LEFT);
+    dd($or);
     $options = array(
         'cluster' => 'ap2',
         'useTLS' => true
@@ -104,8 +106,10 @@ Route::post('cart/destroy','Front\CartController@destroy')->name('front.cart.des
 Route::post('/addShippingAddress', 'Front\AddressController@addShippingAddress')->name('front.addShippingAddress');
 Route::post('/addBillingAddress', 'Front\AddressController@addBillingAddress')->name('front.addBillingAddress');
 
+Route::get('track_order_id','Front\DashboardController@track_order_id')->name('track_order_id');
+Route::get('track_order_id_show','Front\DashboardController@track_order_id_show')->name('track_order_id_show');
+Route::get('track_order','Front\DashboardController@track_order')->name('track_order');
 Route::group(['namespace'=>'Front\\','as'=>'front.','middleware'=>'auth'], function () {
-
     // coupon discount
     Route::post('/apply_coupon', 'CartController@apply_coupon')->name('apply_coupon');
     Route::post('/remove_oupon', 'CartController@removeCoupon')->name('removeCoupon');
@@ -167,11 +171,7 @@ Route::group(['middleware' => ['auth:admin','AdminRoleValidation'],'prefix' => '
         return redirect()->back();
     })->name('markAllAsRead');
 
-    Route::get('markAsRead/{id}',function($id){
-        $nn = Notifications::find($id);
-        $nn->update(['read_at'=>Carbon::now()]);
-        return redirect()->back();
-    })->name('markAsRead');
+    Route::post('markAsRead','DashboardController@markAsRead')->name('markAsRead');
 
     Route::get('notifications_list','DashboardController@notifications_list')->name('notifications_list');
     Route::post('delete_notifications','DashboardController@delete_notifications')->name('delete_notifications');
