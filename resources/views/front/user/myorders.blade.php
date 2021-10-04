@@ -103,8 +103,7 @@
                                         </div>
                                         <div class="alert-offer">
                                             <img src="images/ribbon.svg" alt="">
-                                            Cashback of $2 will be credit to Gambo Super Market wallet 6-12 hours of
-                                            delivery.
+                                            
                                         </div>
                                         <div class="call-bill">
                                             <div class="delivery-man">
