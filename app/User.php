@@ -3,12 +3,11 @@
 namespace App;
 
 use App\Model\ContactProduct;
-use App\Model\Coupon;
 use App\Model\SettingsUser;
+use App\Model\WishList;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -16,7 +15,7 @@ class User extends Authenticatable
 {
 
     // use Notifiable;
-    use Notifiable, HasRoles, SoftDeletes;
+    use Notifiable, HasRoles, SoftDeletes,Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -68,7 +67,15 @@ class User extends Authenticatable
         return $this->hasMany(SettingsUser::class);
     }
 
-    public function coupons(){
-        return $this->hasMany(Coupon::class);
+    public function addresses() {
+		return $this->hasMany( Address::class );
+	}
+
+    public function myorders(){
+        return $this->hasMany(Order::class,'user_id');
+    }
+
+    public function mywishlists(){
+        return $this->hasMany(WishList::class,'user_id');
     }
 }

@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Model\Color;
 use Carbon\Carbon;
-use App\Model\Brand;
 use App\Model\Product;
 use App\Model\Category;
-use App\Model\Supplier;
 use App\Model\SubCategory;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -16,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -28,13 +28,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-
-        $this->middleware(['auth:admin']);
-        $this->middleware('permission:product-list');
-        $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
-        // $this->middleware('permission:product-price-show', ['only' => ['showPrice']]);
+        $this->middleware(['auth:admin','AdminRoleValidation']);
     }
 
     public function index()
@@ -44,9 +38,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $data['brand'] = Brand::all();
         $data['categories'] = Category::select('id', 'name', 'parent_id')->orderBy('order')->active()->with('parent')->get();
-        $data['suppliers'] = Supplier::all();
         $data['colors'] = Color::get();
         return view('backend.products.create', $data);
     }
@@ -54,20 +46,28 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $data = $request->all();
-        $data['slug'] = generateUniqueSlug('App\Model\Product', $request->name);
-        $data['published'] = switch_case_check($request->published);
-        $data['is_featured'] = switch_case_check($request->is_featured);
-        if ($request->custom == 'on' & $request->file('feature_image') != '') {
-            $data['feature_image'] = Product::saveProductImage($request->file('feature_image'), $request->product_name, $request->selling_price);
-        } elseif ($request->file('feature_image') != '') {
-            $data['feature_image'] = Product::saveProductImageWithoutEdit($request->file('feature_image'));
+        try{
+            DB::beginTransaction();
+            $data['slug'] = generateUniqueSlug('App\Model\Product', $request->name);
+            $data['published'] = switch_case_check($request->published);
+            $data['is_featured'] = switch_case_check($request->is_featured);
+            if ($request->custom == 'on' & $request->file('feature_image') != '') {
+                $data['feature_image'] = Product::saveProductImage($request->file('feature_image'), $request->product_name, $request->selling_price);
+            } elseif ($request->file('feature_image') != '') {
+                $data['feature_image'] = Product::saveProductImageWithoutEdit($request->file('feature_image'));
+            }
+            $product = Product::create($data);
+            $cat_array = buildCategory($request->category_id);
+            $product->categories()->attach($cat_array);
+            $product->colors()->attach($request->colors);
+            storeMeta($product, $request);
+            toast(__('global.data_saved'), 'success');
+        }catch (Exception $exception){
+            DB::rollBack();
+            $request->session()->flash('error','Problem While Adding Your Product Try Again Or Contact System Administrator');
+            return redirect()->route('admin.products.index');
         }
-        $product = Product::create($data);
-        $cat_array = buildCategory($request->category_id);
-        $product->categories()->attach($cat_array);
-        $product->colors()->attach($request->colors);
-        storeMeta($product, $request);
-        toast(__('global.data_saved'), 'success');
+        DB::commit();
         return redirect()->route('admin.products.edit', $product->id);
     }
 
@@ -85,9 +85,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $data['brand'] = Brand::all();
         $data['product'] = $product;
-        $data['suppliers'] = Supplier::all();
         $data['colors'] = Color::get();
         $data['categories'] = Category::select('id', 'name', 'parent_id')->orderBy('order')->active()->with('parent')->get();
         return view('backend.products.edit', $data);
@@ -124,9 +122,10 @@ class ProductController extends Controller
 
     public function apiProduct()
     {
-        $products = Product::select('id', 'slug', 'name', 'model_no', 'quantity', 'price', 'featured_image', 'supplier_id', 'brand_id', 'is_featured')
-            ->with('brand', 'supplier', 'featuredImage')
+        $products = Product::select('id', 'slug', 'name', 'model_no', 'quantity', 'price', 'featured_image','is_featured')
+            ->with('featuredImage')
             ->orderBy('updated_at')
+            ->latest()
             ->get();
         return Datatables::of($products)
             ->addColumn('front_view', function ($data) {
@@ -134,12 +133,6 @@ class ProductController extends Controller
             })
             ->addColumn('action', function ($product) {
                 return showEditDeleteAction($product->id, 'admin.products');
-            })
-            ->addColumn('brand_name', function ($product) {
-                return '' . $product->brand->brand_name . '';
-            })
-            ->addColumn('suppliers', function ($product) {
-                return '' . $product->supplier->supplier_name . '';
             })
             ->addColumn('image', function ($data) {
                 if ($data->featuredImage) {

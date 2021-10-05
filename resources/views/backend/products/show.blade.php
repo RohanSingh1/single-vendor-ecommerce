@@ -37,7 +37,6 @@
                           <li>Quantity: {{$product->quantity}} </li>
                           <li>Type: {{$product->type}} </li>
                           <li> Model Name: {{$product->model_no}} </li>
-                          <li> Brand Name: {{$product->brand->brand_name}} </li>
                           <li>Category:
                               @foreach($product->categories as $category)
                                   {{$category->name}}{{!$loop->last?',':''}}
@@ -45,6 +44,7 @@
                           </li>
                         </ul>
                         <hr>
+                        Description :-
                         {!!$product->description!!}
                         <hr>
                         <br>

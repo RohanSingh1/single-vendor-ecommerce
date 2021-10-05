@@ -45,6 +45,13 @@ class SettingsRepository implements SettingsRepositoryInterface
         $data['footer_text'] = get_general_settings_text('footer_text');
         $data['misc_javascript'] = get_general_settings_text('misc_javascript');
         $data['misc_css'] = get_general_settings_text('misc_css');
+        $data['map_code'] = get_general_settings_text('map_code');
+        $data['replacement_text'] = get_general_settings_text('replacement_text');
+        $data['genuine_product'] = get_general_settings_text('genuine_product');
+        $data['front_title1'] = get_general_settings_text('front_title1');
+        $data['front_title2'] = get_general_settings_text('front_title2');
+        $data['front_title3'] = get_general_settings_text('front_title3');
+        $data['perkm_price'] = get_general_settings_text('perkm_price');
         return $data;
     }
 

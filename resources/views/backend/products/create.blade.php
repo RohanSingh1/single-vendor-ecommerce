@@ -1,6 +1,11 @@
 @extends('backend.layouts.master')
 @section('styles')
     <link rel="stylesheet" href="{{asset('backend/plugins/image-uploader/image-uploader.min.css')}}">
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="app-page-title">
@@ -39,16 +44,22 @@
                     <div class="tab-content">
                         {{-- @livewire('create-product') --}}
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     {{Form::label('Product Name')}}
-                                    {{Form::text('name','',['class'=>'form-control'])}}
+                                    {{Form::text('name','',['class'=>'form-control','required'])}}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {{Form::label('Product Status')}}
+                                    {!! Form::select('published',['1' => 'Published','0' => 'Un-Published'],old('published'),['class'=>'form-control']) !!}
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {{Form::label('Selling Price')}}
-                                    {{Form::number('price','',['class'=>'form-control'])}}
+                                    {{Form::number('price','',['class'=>'form-control','required'])}}
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -57,7 +68,12 @@
                                     {{Form::number('old_price','',['class'=>'form-control'])}}
                                 </div>
                             </div>
-
+                            {{-- <div class="col-md-3">
+                                <div class="form-group">
+                                    {{Form::label('Enable Disable Price')}}
+                                    {!! Form::select('price_status',['1' => 'Enable','0' => 'Disable'],old('price_status'),['class'=>'form-control']) !!}
+                                </div>
+                            </div> --}}
                             <div class="col-md-4">
                                 <div class="form-group">
                                     {{Form::label('Quantity')}}
@@ -72,33 +88,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {{Form::label('Supplier Name')}}
-                                    <select class="form-control" name="supplier_id">
-                                        <option selected disabled>Select Supplier Name</option>
-                                        @foreach($suppliers as $key)
-                                            <option value="{{$key->id}}">{{$key->supplier_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {{Form::label('Brand Name')}}
-                                    <select class="form-control" name="brand_id">
-                                        <option selected disabled>Select Brand Name</option>
-                                        @foreach($brand as $key)
-                                            <option value="{{$key->id}}">{{$key->brand_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{Form::label('Category Name')}}
-                                    <select class="form-control" name="category_id">
+                                    <select class="form-control" name="category_id" required>
+                                        <option selected disabled>Select Category</option>
                                         @foreach($categories as $category)
                                             @if(count($category->parents))
                                                 <option value="{{$category->id}}"
@@ -113,36 +107,37 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                    @error('category_id')
+                                        <span class="error">Please Select Valid Category</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="position-relative form-check">
                                     <label for="is_featured" class="form-check-label">Is Featured</label><br>
-                                    <input type="checkbox"
-                                           name="is_featured" checked>
+                                    <input type="checkbox"  name="is_featured" value="1" {{ old('is_featured') == 1 ? 'checked' : '' }}>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="position-relative form-check">
-                                    <label for="is_featured" class="form-check-label">Published</label><br>
-                                    <input type="checkbox"
-                                           name="published" checked>
+                                    <label for="is_fresh" class="form-check-label">Is Fresh</label><br>
+                                    <input type="checkbox" name="is_fresh" value="1" {{ old('is_fresh') == 1 ? 'checked' : '' }}>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {{Form::label('Short Description')}}
-                                    {{Form::textarea('short_desc','',['class'=>'form-control'])}}
+                                    {{Form::textarea('short_desc',old('short_desc'),['class'=>'form-control'])}}
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {{Form::label('Description')}}
-                                    {{Form::textarea('description','',['class'=>'form-control','id'=>'ckeditor'])}}
+                                    {{Form::textarea('description',old('description'),['class'=>'form-control','id'=>'ckeditor'])}}
                                 </div>
                             </div>
                         </div>

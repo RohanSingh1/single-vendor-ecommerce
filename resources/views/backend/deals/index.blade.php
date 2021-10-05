@@ -79,7 +79,6 @@
 @endsection
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     <script type="text/javascript">
     $(function() {
         $('#deal-table').DataTable({
@@ -99,4 +98,30 @@
         });
     });
 </script>
+
+<script>
+    $('.select2').select2({placeholder: 'Select Options',width: 'resolve'});
+            $('.product-list').select2({
+                placeholder: 'Select Product',
+                minimumInputLength: 2,
+                ajax: {
+                    url: "{{ route('admin.search.product') }}",
+                    dataType: 'json',
+                    type: 'GET',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+
+            });
+        </script>
 @endpush

@@ -46,12 +46,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             {{Form::label('Product Name')}}
                                             {{Form::text('name',$product->name,['class'=>'form-control'])}}
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            {{Form::label('Product Status')}}
+                                            {!! Form::select('published',['1' => 'Published','0' => 'Un-Published'],$product->published,['class'=>'form-control']) !!}
+
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {{Form::label('Selling Price')}}
@@ -65,32 +73,23 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="col-md-3">
+                                        <div class="form-group">
+                                            {{Form::label('Enable Disable Price')}}
+                                            {!! Form::select('price_status',['1' => 'Enable','0' => 'Disable'],old('price_status'),['class'=>'form-control']) !!}
+                                        </div>
+                                    </div> --}}
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {{Form::label('Quantity')}}
                                             {{Form::text('quantity',$product->quantity,['class'=>'form-control'])}}
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            {{Form::label('Supplier Name')}}
-                                            <select class="form-control" name="supplier_id">
-                                                @foreach($suppliers as $key)
-                                                    <option value="{{$key->id}}">{{$key->supplier_name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            {{Form::label('Brand Name')}}
-                                            <select class="form-control" name="brand_id">
-                                                @foreach($brand as $key)
-                                                    <option
-                                                        value="{{$key->id}}" {{old('room_status',$key->id) == $product->brand_id ? 'selected' : ''}}>{{$key->brand_name}}</option>
-                                                @endforeach
-                                            </select>
+                                            {{Form::label('Model Name')}}
+                                            {{Form::text('model_no',$product->model_no,['class'=>'form-control'])}}
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -120,15 +119,13 @@
                                     <div class="col-md-4">
                                         <div class="position-relative form-check">
                                             <label for="is_featured" class="form-check-label">Is Featured</label><br>
-                                            <input type="checkbox"
-                                                   name="is_featured" {{$product->is_featured ==1?'checked':'' }}>
+                                            <input type="checkbox" name="is_featured" value="1" {{$product->is_featured ==1?'checked':'' }}>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="position-relative form-check">
-                                            <label for="is_featured" class="form-check-label">Published</label><br>
-                                            <input type="checkbox"
-                                                   name="published" {{$product->published ==1?'checked':'' }}>
+                                            <label for="is_fresh" class="form-check-label">Is Fresh</label><br>
+                                            <input type="checkbox" name="is_fresh" value="1"  {{$product->is_fresh ==1?'checked':'' }}>
                                         </div>
                                     </div>
 

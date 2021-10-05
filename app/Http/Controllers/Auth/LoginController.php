@@ -57,6 +57,9 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
+            if($request->has('redirect-to') && $request->get('redirect-to') != null){
+                return redirect()->route('product.show',$request->get('redirect-to'));
+            }
             return $this->sendLoginResponse($request);
         }
 
@@ -75,6 +78,7 @@ class LoginController extends Controller
     public function handleProviderCallback( $provider ) {
         try {
             if ( $provider == 'google' ) {
+
                 $user = Socialite::driver( $provider )->stateless()->user();
             }else {
                 $user = Socialite::driver( $provider )->fields(
@@ -108,8 +112,9 @@ class LoginController extends Controller
         }
 
         $user = User::create( [
-            'f_name'  => $key != 'facebook' ? $socialLiteUser->user['name'] : $socialLiteUser->user['first_name'],
-            'l_name'   => $key != 'facebook' ? $socialLiteUser->user['name'] : $socialLiteUser->user['last_name'],
+            'f_name'  => $f_name = $key != 'facebook' ? $socialLiteUser->user['name'] : $socialLiteUser->user['first_name'],
+            'l_name'   => $l_name = $key != 'facebook' ? $socialLiteUser->user['name'] : $socialLiteUser->user['last_name'],
+            'name'=> $f_name.' '.$l_name,
             'email'       => $key != 'facebook' ? $socialLiteUser->email : $socialLiteUser->user['email'],
             'password'    => Hash::make(\Str::random($socialLiteUser->user['email'])),
             'remember_token' => base64_encode($key != 'facebook' ? $socialLiteUser->email : $socialLiteUser->user['email']),

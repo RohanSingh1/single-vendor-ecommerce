@@ -4,10 +4,87 @@ use App\Model\Brand;
 use App\Model\Setting;
 use App\Model\Category;
 use App\Model\Coupon;
+use App\Model\Menu;
+use App\Model\MenuItem;
 use App\Model\Product;
 use App\Model\WishList;
-use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+
+function product_image($product){
+    if (count($product->thumbnailImage()->get()) > 0) {
+        $p_image = $product
+            ->thumbnailImage()
+            ->get()[0]
+            ->getURl();
+    } elseif (count($product->featuredImage()->get())  > 0) {
+       $p_image = $product
+       ->featuredImage()
+       ->get()[0]
+       ->getURl();
+    }
+    elseif ($product->getFirstMedia() != null) {
+        $p_image = $product
+            ->getMedia('products')
+            ->get(0)
+            ->getURl();
+    }
+    elseif ($product->getMedia('products')->count()>0) {
+        $p_image = $product->getMedia('products')->get(0)->getUrl();
+
+    } else {
+        $p_image = asset('storage/defaults.png');
+    }
+    return $p_image;
+}
+
+function product_price($product,$data,$currency=false){
+    $p_data = [];
+    $p_data['new_price'] = $product->price;
+    $p_data['old_price'] = $product->old_price;
+    if ($p_data['old_price'] != null || $p_data['old_price'] != 0) {
+        $p_data['discount_prices'] = $p_data['old_price'] - $p_data['new_price'];
+        $p_data['discount_percentage'] = round(($p_data['discount_prices']  * 100) / $p_data['new_price']);
+    }
+    if($data !='discount_percentage' && $currency){
+        return currency_type().' '.$p_data[$data];
+
+    }else{
+        return $p_data[$data];
+    }
+}
+
+function mainMenu($menu)
+    {
+//        return Cache::remember('menu-item-' . $menu,60, function () use ($menu) {
+            $menuId = Menu::whereSlug('main-menu')->active()->first();
+            if ($menuId) {
+                return MenuItem::where('menu_id', $menuId->id)
+                    ->parentOnly()
+                    ->get();
+            } else {
+                return [];
+            }
+}
+
+
+function footerMenu($menu)
+    {
+        $menuId = Menu::whereSlug($menu)->active()->first();
+        if ($menuId) {
+            return MenuItem::whereMenuId($menuId->id)
+                ->orderBy('order')
+                ->parentOnly()
+                ->with('publishedPost', 'menu')
+                ->get();
+        } else {
+            return [];
+        }
+    }
+
+function currency_type(){
+    $ct = Setting::where('slug', 'currency_type')->first();
+    return $ct->text;
+}
 
 function get_price_check_coupon(){
     $data['total'] = 0;
@@ -75,6 +152,7 @@ function cartItems()
         }
         return $data;
     }
+
 
 function createPostSlug($postTitle)
     {

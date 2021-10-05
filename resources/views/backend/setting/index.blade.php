@@ -9,7 +9,7 @@
     Setting
 @endsection
 @section('right_button')
-@stop
+@endsection
 
 @section('content')
     <div class="content">
@@ -55,7 +55,19 @@
                                                    value="{{old('phone_no') ?? $phone_no->text ??''}}"
                                                    class="form-control">
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="control-label">Currency Symbol<em class="asterisk">*</em></label>
+                                            <input type="text" name="currency_type"
+                                                   value="{{old('currency_type') ?? $currency_type->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Map Code<em class="asterisk">*</em></label>
+                                            <input type="text" name="map_code"
+                                                   value="{{old('map_code') ?? $map_code->text ?? ''}}"
+                                                   class="form-control"
+                                                   placeholder="Enter Map Imbed Code">
+                                        </div>
                                         <div class="form-group">
                                             <label class="control-label">General Email<em
                                                     class="asterisk">*</em></label>
@@ -64,8 +76,8 @@
                                                    class="form-control">
                                         </div>
 
-                                         <div class="form-group">
-                                            <label class="control-label">Shipping Price<em
+                                        <div class="form-group">
+                                            <label class="control-label">Delivery Price<em
                                                     class="asterisk">*</em></label>
                                             <input type="number" name="shipping_price" min="1"
                                                    value="{{old('shipping_price')?? $shipping_price->text ?? ''}}"
@@ -73,7 +85,31 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 1<em
+                                            <label class="control-label">Per KM Price<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="perkm_price" min="1"
+                                                   value="{{old('perkm_price')?? $perkm_price->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Replacement Guarantee<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="replacement_text" min="1"
+                                                   value="{{old('replacement_text')?? $replacement_text->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Genuine Product<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="number" name="genuine_product" min="1"
+                                                   value="{{old('genuine_product')?? $genuine_product->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Product Detail Info 1<em
                                                     class="asterisk">*</em></label>
                                             <input type="text" name="front_info1"
                                                    value="{{old('front_info1')?? $front_info1->text ?? ''}}"
@@ -81,7 +117,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 2<em
+                                            <label class="control-label">Product Detail Info 2<em
                                                     class="asterisk">*</em></label>
                                             <input type="text" name="front_info2"
                                                    value="{{old('front_info2')?? $front_info2->text ?? ''}}"
@@ -89,10 +125,26 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Front Info 3<em
+                                            <label class="control-label">Front Product Title 1<em
                                                     class="asterisk">*</em></label>
-                                            <input type="text" name="front_info3"
-                                                   value="{{old('front_info3')?? $front_info3->text ?? ''}}"
+                                            <input type="text" name="front_title1"
+                                                   value="{{old('front_title1')?? $front_title1->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Front Product Title 2<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="text" name="front_title2"
+                                                   value="{{old('front_title2')?? $front_title2->text ?? ''}}"
+                                                   class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Front Product 3<em
+                                                    class="asterisk">*</em></label>
+                                            <input type="text" name="front_title3"
+                                                   value="{{old('front_title3')?? $front_title3->text ?? ''}}"
                                                    class="form-control">
                                         </div>
 
@@ -133,6 +185,7 @@
                                             <textarea name="misc_javascript" cols="30" rows="4" class="form-control autosize-input"
                                                       placeholder="Enter Miscellaneous JavaScript">{{old('misc_javascript' )?? $misc_javascript->text ?? ' '}}</textarea>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

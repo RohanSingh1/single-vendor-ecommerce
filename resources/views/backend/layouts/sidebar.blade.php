@@ -40,6 +40,7 @@
                         Dashboard
                     </a>
                 </li>
+                @can('isAdmin')
                 <li class="app-sidebar__heading">Components</li>
                     <li>
                         <a href="{{ route('admin.products.index') }}"
@@ -49,15 +50,13 @@
                             <i class="metismenu-state-icon "></i>
                         </a>
                     </li>
-                @can('brand-list')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('admin.brand.index') }}" class="{{ active(['admin/brand*'], 'mm-active') }}">
                             <i class="metismenu-icon pe-7s-helm"></i>
                             Brands
                             <i class="metismenu-state-icon "></i>
                         </a>
-                    </li>
-                @endcan
+                    </li> --}}
 
                     <li>
                         <a href="{{ route('admin.category.index') }}"
@@ -83,6 +82,23 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('admin.coupons.index') }}"
+                       class="{{ active(['admin/coupons*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Coupons
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.orders.index') }}"
+                       class="{{ active(['admin/orders*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Orders From Cart
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
 
                 {{--  <li>
                     <a href="{{ route('admin.customerFeedback.index') }}"
@@ -122,20 +138,80 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.contact_messages.index') }}"
+                       class="{{ active(['admin/contact_messages*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Contact Messages
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.newsletters.index') }}"
                        class="{{ active(['admin/cms/newsletters*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>
                         Newsletters
                     </a>
                 </li>
+
                 <li>
-                    <a href="{{ route('admin.customer-users.index') }}"
-                       class="{{ active(['admin/customer-users*'], 'mm-active') }}">
+                    <a href="{{ route('admin.faq.index') }}"
+                       class="{{ active(['admin/cms/faq*'], 'mm-active') }}">
                         <i class="metismenu-icon pe-7s-network"></i>
-                        Customer Users
+                        Faq
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.users') }}"
+                       class="{{ active(['admin/users*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Delivery Boys
                         <i class="metismenu-state-icon "></i>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('admin.locations.index') }}"
+                       class="{{ active(['admin/locations*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Locations
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.districts.index') }}"
+                       class="{{ active(['admin/districts*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Districts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.provinces.index') }}"
+                       class="{{ active(['admin/provinces*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Provinces
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.delivery_name.index') }}"
+                       class="{{ active(['admin/delivery_name*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Delivery Status
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.pages.index') }}"
+                       class="{{ active(['admin/cms/pages*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Pages
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{ route('admin.content-management.settings.index') }}"
                        class="{{ active(['admin/cms/settings*'], 'mm-active') }}">
@@ -143,6 +219,19 @@
                         Settings
                     </a>
                 </li>
+
+                @else
+
+                <li>
+                    <a href="{{ route('admin.orders.index') }}"
+                       class="{{ active(['admin/orders*'], 'mm-active') }}">
+                        <i class="metismenu-icon pe-7s-network"></i>
+                        Orders
+                        <i class="metismenu-state-icon "></i>
+                    </a>
+                </li>
+
+                @endcan
 
             </ul>
         </div>

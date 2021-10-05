@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Model\Address;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,10 +51,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'f_name' => ['required', 'string', 'max:255'],
-            'm_name' => ['nullable', 'string', 'max:255'],
-            'l_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'phone_no' => ['required', 'numeric', 'digits:10'],
+            'gender' => ['required', 'in:male,female'],
+            'address1' => ['required'],
+            'address2' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -67,14 +69,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'f_name' => $data['f_name'],
-//            'm_name' => $data['m_name'],
-            'l_name' => $data['l_name'],
+
+        $user = User::create([
             'phone_no' => $data['phone_no'],
-            'name' => $data['f_name'] . ' ' . $data['l_name'],
+            'name' => $data['name'],
             'email' => $data['email'],
+            'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
         ]);
+        Address::create([ 
+            'full_name' => $data['name'],
+            'type' => 'SHIPPING',
+            'user_id' => $user->id,
+            'email' => $data['email'],
+            'phone' => $data['phone_no'],
+            'address1' => $data['address1'],
+            'address2' => $data['address2']
+        ]);
+        return $user;
     }
 }

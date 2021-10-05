@@ -18,11 +18,9 @@ class Product extends Model implements HasMedia
     public $timestamps = true;
 
     protected $fillable = [
-        'name', 'purchased_price', 'slug',
-        'price', 'old_price', 'quantity', 'model_no', 'published', 'short_desc',
+        'name', 'purchased_price', 'slug','price', 'old_price', 'quantity', 'model_no', 'published', 'short_desc',
         'description', 'brand_id', 'supplier_id', 'featured_image', 'is_featured', 'type', 'thumbnail_image',
-        'is_bestseller',
-        'tags', 'order'
+        'is_bestseller','is_fresh','tags', 'order'
     ];
     protected $casts = [
         'is_featured' => 'boolean',
@@ -73,6 +71,11 @@ class Product extends Model implements HasMedia
         $query->where('is_bestseller', 1);
     }
 
+    public function ScopeIsfresh($query)
+    {
+        $query->where('is_fresh', 1);
+    }
+
     public function ScopeNotBestseller($query)
     {
         $query->where('is_bestseller', 0);
@@ -111,9 +114,9 @@ class Product extends Model implements HasMedia
 
     public function meta()
     {
-        return $this->morphOne(Meta::class, 'metaable');
+        return $this->morphOne(Meta::class, 'metaable')->orderBy('id','desc');
     }
-
+ 
     public static function saveProductImageWithoutEdit($image)
     {
         $filename = time().'-'.$image->getClientOriginalName();

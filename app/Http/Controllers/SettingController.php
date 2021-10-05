@@ -58,6 +58,16 @@ class SettingController extends Controller
         $this->general->setImage($request->site_logo_1, 'site_logo_1');
         $this->general->setImage($request->site_logo_2, 'site_logo_2');
         $this->general->setImage($request->favicon, 'favicon');
+        //map code
+        $this->general->setTextTitle($request->replacement_text, 'replacement_text');
+        $this->general->setTextTitle($request->genuine_product, 'genuine_product');
+        //products front
+        $this->general->setTextTitle($request->front_title1, 'front_title1');
+        $this->general->setTextTitle($request->front_title2, 'front_title2');
+        $this->general->setTextTitle($request->front_title3, 'front_title3');
+
+        $this->general->setTextTitle($request->map_code, 'map_code');
+        $this->general->setTextTitle($request->perkm_price, 'perkm_price');
         toast(__('global.data_update'),'success');
         return redirect()->back();
     }

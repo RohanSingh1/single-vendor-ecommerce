@@ -4,7 +4,7 @@
         <div class="header__pane ml-auto">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
-                        data-class="closed-sidebar">
+                    data-class="closed-sidebar">
                     <span class="hamburger-box">
                         <span class="hamburger-inner"></span>
                     </span>
@@ -54,26 +54,29 @@
                 </li>
             </ul>         --}}
         </div>
+
         <div class="app-header-right">
             <div class="header-btn-lg pr-0">
-
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
+                        <div id="notifications_li">
+                            @include('backend.layouts.notifications')
+                        </div>
+
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                     <img width="42" class="rounded-circle" alt="User Avatar"
-                                         src="{{asset('backend/assets/images/avatars/1.jpg')}}">
+                                        src="{{asset('backend/assets/images/avatars/1.jpg')}}">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
-                                     class="dropdown-menu dropdown-menu-right">
+                                    class="dropdown-menu dropdown-menu-right">
                                     <a href="{{route('admin.users.edit',auth('admin')->user()->id)}}" tabindex="0"
-                                       class="dropdown-item">User Account</a>
+                                        class="dropdown-item">User Account</a>
                                     {{--                                    <button type="button" tabindex="0" class="dropdown-item">Settings</button>--}}
                                     <div tabindex="-1" class="dropdown-divider"></div>
-                                    <form id="logout-form" action="{{ route('admin.logout') }}"
-                                          method="POST">
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
                                         @csrf
                                         <button type="submit" tabindex="0" class="dropdown-item">Logout</button>
                                     </form>

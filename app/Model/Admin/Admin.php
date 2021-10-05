@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use Notifiable,HasRoles;
+    use Notifiable,HasRoles,Notifiable;
 
     protected $guard = 'admin';
 
@@ -23,7 +23,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','is_super','status','type'
+        'name', 'email', 'password','is_super','is_admin','status','type','image','address'
     ];
 
     /**

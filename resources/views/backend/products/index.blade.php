@@ -56,9 +56,7 @@
                 columns: [
                     {data: 'image', title: 'Image'},
                     {data: 'name', title: 'Product Name'},
-                    {data: 'brand_name', title: 'Brand Name'},
                     {data: 'model_no', title: 'Model Name'},
-                    {data: 'suppliers', title: 'Supplier'},
                     {data: 'quantity', title: 'Quantity'},
                     {data: 'price', title: 'Price'},
                     {data: 'is_featured', title: 'Featured'},

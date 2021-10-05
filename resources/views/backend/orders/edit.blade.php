@@ -46,17 +46,33 @@
                                 </ul>
                             </div>
                             @endif
-
+ 
                             <div class="form-group">
                                 {{Form::label('Status')}}
-                                {!! Form::select('status',['delivered' => 'Delivered',
-                                'pending' => 'Pending','cancelled' => 'Cancelled'], $order->status,
-                                ['class'=>'form-control']);
-                                !!}
+                                <select name="status" class="form-control">
+                                    <option selected disabled>Select Status</option>
+                                    @foreach ($delivery_name as $dn)
+                                    <option value="{{ $dn->delivery_name }}" {{ $order->status == $dn->delivery_name ? 'selected':''}} >
+                                        {{ $dn->delivery_name }} </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                {{Form::label('Full Names')}}
+                                {{Form::label('Select Delivery Boy')}}
+                                <select name="delivery_boy_id" class="form-control">
+                                    <option selected disabled>Select Delivery Boy</option>
+                                    @foreach ($delivery_boys as $boys)
+                                    <option value="{{ $boys->id }}"
+                                        {{ $boys->id == $order->delivery_boys_id }}>
+                                        {{ $boys->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                {{Form::label('Order By (Name)')}}
                                 {{Form::text('full_names',$order->full_names,['class'=>'form-control'])}}
                             </div>
 
@@ -73,7 +89,7 @@
                                 <select name="products[]" id="products" multiple class="form-control select2">
                                     @foreach(\App\Model\Product::get() as $prs)
                                     <option value="{{ $prs->id }}"
-                                        {{ in_array($prs->id,$pr_array) ? 'selected="selected"' : '' }}>
+                                        {{ in_array($prs->id,$pr_array) ? 'selected' : '' }}>
                                         {{$prs->name}}</option>
                                     @endforeach
                                 </select>
@@ -131,13 +147,6 @@
 @push('script')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('backend/plugins/dropify/dist/js/dropify.min.js') }}"></script>
-<script src="{{ asset('backend/bower_components/ckeditor/ckeditor.js') }}"></script>
-
-<script type="text/javascript">
-    $('.dropify').dropify();
-    CKEDITOR.replace('ckeditor');
-</script>
-
 <script>
 $('.select2').select2({placeholder: 'Select Options',width: 'resolve'});
         $('.product-list').select2({

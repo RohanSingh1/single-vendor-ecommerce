@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RedirectIfAuthenticated
 {
@@ -21,7 +22,10 @@ class RedirectIfAuthenticated
        switch ($guard){
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    return redirect('admin/dashboard');
+                    if (auth('admin')->user()->id == 1 || auth('admin')->user()->is_admin == 1 ) {
+                        return redirect('admin/dashboard');
+                    }
+                    return redirect('admin/my-dashboard');
                 }
                 break;
             default:
